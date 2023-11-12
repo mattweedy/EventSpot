@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
+  const items = [
+    {id: 1, name: 'draw up ( figma ) designs of what app looks like'},
+    {id: 2, name: 'get api pulling'},
+    {id: 3, name: 'get api displaying'},
+    {id: 4, name: 'get api storing'},
+    {id: 5, name: 'continue research on react etc'},
+    {id: 6, name: 'begin research on machine learning / clustering / closest event first'}
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Todo List</h1>
+      <ul>
+        {items.map((item) => <li key={item.id}>{item.name}</li>)}
+      </ul>
+    </>
   );
 }
+
+// TODO : continue research
+// TODO : use/check api methods and dataframe accessing in richweb GithubAPI problem
 
 export default App;

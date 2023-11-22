@@ -12,17 +12,21 @@ function App() {
 
   const week2 = [
     { id: 1, name: 'quiz questions' },
-    { id: 2, name: 'diagrams of database design', detail: {
-                                                            first: 'users',
-                                                            second: 'events',
-                                                            third: 'other?'
-                                                          } },
-    { id: 3, name: 'wireframes of webapp', detail: {
-                                                    first: 'landing page',
-                                                    second: 'quiz page',
-                                                    third: 'login/signup',
-                                                    fourth: 'events/rec page'
-                                                  } },
+    {
+      id: 2, name: 'diagrams of database design', detail: {
+        first: 'users',
+        second: 'events',
+        third: 'other?'
+      }
+    },
+    {
+      id: 3, name: 'wireframes of webapp', detail: {
+        first: 'landing page',
+        second: 'quiz page',
+        third: 'login/signup',
+        fourth: 'events/rec page'
+      }
+    },
     { id: 4, name: 'use case diagrams', detail: { first: 'refer to wireframes for idea' } }
   ]
 

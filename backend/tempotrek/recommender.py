@@ -1,3 +1,4 @@
+# TODO: make a song recommender
 # TODO: def function(): that recommends events, based on a song
 #   >> then expand this to recommend an event based on a user's ID
 
@@ -18,6 +19,27 @@ with open(data_imports[1]) as events_data:
 
 users_df = pd.DataFrame(users_json["objects"])
 events_df = pd.DataFrame(events_json["objects"])
+
+# cleaning the text
+""" *******************************************************
+*    Title: How to Build a Recommendation System in Python
+*    Author: Natassha Selvaraj
+*    Date: 12 Apr 2023
+*    Code version: 1.0
+*    Availability: https://365datascience.com/tutorials/how-to-build-recommendation-system-in-python/#4
+* 
+    ****************************************************** """
+def clean_text(author):
+    result = str(author).lower()
+    return(result.replace(' ',''))
+
+# clean the text calling clean_text()
+users_df['user_fav_song'] = users_df['user_fav_song'].apply(clean_text)
+users_df['user_fav_genre'] = users_df['user_fav_genre'].apply(clean_text)
+events_df['event_genre'] = events_df['event_genre'].apply(clean_text)
+
+print(users_df.head(25))
+print(events_df.head(25))
 
 # extracting necessary info from data
 users_features = ['user_fav_genre', 'user_fav_artist', 'user_fav_song']
@@ -47,8 +69,11 @@ events_cv = cv.fit_transform(events['combined_events'])
 songs_sim = cosine_similarity(songs_cv)
 events_sim = cosine_similarity(events_cv)
 
+
 # event recommender - based on event genre
 def event_recommender(eventGenre):
+    eventGenre = clean_text(eventGenre)
+
     events_df['index'] = range(len(events_df))
 
     # grab all indexes of events with matching genre
@@ -69,8 +94,8 @@ def event_recommender(eventGenre):
     # reset the index of rec events (so that their original index is not printed)
     rec_events_df = rec_events_df.reset_index(drop=True)
 
-    # return the top 5 events
-    return rec_events_df.head(10)
+    # return the top x events
+    return rec_events_df.head(5)
 
 # print(event_recommender('Techno'))
 # print(event_recommender('House'))
@@ -90,5 +115,7 @@ def user_genre_recommender(userID):
 userid = input("user id to generate recommended events : ")
 print(user_genre_recommender(userid))
     
+
+# TODO: make a song recommender
 # TODO: def function(): that recommends events, based on a song
 #   >> then expand this to recommend an event based on a user's ID

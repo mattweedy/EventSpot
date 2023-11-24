@@ -10,7 +10,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 
-
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
@@ -27,10 +26,26 @@ warnings.filterwarnings("ignore")
 pd.options.display.max_columns = 0
 pd.options.display.max_rows = 0
 
+# TODO: methods to handle json strings ---
+
 # data exploration/prep
-user_df = pd.read_json('/data/ExportJson-users.json')
+with open('data/users.json') as json_users_data:
+    users = json.load(json_users_data)
+
+user_df = pd.DataFrame(users["objects"])
 user_df.head()
 user_df.dtypes
 
 # display first user's fav genre
-user_df['user_fav_genre'].values[0]
+print(user_df['user_fav_genre'].values[0])
+# "Jazz"
+print(user_df['user_fav_song'].values[0])
+# "Candyman"
+print(user_df['user_fav_genre'].values[0][0])
+# "J"
+
+# if im using multiple genres per users, this will extract and add them into a separate list
+user_df['fav_genre_upd'] = user_df['user_fav_genre'].apply(lambda x: [re.sub(' ','_',i) for i in re.findall(r"'(^'*)'", x)])
+print(user_df['fav_genre_upd'].values[0])
+# []
+# ----------------------------------------

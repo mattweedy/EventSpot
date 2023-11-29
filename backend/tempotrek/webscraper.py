@@ -4,6 +4,7 @@ import requests
 # TODO: fix inconsistent order of elements (first element skipped?)
 
 # request html from page and create new BeautifulSoup instance using lxml parser
+# TODO: ireland and dublin can be abstracted to [country] [county] and changed for specified country/location e.g. ireland--mayo instead
 html_text = requests.get('https://www.eventbrite.com/d/ireland--dublin/music--performances/?page=1').text
 soup = BeautifulSoup(html_text, 'lxml')
 

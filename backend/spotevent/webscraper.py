@@ -1,10 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-# TODO: fix inconsistent order of elements (first element skipped?)
-
 # request html from page and create new BeautifulSoup instance using lxml parser
-# TODO: ireland and dublin can be abstracted to [country] [county] and changed for specified country/location e.g. ireland--mayo instead
 html_text = requests.get('https://www.eventbrite.com/d/ireland--dublin/music--performances/?page=1').text
 soup = BeautifulSoup(html_text, 'lxml')
 
@@ -22,7 +19,6 @@ for event in events:
     event_page_soup = BeautifulSoup(event_html_text, 'lxml')
 
     # look for price, if it is not there display unavailable
-    # TODO: include search for other type of price display element 
     try:
         price = event_page_soup.find('div', class_='conversion-bar__panel-info').text
     except AttributeError:

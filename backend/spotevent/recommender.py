@@ -1,7 +1,3 @@
-# TODO: make a song recommender
-# TODO: def function(): that recommends events, based on a song
-#   >> then expand this to recommend an event based on a user's ID
-
 import pandas as pd
 import numpy as np
 import json
@@ -44,13 +40,9 @@ cv = CountVectorizer()
 songs_cv = cv.fit_transform(user_songs['combined_songs'])
 events_cv = cv.fit_transform(events['combined_events'])
 
-# print(songs_cv)
-# print(events_cv)
-
 # calculate cosine similarity vector of each item in data
 songs_sim = cosine_similarity(songs_cv)
 events_sim = cosine_similarity(events_cv)
-
 
 # event recommender - based on event genre
 def event_recommender(eventGenre):
@@ -78,9 +70,7 @@ def event_recommender(eventGenre):
     # return the top x events
     return rec_events_df.head(5)
 
-# print(event_recommender('Techno'))
-# print(event_recommender('House'))
-print(event_recommender('Hard Rock'))
+print(event_recommender('Soul'))
 
 # event recommender, taking user's favourite genre
 def user_genre_recommender(userID):
@@ -95,8 +85,3 @@ def user_genre_recommender(userID):
 
 userid = input("user id to generate recommended events : ")
 print(user_genre_recommender(userid))
-    
-
-# TODO: make a song recommender
-# TODO: def function(): that recommends events, based on a song
-#   >> then expand this to recommend an event based on a user's ID

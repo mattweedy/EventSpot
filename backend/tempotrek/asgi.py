@@ -1,5 +1,5 @@
 """
-ASGI config for tempotrek project.
+ASGI config for SpotEvent project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tempotrek.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SpotEvent.settings")
 
 application = get_asgi_application()

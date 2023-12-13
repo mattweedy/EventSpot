@@ -23,6 +23,7 @@ print(events_df.head(15))
 users_features = ['user_fav_genre', 'user_fav_artist', 'user_fav_song']
 events_features = ['event_name', 'event_location', 'event_genre', 'date']
 
+# make new dataframe with only the wanted features
 user_songs = users_df[users_features].copy()
 events = events_df[events_features].copy()
 

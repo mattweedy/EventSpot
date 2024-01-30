@@ -17,9 +17,6 @@ with open(data_imports[1]) as events_data:
 users_df = pd.DataFrame(users_json["objects"])
 events_df = pd.DataFrame(events_json["objects"])
 
-# print(users_df.head(15))
-# print(events_df.head(15))
-
 # extracting necessary info from data
 users_features = ['user_fav_genre', 'user_fav_artist', 'user_fav_song']
 events_features = ['event_name', 'event_location', 'event_genre', 'date']
@@ -35,9 +32,6 @@ events = events_df[events_features].copy()
 user_songs.loc[:, 'combined_songs'] = user_songs['user_fav_genre'] + ' ' + user_songs['user_fav_artist'] + ' ' + user_songs['user_fav_song']
 events.loc[:, 'combined_events'] = events['event_name'] + ' ' + events['event_location'] + ' ' + events['event_genre'] + ' ' + events['date']
 
-# print(user_songs)
-# print(events)
-
 # creating countvectorizer
 cv = CountVectorizer()
 
@@ -51,26 +45,23 @@ events_sim = cosine_similarity(events_cv)
 
 # event recommender - based on event genre
 def event_recommender(eventGenre):
-    # Create a combined genre string for the input genre
+    # create a combined genre string for the input genre
     combined_genre = ' '.join([eventGenre]*4)
 
-    # Vectorize the combined genre string
+    # vectorize the combined genre string
     combined_genre_cv = cv.transform([combined_genre])
 
-    # Calculate cosine similarity with all events
+    # calculate cosine similarity with all events
     sim_scores = cosine_similarity(combined_genre_cv, events_cv).flatten()
 
-    # Get the indexes of the events sorted by similarity
+    # get the indexes of the events sorted by similarity
     sorted_indexes = np.argsort(sim_scores)[::-1]
 
-    # Get the top N most similar events
+    # get the top N most similar events
     top_n = 5
     recommended_events = events_df.iloc[sorted_indexes[:top_n]]
 
     return recommended_events
-
-# print(event_recommender('Soul'))
-# print(event_recommender('Techno'))
 
 # event recommender, taking user's favourite genre
 def user_genre_recommender(userID):

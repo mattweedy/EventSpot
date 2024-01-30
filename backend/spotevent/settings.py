@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "SpotEvent"
+    "spotevent"
 ]
 
 MIDDLEWARE = [
@@ -75,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "SpotEvent.wsgi.application"
+WSGI_APPLICATION = "spotevent.wsgi.application"
 
 # CORS settings
 CORS_ORIGIN_ALLOW_ALL = True

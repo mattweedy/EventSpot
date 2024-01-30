@@ -17,8 +17,8 @@ with open(data_imports[1]) as events_data:
 users_df = pd.DataFrame(users_json["objects"])
 events_df = pd.DataFrame(events_json["objects"])
 
-print(users_df.head(15))
-print(events_df.head(15))
+# print(users_df.head(15))
+# print(events_df.head(15))
 
 # extracting necessary info from data
 users_features = ['user_fav_genre', 'user_fav_artist', 'user_fav_song']
@@ -35,8 +35,8 @@ events = events_df[events_features].copy()
 user_songs.loc[:, 'combined_songs'] = user_songs['user_fav_genre'] + ' ' + user_songs['user_fav_artist'] + ' ' + user_songs['user_fav_song']
 events.loc[:, 'combined_events'] = events['event_name'] + ' ' + events['event_location'] + ' ' + events['event_genre'] + ' ' + events['date']
 
-print(user_songs)
-print(events)
+# print(user_songs)
+# print(events)
 
 # creating countvectorizer
 cv = CountVectorizer()
@@ -51,31 +51,26 @@ events_sim = cosine_similarity(events_cv)
 
 # event recommender - based on event genre
 def event_recommender(eventGenre):
+    # Create a combined genre string for the input genre
+    combined_genre = ' '.join([eventGenre]*4)
 
-    events_df['index'] = range(len(events_df))
+    # Vectorize the combined genre string
+    combined_genre_cv = cv.transform([combined_genre])
 
-    # grab all indexes of events with matching genre
-    event_indexes = events_df[events_df.event_genre == eventGenre]['index'].values[0]
+    # Calculate cosine similarity with all events
+    sim_scores = cosine_similarity(combined_genre_cv, events_cv).flatten()
 
-    # get the cosine sim compared to index of inputted genre and then sort by sim. in desc
-    sim_events = list(enumerate(events_sim[event_indexes]))
-    # x[1] sets index to 1 as generated data starts at 1
-    sim_events_sorted = sorted(sim_events, key=lambda x: x[1], reverse=True)
-    
-    # extract indexes into a list
-    sim_events_indexes = [i[0] for i in sim_events_sorted]
+    # Get the indexes of the events sorted by similarity
+    sorted_indexes = np.argsort(sim_scores)[::-1]
 
-    # make new dataframe to contain all recommended events
-    rec_events_df = events_df.iloc[sim_events_indexes][events_features]
-    # rec_events_df = events_df.iloc[sim_events_indexes][['event_name', 'event_location', 'event_genre', 'date']]
+    # Get the top N most similar events
+    top_n = 5
+    recommended_events = events_df.iloc[sorted_indexes[:top_n]]
 
-    # reset the index of rec events (so that their original index is not printed)
-    rec_events_df = rec_events_df.reset_index(drop=True)
+    return recommended_events
 
-    # return the top x events
-    return rec_events_df.head(5)
-
-print(event_recommender('Soul'))
+# print(event_recommender('Soul'))
+# print(event_recommender('Techno'))
 
 # event recommender, taking user's favourite genre
 def user_genre_recommender(userID):
@@ -88,5 +83,6 @@ def user_genre_recommender(userID):
 
     return recommended_events
 
-userid = input("user id to generate recommended events : ")
-print(user_genre_recommender(userid))
+while True:
+    userid = input("user id to generate recommended events : ")
+    print(user_genre_recommender(userid))

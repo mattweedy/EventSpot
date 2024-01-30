@@ -1,5 +1,6 @@
 from django.db import models
 
+# example user and event models
 class User(models.Model):
     username = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)

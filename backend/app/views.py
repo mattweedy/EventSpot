@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from .models import Event
 from django.shortcuts import render
 
+# example view
 def get_events(request):
     events = Event.objects.all().values() # retrieve all events from db
     return JsonResponse({"events": list(events)})

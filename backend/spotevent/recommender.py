@@ -4,7 +4,8 @@ import json
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-data_imports = ['data/users.json', 'data/events.json']
+# data_imports = ['data/users.json', 'data/events.json']
+data_imports = ['/SpotEvent/backend/spotevent/data/users.json', '/SpotEvent/backend/spotevent/data/events.json']
 
 # open and read json files
 with open(data_imports[0]) as users_data:
@@ -28,6 +29,9 @@ user_songs = users_df[users_features].copy()
 events = events_df[events_features].copy()
 
 # combine datasets
+# creates a new column in  user_songs, combined_songs
+# adding these columns together with a space in between each
+# could be used later to match users with events based on music preferences
 user_songs.loc[:, 'combined_songs'] = user_songs['user_fav_genre'] + ' ' + user_songs['user_fav_artist'] + ' ' + user_songs['user_fav_song']
 events.loc[:, 'combined_events'] = events['event_name'] + ' ' + events['event_location'] + ' ' + events['event_genre'] + ' ' + events['date']
 

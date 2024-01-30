@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from ..app.views import render_react
+from ..app.views import get_events
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # server as catch-alls. if any other request doesn't match /admin will be redirected to react
     re_path(r"^$", render_react),
-    re_path(r"^(?:.*)/?$", render_react)
+    re_path(r"^(?:.*)/?$", render_react),
+    path("api/events", get_events)
 ]

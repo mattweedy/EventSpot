@@ -1,10 +1,10 @@
 from selenium import webdriver
-from selenium.webdriver.common import By
+from selenium.webdriver.common.by import By
 from pydantic_models import ResponseModel
 import json
 
-def event_data_get(driver, eventName:str, eventId:str):
-    driver.get(f"https://www.eventbrite.com/e/{eventName}-{eventId}.html")
+def event_data_get(driver, eventId:str):
+    driver.get(f"https://www.eventbrite.com/e/{eventId}.html")
     script_tag = driver.find_element_by_tag_name(By.CSS_SELECTOR, "div#listings-root+script")
     event_info = json.loads(script_tag.get_attribute("innerHTML")).replace("window.__SERVER_DATA__ = ", "")
     event_number = event_info["event"]["id"]

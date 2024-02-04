@@ -1,1 +1,2 @@
-backend/spotevent/scraper.py
+backend/backend/scraper.py
+backend/backend/settings.py

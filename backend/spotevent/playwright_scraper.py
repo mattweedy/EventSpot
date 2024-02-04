@@ -3,31 +3,27 @@ from bs4 import BeautifulSoup
 from pydantic_models import ResponseModel
 import json
 
-def event_data_get(soup):
-    # select the json inside each script tag of type="application/ld+json" with beautiful soup passed from run() DO NOT USE BY CSS SELECTOR
+def event_ids_get(soup):
+    event_ids_list = []
     script_tags = soup.find_all('script', type="application/ld+json")
-
-    print(script_tags.inner_html)
 
     # TODO: continue JWR video "still the best way to scrape data." 12:32 / 41:00
     # TODO: iterate over script tags, in the "url" key, get the event number from the event's url and return
     # TODO: from list of event IDs, generate api request to get event details
     # TODO: store event details in ResponseModel
-    # TODO: store ResponseModel in database
+    # TODO: store ResponseModel in mongoDB database
 
     for script in script_tags:
-        # load the json from the script tag
-        event_info = json.loads(script.string)
-        # check if the json contains the event key
-        if "url" in event_info:
-            # get the event number from the json
-            eventbrite_event_id = 
-            event_number = event_info["event"]["id"]
-            print(event_number)
-            return event_number
-        else:
-            print("No event found")
-            return None
+        try:
+            data = json.loads(script.get_text()) # create json obj
+            url = data.get('url') # get url from json obj
+            if url and '-' in url: # if url exists and has a hyphen
+                event_id = url.rsplit('-', 1)[-1] # split url on hyphen and take last element AKA event ID
+                event_ids_list.append(event_id) # add event ID to list
+        except json.JSONDecodeError: # if json is invalid, skip
+            continue
+
+    return event_ids_list
 
 
 def run(p):
@@ -43,7 +39,13 @@ def run(p):
     # click the next page button for as many pages of results there are
     while True:
         try:
-            data = event_data_get(soup)
+            # successfully printing 20 event IDs from page
+            # next generate url to grab their details
+            # create json file and send data to MongoDB server
+            # then go to next page and repeat
+            event_ids = event_ids_get(soup)
+            print(event_ids)
+            break
 
             # uncomment when data is secure - don't spam requests
             # next_button = page.wait_for_selector("button[data-spec='page-next']", timeout=5000)

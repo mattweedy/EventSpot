@@ -1,0 +1,35 @@
+{
+    "startDate": "2024-02-23",
+    "endDate": "2024-02-23",
+    "name": "SIMONE MENDES  - DUBLIN",
+    "url": "https://www.eventbrite.ie/e/simone-mendes-dublin-tickets-742445924747",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F625260359%2F1320961915213%2F1%2Foriginal.20231020-202621?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C6%2C2286%2C1143&s=039043e790a0fe08f2ff1bade586380c",
+    "offers": {
+        "url": "https://www.eventbrite.ie/e/simone-mendes-dublin-tickets-742445924747",
+        "lowPrice": "0.00",
+        "highPrice": "0.00",
+        "@type": "AggregateOffer",
+        "priceCurrency": ""
+    },
+    "location": {
+        "address": {
+            "addressCountry": "IE",
+            "addressLocality": "Dublin 8",
+            "addressRegion": "Dublin",
+            "streetAddress": "145 South Circular Road",
+            "postalCode": "D08 HY40",
+            "@type": "PostalAddress"
+        },
+        "geo": {
+            "latitude": "53.33094010000001",
+            "@type": "GeoCoordinates",
+            "longitude": "-6.280385300000001"
+        },
+        "@type": "Place",
+        "name": "The National Stadium"
+    },
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "@context": "http://schema.org",
+    "@type": "Event",
+    "description": "A Coleguinha mais estourada vem pra agitar nossa ilha em 2024"
+}

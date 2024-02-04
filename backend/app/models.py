@@ -1,22 +1,30 @@
 from django.db import models
 
 class Image(models.Model):
+    class Meta:
+        app_label = 'app'
     url = models.URLField()
     id = models.UUIDField(primary_key=True)
 
 class MaximumTicketPrice(models.Model):
+    class Meta:
+        app_label = 'app'
     currency = models.CharField(max_length=50)
     major_value = models.CharField(max_length=50)
     value = models.IntegerField()
     display = models.CharField(max_length=50)
 
 class MinimumTicketPrice(models.Model):
+    class Meta:
+        app_label = 'app'
     currency = models.CharField(max_length=50)
     major_value = models.CharField(max_length=50)
     value = models.IntegerField()
     display = models.CharField(max_length=50)
 
 class TicketAvailability(models.Model):
+    class Meta:
+        app_label = 'app'
     maximum_ticket_price = models.OneToOneField(MaximumTicketPrice, on_delete=models.CASCADE)
     minimum_ticket_price = models.OneToOneField(MinimumTicketPrice, on_delete=models.CASCADE)
     is_free = models.BooleanField()
@@ -25,12 +33,16 @@ class TicketAvailability(models.Model):
     is_sold_out = models.BooleanField()
 
 class Tag(models.Model):
+    class Meta:
+        app_label = 'app'
     prefix = models.CharField(max_length=50)
     tag = models.CharField(max_length=50)
     display_name = models.CharField(max_length=50)
     _type = models.CharField(max_length=50, null=True)
 
 class Address(models.Model):
+    class Meta:
+        app_label = 'app'
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
     region = models.CharField(max_length=50)
@@ -44,6 +56,8 @@ class Address(models.Model):
     localized_area_display = models.CharField(max_length=200)
 
 class PrimaryVenue(models.Model):
+    class Meta:
+        app_label = 'app'
     _type = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
     venue_profile_id = models.UUIDField()
@@ -52,6 +66,8 @@ class PrimaryVenue(models.Model):
     id = models.UUIDField(primary_key=True)
 
 class PrimaryOrganizer(models.Model):
+    class Meta:
+        app_label = 'app'
     _type = models.CharField(max_length=50)
     num_upcoming_events = models.IntegerField()
     name = models.CharField(max_length=50)
@@ -70,6 +86,8 @@ class PrimaryOrganizer(models.Model):
     num_following = models.IntegerField()
 
 class Event(models.Model):
+    class Meta:
+        app_label = 'app'
     id = models.UUIDField(primary_key=True)
     name = models.CharField(max_length=200)
     url = models.URLField()
@@ -92,6 +110,8 @@ class Event(models.Model):
     hide_start_date = models.BooleanField()
 
 class Pagination(models.Model):
+    class Meta:
+        app_label = 'app'
     object_count = models.IntegerField()
     continuation = models.TextField()
     page_count = models.IntegerField()
@@ -100,5 +120,7 @@ class Pagination(models.Model):
     page_number = models.IntegerField()
 
 class ResponseModel(models.Model):
+    class Meta:
+        app_label = 'app'
     pagination = models.OneToOneField(Pagination, on_delete=models.CASCADE)
     events = models.ManyToManyField(Event)

@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # data_imports = ['data/users.json', 'data/events.json']
-data_imports = ['/SpotEvent/backend/backend/data/users.json', '/SpotEvent/backend/backend/data/events.json']
+data_imports = ['/SpotEvent/backend/spotevent/data/users.json', '/SpotEvent/backend/spotevent/data/events.json']
 
 # open and read json files
 with open(data_imports[0]) as users_data:

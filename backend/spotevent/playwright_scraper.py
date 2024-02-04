@@ -8,19 +8,26 @@ def event_data_get(soup):
     script_tags = soup.find_all('script', type="application/ld+json")
 
     print(script_tags.inner_html)
-    # for script in script_tags:
-    #     # load the json from the script tag
-    #     event_info = json.loads(script.string)
-    #     # check if the json contains the event key
-    #     if "url" in event_info:
-    #         # get the event number from the json
-    #         eventbrite_event_id = 
-    #         event_number = event_info["event"]["id"]
-    #         print(event_number)
-    #         return event_number
-    #     else:
-    #         print("No event found")
-    #         return None
+
+    # TODO: continue JWR video "still the best way to scrape data." 12:32 / 41:00
+    # TODO: iterate over script tags, in the "url" key, get the event number from the event's url and return
+    # TODO: from list of event IDs, generate api request to get event details
+    # TODO: store event details in ResponseModel
+    # TODO: store ResponseModel in database
+
+    for script in script_tags:
+        # load the json from the script tag
+        event_info = json.loads(script.string)
+        # check if the json contains the event key
+        if "url" in event_info:
+            # get the event number from the json
+            eventbrite_event_id = 
+            event_number = event_info["event"]["id"]
+            print(event_number)
+            return event_number
+        else:
+            print("No event found")
+            return None
 
 
 def run(p):

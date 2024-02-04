@@ -5,9 +5,21 @@ from bs4 import BeautifulSoup
 from pydantic_models import ResponseModel
 import json
 
-def event_data_get(page):
-    # i want to select the <ul> tag with classname="search-main-content__events-list" and then select all <li> tags
-    page.inner_html('')
+async def event_data_get(soup):
+    # select the json inside each script tag of type="application/ld+json" with beautiful soup passed from run() DO NOT USE BY CSS SELECTOR
+    script_tags = soup.find_all('script', type="application/ld+json")
+    for script in script_tags:
+        # load the json from the script tag
+        event_info = json.loads(script.string)
+        # check if the json contains the event key
+        if "event" in event_info:
+            # get the event number from the json
+            event_number = event_info["event"]["id"]
+            print(event_number)
+            return event_number
+        else:
+            print("No event found")
+            return None
 
 
 async def run(p) -> None:
@@ -15,33 +27,16 @@ async def run(p) -> None:
     context = await browser.new_context()
     page = await context.new_page()
     await page.goto("https://www.eventbrite.com/d/ireland--dublin/music--performances/")
-    # event_details = "li div div+div section div section+section"
-    # event_price_details = 'li > div > div.discover-search-desktop-card.discover-search-desktop-card--hiddeable > section > div > section.event-card-details > div > div > p'
-    # await page.is_visible(event_price_details)
     
     # get list of events in html
-    html = await page.inner_html('ul.search-main-content__events-list')
+    html = await page.inner_html('body')
     soup = BeautifulSoup(html, 'html.parser')
-    # print(soup.find_all('p'))
     
     # click the next page button for as many pages of results there are
     while True:
         try:
-            events = soup.find_all('li')
-            # print(events)
+            data = await event_data_get(soup)
 
-            # events = await page.query_selector_all('li div div+div section div section+section')
-            for e in events:
-                scraped_event = {}
-                name = events.find_all('h2')
-                print(name).text
-
-                # event details
-                # name = await e.query_selector('h2')
-                # name = await e.query_selector('li > div > div.discover-search-desktop-card.discover-search-desktop-card--hiddeable > section > div > section.event-card-details > div > a > h2')
-                # venue = await e.query_selector('p')
-                # date = await e.query_selector('p')
-                # link = await e.query_selector('div.Stack_root__1ksk7 a')
 
             next_button = await page.wait_for_selector("button[data-spec='page-next']")
             await next_button.click()

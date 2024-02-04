@@ -5,7 +5,7 @@ import json
 
 def event_data_get(driver, eventId:str):
     driver.get(f"https://www.eventbrite.com/e/{eventId}.html")
-    script_tag = driver.find_element_by_tag_name(By.CSS_SELECTOR, "div#listings-root+script")
+    script_tag = driver.find_element(By.CSS_SELECTOR, "div#listings-root+script")
     event_info = json.loads(script_tag.get_attribute("innerHTML")).replace("window.__SERVER_DATA__ = ", "")
     event_number = event_info["event"]["id"]
     return event_number

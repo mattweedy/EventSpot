@@ -4,13 +4,41 @@ from pydantic_models import ResponseModel
 import requests
 import json
 
-def event_ids_get(soup):
+EVENT_URL = "https://www.eventbrite.com/d/ireland--dublin/music--performances/"
+EVENT_DATA_GET_URL = "https://www.eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
+NEXT_BUTTON_SELECTOR = "button[data-spec='page-next']"
+
+def navigate_to_page(p, url):
+    """
+    Navigate to a given URL using Playwright.
+
+    Parameters:
+    p (playwright.sync_api._generated.SyncPlaywright): The Playwright object.
+    url (str): The URL to navigate to.
+
+    Returns:
+    playwright.sync_api._generated.Page: The Page object for the navigated page.
+    """
+    browser = p.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
+    page.goto(url)
+    return page
+
+def extract_event_ids(soup):
+    """
+    Extract event IDs from a BeautifulSoup object.
+
+    Parameters:
+    soup (bs4.BeautifulSoup): The BeautifulSoup object to extract event IDs from.
+
+    Returns:
+    list of str: The extracted event IDs.
+    """
     event_ids_list = []
     script_tags = soup.find_all('script', type="application/ld+json")
 
-    # TODO: continue JWR video "still the best way to scrape data." 12:32 / 41:00
-    # TODO: iterate over script tags, in the "url" key, get the event number from the event's url and return
-    # TODO: from list of event IDs, generate api request to get event details
+    # TODO: continue JWR video "still the best way to scrape data." 24:35 / 41:00
     # TODO: store event details in ResponseModel
     # TODO: store ResponseModel in mongoDB database
 
@@ -29,15 +57,15 @@ def event_ids_get(soup):
 
 def event_data_get(event_ids):
     event_ids_str = ",".join(map(str, event_ids))
-    url = f"https://www.eventbrite.com/api/v3/destination/events/?event_ids={event_ids_str}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
+    # url = f"https://www.eventbrite.com/api/v3/destination/events/?event_ids={event_ids_str}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
+    url = EVENT_DATA_GET_URL.format(event_ids_str)
     response = requests.get(url)
     print(response.json())
 
+
+
 def run(p):
-    browser = p.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://www.eventbrite.com/d/ireland--dublin/music--performances/")
+    page = navigate_to_page(p, EVENT_URL)
     
     # get list of events in html
     html = page.inner_html('body')
@@ -50,13 +78,13 @@ def run(p):
             # next generate url to grab their details
             # create json file and send data to MongoDB server
             # then go to next page and repeat
-            event_ids = event_ids_get(soup)
+            event_ids = extract_event_ids(soup)
             print(event_ids)
             event_data_get(event_ids)
             break
 
             # uncomment when data is secure - don't spam requests
-            # next_button = page.wait_for_selector("button[data-spec='page-next']", timeout=5000)
+            # next_button = page.wait_for_selector(NEXT_BUTTON_SELECTOR)
             # if next_button:
             #     next_button.click()
             # else:
@@ -73,4 +101,5 @@ def main():
         run(p)
 
 
-main()
+if __name__ == "__main__":
+    main()

@@ -15,18 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.views.generic import TemplateView
-from django.urls import path, re_path
-from .views import render_react
-from .views import get_events
+from django.urls import path
+from ..app.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # template view index.html for when DJANGO is running in production
-    # aka running off build/static files not local react server
-    path('', TemplateView.as_view(template_name='index.html')),
-    # server as catch-alls. if any other request doesn't match /admin will be redirected to react
-    re_path(r"^$", render_react),
-    re_path(r"^(?:.*)/?$", render_react),
-    path("api/events", get_events)
+    path('', ReactView.as_view(), name='react')
 ]

@@ -1,2 +1,2 @@
-backend/backend/scraper.py
+backend/app/scraper1.py
 backend/backend/settings.py

@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from pydantic_models import ResponseModel
 import requests
 import json
+from rich import print
 
 EVENT_URL = "https://www.eventbrite.com/d/ireland--dublin/music--performances/"
 EVENT_DATA_GET_URL = "https://www.eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
@@ -49,10 +50,13 @@ def event_data_get(event_ids):
     url = EVENT_DATA_GET_URL.format(event_ids_str)
     response = requests.get(url)
     data = json.loads(response.text)
-    with open('backend\\spotevent\\data\\test-data\\output.json', 'w') as f:
-        json.dump(data, f, indent=4)
-    print(f"event id     : {data["events"][0]["id"]}")
-    print(f"organizer id : {data["events"][0]["primary_organizer_id"]}")
+    model_data = ResponseModel(**data)
+    print(model_data)
+
+    # with open('backend\\spotevent\\data\\test-data\\output.json', 'w') as f:
+    #     json.dump(data, f, indent=4)
+    # print(f"event id     : {data["events"][0]["id"]}")
+    # print(f"organizer id : {data["events"][0]["primary_organizer_id"]}")
 
     # store requests.get(url) in ResponseModel
     # ResponseModel = requests.get(url)

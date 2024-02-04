@@ -1,6 +1,7 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 from pydantic_models import ResponseModel
+import requests
 import json
 
 def event_ids_get(soup):
@@ -26,6 +27,12 @@ def event_ids_get(soup):
     return event_ids_list
 
 
+def event_data_get(event_ids):
+    event_ids_str = ",".join(map(str, event_ids))
+    url = f"https://www.eventbrite.com/api/v3/destination/events/?event_ids={event_ids_str}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
+    response = requests.get(url)
+    print(response.json())
+
 def run(p):
     browser = p.chromium.launch(headless=False)
     context = browser.new_context()
@@ -45,6 +52,7 @@ def run(p):
             # then go to next page and repeat
             event_ids = event_ids_get(soup)
             print(event_ids)
+            event_data_get(event_ids)
             break
 
             # uncomment when data is secure - don't spam requests

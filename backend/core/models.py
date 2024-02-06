@@ -1,13 +1,32 @@
 from django.db import models
+from django.utils import timezone
 
-class Events(models.Model):
-    event_name = models.CharField(max_length=100)
-    event_genre = models.CharField(max_length=100)
-    event_date = models.DateField()
-    event_time = models.TimeField()
-    event_location = models.CharField(max_length=100)
-    event_description = models.TextField()
-    event_image = models.ImageField(upload_to='images/')
+class Venue(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    venue_id = models.CharField(max_length=255, unique=True)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.event_name
+class Event(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    event_id = models.CharField(max_length=255, unique=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    venue_id = models.ForeignKey(Venue, on_delete=models.CASCADE)
+    image = models.URLField()
+    tags = models.CharField(max_length=255)
+    tickets_url = models.URLField()
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    summary = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=255)
+
+    def save(self, *args, **kwargs):
+        if self.date < timezone.now().date():
+            self.status = 'past'
+        else:
+            self.status = 'upcoming'
+        super().save(*args, **kwargs)

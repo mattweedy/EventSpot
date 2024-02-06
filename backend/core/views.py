@@ -22,3 +22,7 @@ from . serializer import *
 class EventView(generics.ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+class VenueView(generics.ListCreateAPIView):
+    queryset = Venue.objects.all()
+    serializer_class = VenueSerializer

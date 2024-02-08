@@ -25,11 +25,6 @@ class App extends React.Component {
       });
   }
 
-  // componentDidMount() {
-  //   this.fetchData('/events/');
-  //   this.fetchData('/venues/');
-  // }
-
   componentDidMount() {
     let e_data;
     let v_data;
@@ -37,34 +32,41 @@ class App extends React.Component {
     v_data = this.fetchData('/venues/');
   }
 
+
   render() {
-    if (!this.state.events) {
+    if (!this.state.events || !this.state.venues) {
       return <div>Loading...</div>;
     }
 
     return (
       <div>
-        <h1>Event Data Generated From Django</h1>
-        {this.state.events.map(output => (
-          <div key={output.id}>
-            <hr></hr>
-            <img src={output.image} style={{maxWidth: "50%"}}></img>
-            <h2>{output.name}</h2>
-            <p>{output.event_id}</p>
-            <p>{output.price}</p>
-            <p>{output.summary}</p>
-            <a href={output.tickets_url}>tickets</a>
+        <h1 style={{ textAlign: 'center' }}>Event Data Generated From Django</h1>
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: 1 }}>
+            {this.state.events.map(output => (
+              <div key={output.id}>
+                <hr></hr>
+                <img src={output.image} style={{maxWidth: "50%"}}></img>
+                <h2>{output.name}</h2>
+                <p>{output.event_id}</p>
+                <p>{output.price}</p>
+                <p>{output.summary}</p>
+                <a href={output.tickets_url}>tickets</a>
+              </div>
+            ))}
           </div>
-        ))}
-        {this.state.venues.map(output => (
-          <div key={output.id}>
-            <hr></hr>
-            <h2>{output.name}</h2>
-            <p>{output.venue_id}</p>
-            <p>{output.address}</p>
-            <p>{output.summary}</p>
+          <div style={{ flex: 1 }}>
+            {this.state.venues.map(output => (
+              <div key={output.id}>
+                <hr></hr>
+                <h2>{output.name}</h2>
+                <p>{output.venue_id}</p>
+                <p>{output.address}</p>
+                <p>{output.summary}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     )
   }

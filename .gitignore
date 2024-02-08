@@ -3,4 +3,4 @@ backend/core/scraper-test2.py
 *.pyc
 backend/spotevent/__pycache__
 backend/core/__pycache__
-backend/__pycache__
+backend/__pycache____pycache__/

@@ -1,8 +1,5 @@
-from django.shortcuts import render
-from rest_framework import status
 from rest_framework import generics
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.db.models import F
 from . models import *
 from . serializer import *
 
@@ -20,7 +17,8 @@ from . serializer import *
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class EventView(generics.ListCreateAPIView):
-    queryset = Event.objects.all()
+    queryset = Event.objects.all().order_by(F('date').asc(nulls_last=True), 'start_time')
+    # queryset = Event.objects.all()
     serializer_class = EventSerializer
 
 class VenueView(generics.ListCreateAPIView):

@@ -26,3 +26,8 @@ class EventModel(BaseModel):
     end_time: time
     summary: Optional[str]
     status: str
+
+# responsemodel contains one event and its venue
+class ResponseModel(BaseModel):
+    events: list[EventModel]
+    venues: list[VenueModel]

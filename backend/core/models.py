@@ -6,7 +6,7 @@ class Event(models.Model):
     name = models.CharField(max_length=255)
     event_id = models.CharField(max_length=255, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    venue_id = models.ForeignKey("Venue", on_delete=models.CASCADE)
+    venue = models.ForeignKey("Venue", on_delete=models.CASCADE)
     image = models.URLField()
     tags = models.CharField(max_length=255)
     tickets_url = models.URLField()

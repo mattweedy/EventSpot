@@ -115,12 +115,12 @@ class Event(BaseModel):
     url: str
     primary_venue: PrimaryVenue
     primary_venue_id: str
-    primary_organizer: PrimaryOrganizer
+    primary_organizer: Optional[PrimaryOrganizer]
     eventbrite_event_id: str
     summary: Optional[str]
     tags: List[Tag]
-    image: Image
-    image_id: str
+    image: Optional[Image]
+    image_id: Optional[str]
     timezone: str
     tickets_url: str
     start_date: str

@@ -1,0 +1,3489 @@
+{
+    "pagination": {
+        "object_count": 20,
+        "continuation": null,
+        "page_count": 1,
+        "page_size": 20,
+        "has_more_items": false,
+        "page_number": 1
+    },
+    "events": [
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#a09587",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F443724699%2F310829312424%2F1%2Foriginal.20220712-091926?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=0a64767b7b839c26d071de43b4c39775",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F443724699%2F310829312424%2F1%2Foriginal.20220712-091926?auto=format%2Ccompress&q=75&sharp=10&s=934e9baed564d25d89d1887158d38747",
+                    "width": 2160,
+                    "height": 1080
+                },
+                "crop_mask": {
+                    "width": 2160,
+                    "height": 1080,
+                    "top_left": {
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "443724699"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-09-25T10:30:00",
+                    "utc": "2023-09-25T09:30:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "GBP",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "751551088537",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "22661847219",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=751551088537",
+            "hide_end_date": false,
+            "start_date": "2024-02-17",
+            "end_time": "02:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "GBP",
+                    "major_value": "11.02",
+                    "value": 1102,
+                    "display": "11.02 GBP"
+                },
+                "minimum_ticket_price": {
+                    "currency": "GBP",
+                    "major_value": "8.82",
+                    "value": 882,
+                    "display": "8.82 GBP"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": false,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-18",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3013",
+                    "display_name": "Pop"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/clubbing",
+                    "display_name": "clubbing",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin",
+                    "display_name": "dublin",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/taylor_swift",
+                    "display_name": "taylor_swift",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "751551088537",
+            "start_time": "22:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Grand Social",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 1",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.263441300000068",
+                    "localized_address_display": "35 Liffey Street Lower, D01 C3N0 Dublin 1",
+                    "postal_code": "D01 C3N0",
+                    "address_1": "35 Liffey Street Lower",
+                    "address_2": "",
+                    "latitude": "53.3469004",
+                    "localized_multi_line_address_display": [
+                        "35 Liffey Street Lower",
+                        "D01 C3N0 Dublin 1"
+                    ],
+                    "localized_area_display": "Dublin 1"
+                },
+                "venue_profile_url": "",
+                "id": "182593049"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Swiftogeddon",
+                "profile_type": "organizer",
+                "num_followers": 27909,
+                "url": "https://www.eventbrite.co.uk/o/swiftogeddon-22661847219",
+                "twitter": "swiftogeddon",
+                "summary": "A night dedicated to\u00a0worshipping\u00a0at the\u00a0altar\u00a0of Taylor\u00a0Swift: non-stop Swifty all night: deep cuts, extended mixes, fan favourites and all the hits.Do you have a Blank Space in your diary? Then this ...",
+                "num_saves": null,
+                "image_id": "80503649",
+                "followed_by_you": false,
+                "facebook": "swiftogeddon",
+                "num_collections": null,
+                "id": "22661847219",
+                "website_url": "http://www.swiftogeddon.com",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "443724699",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "182593049",
+            "checkout_flow": "widget",
+            "name": "Swiftogeddon - The Taylor Swift Club Night",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.co.uk/e/swiftogeddon-the-taylor-swift-club-night-tickets-751551088537",
+            "hide_start_date": false,
+            "summary": "Swiftogeddon: The Taylor Swift Club Night",
+            "is_online_event": false,
+            "eid": "ekmhrhbt",
+            "published": "2023-11-03T10:36:04Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#231817",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F625260359%2F1320961915213%2F1%2Foriginal.20231020-202621?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C6%2C2286%2C1143&s=039043e790a0fe08f2ff1bade586380c",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F625260359%2F1320961915213%2F1%2Foriginal.20231020-202621?auto=format%2Ccompress&q=75&sharp=10&s=d8850491472e844db1a0d57b753b5806",
+                    "width": 2286,
+                    "height": 1156
+                },
+                "crop_mask": {
+                    "width": 2286,
+                    "height": 1143,
+                    "top_left": {
+                        "y": 6,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "625260359"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-11-10T10:00:00",
+                    "utc": "2023-11-10T10:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "742445924747",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "58464022333",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=742445924747",
+            "hide_end_date": true,
+            "start_date": "2024-02-23",
+            "end_time": "23:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "199.40",
+                    "value": 19940,
+                    "display": "199.40 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "49.24",
+                    "value": 4924,
+                    "display": "49.24 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-23",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3013",
+                    "display_name": "Pop"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/music",
+                    "display_name": "music",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/performance",
+                    "display_name": "performance",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin",
+                    "display_name": "dublin",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/brasil",
+                    "display_name": "brasil",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/brazilian",
+                    "display_name": "brazilian",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/sertanejo",
+                    "display_name": "sertanejo",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/simonemendes",
+                    "display_name": "simonemendes",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "742445924747",
+            "start_time": "19:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The National Stadium",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 8",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.280385300000001",
+                    "localized_address_display": "145 South Circular Road, D08 HY40 Dublin 8",
+                    "postal_code": "D08 HY40",
+                    "address_1": "145 South Circular Road",
+                    "address_2": "",
+                    "latitude": "53.33094010000001",
+                    "localized_multi_line_address_display": [
+                        "145 South Circular Road",
+                        "D08 HY40 Dublin 8"
+                    ],
+                    "localized_area_display": "Dublin 8"
+                },
+                "venue_profile_url": "",
+                "id": "180341399"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "GreenGroup Events",
+                "profile_type": "organizer",
+                "num_followers": 1140,
+                "url": "https://www.eventbrite.ie/o/greengroup-events-58464022333",
+                "twitter": null,
+                "summary": "Brazilian Concerts SpecialistsSince 2018, we do our best to improve our events and learn with every situation we find ourselves in. Glad to what we are achieving so far!!!We still have a lot to learn,...",
+                "num_saves": null,
+                "image_id": "411359459",
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "58464022333",
+                "website_url": "http://www.greengroupevents.com",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "625260359",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "180341399",
+            "checkout_flow": "widget",
+            "name": "SIMONE MENDES  - DUBLIN",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/simone-mendes-dublin-tickets-742445924747",
+            "hide_start_date": false,
+            "summary": "A Coleguinha mais estourada vem pra agitar nossa ilha em 2024",
+            "is_online_event": false,
+            "eid": "ekhhqtmt",
+            "published": "2023-11-08T18:30:51Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#5c655a",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F638706219%2F265164755535%2F1%2Foriginal.20231109-173433?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C22%2C1920%2C960&s=f755c620215d7967189b35e12b8eec92",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F638706219%2F265164755535%2F1%2Foriginal.20231109-173433?auto=format%2Ccompress&q=75&sharp=10&s=85c9ed7a17c4453742fe7423558f92d5",
+                    "width": 1920,
+                    "height": 1005
+                },
+                "crop_mask": {
+                    "width": 1920,
+                    "height": 960,
+                    "top_left": {
+                        "y": 22,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "638706219"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-11-09T00:00:00",
+                    "utc": "2023-11-09T00:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "755650449837",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "17615987731",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=755650449837",
+            "hide_end_date": true,
+            "start_date": "2024-02-16",
+            "end_time": "22:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "63.90",
+                    "value": 6390,
+                    "display": "63.90 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "31.95",
+                    "value": 3195,
+                    "display": "31.95 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-16",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3999",
+                    "display_name": "Other"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/concert",
+                    "display_name": "concert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/livemusic",
+                    "display_name": "livemusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin",
+                    "display_name": "dublin",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin_events",
+                    "display_name": "dublin_events",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/themotans",
+                    "display_name": "themotans",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/themotansgeographic",
+                    "display_name": "themotansgeographic",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "755650449837",
+            "start_time": "20:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Button Factory",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.264599299999986",
+                    "localized_address_display": "Curved Street, Dublin",
+                    "address_1": "Curved Street",
+                    "address_2": "",
+                    "latitude": "53.344865",
+                    "localized_multi_line_address_display": [
+                        "Curved Street",
+                        "Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "183599429"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Enjoy Events",
+                "profile_type": "organizer",
+                "num_followers": 5847,
+                "url": "https://www.eventbrite.co.uk/o/enjoy-events-17615987731",
+                "twitter": "enjoyevenstuk",
+                "summary": "Profesionalism , Ambitie , Pasiune",
+                "num_saves": null,
+                "image_id": "549601089",
+                "followed_by_you": false,
+                "facebook": "enjoyevents3",
+                "num_collections": null,
+                "id": "17615987731",
+                "website_url": "http://enjoyevents.uk",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "638706219",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "183599429",
+            "checkout_flow": "widget",
+            "name": "THE MOTANS GEOGRAPHIC | Dublin (Button Factory) | 16.02.24",
+            "language": "en-us",
+            "url": "https://www.eventbrite.co.uk/e/the-motans-geographic-dublin-button-factory-160224-tickets-755650449837",
+            "hide_start_date": false,
+            "summary": "THE MOTANS GEOGRAPHIC | DUBLIN | 16 Februarie 2024",
+            "is_online_event": false,
+            "eid": "ekpgrcwf",
+            "published": "2023-11-09T18:12:43Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#161616",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F668348669%2F119551220253%2F1%2Foriginal.20240105-164835?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C13%2C750%2C375&s=be1fc0f24f7ea6f921eae63d29e66fb5",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F668348669%2F119551220253%2F1%2Foriginal.20240105-164835?auto=format%2Ccompress&q=75&sharp=10&s=10cbf1ac77bd32433a2c688835acab5e",
+                    "width": 750,
+                    "height": 689
+                },
+                "crop_mask": {
+                    "width": 750,
+                    "height": 375,
+                    "top_left": {
+                        "y": 13,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "668348669"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2024-01-17T00:00:00",
+                    "utc": "2024-01-17T00:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "791211132797",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "7474750537",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=791211132797",
+            "hide_end_date": false,
+            "start_date": "2024-02-14",
+            "end_time": "23:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "10.00",
+                    "value": 1000,
+                    "display": "10.00 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "6.34",
+                    "value": 634,
+                    "display": "6.34 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-15",
+            "tags": [
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/jazz",
+                    "display_name": "jazz",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/jam",
+                    "display_name": "jam",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "791211132797",
+            "start_time": "21:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "Arthur\u2019s Blues & Jazz Club",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.281703200000038",
+                    "localized_address_display": "28 thomas street, Dublin",
+                    "address_1": "28 thomas street",
+                    "address_2": "",
+                    "latitude": "53.343132",
+                    "localized_multi_line_address_display": [
+                        "28 thomas street",
+                        "Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "190992619"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Arthur's Blues and Jazz Club",
+                "profile_type": "organizer",
+                "num_followers": 3174,
+                "url": "https://www.eventbrite.ie/o/arthurs-blues-and-jazz-club-7474750537",
+                "twitter": "ArthursPub",
+                "summary": "Arthur's Blues and Jazz club in the heart of the Liberites.Blues & Jazz gigs 4-5nights a week",
+                "num_saves": null,
+                "image_id": "484742159",
+                "followed_by_you": false,
+                "facebook": "161719167799505",
+                "num_collections": null,
+                "id": "7474750537",
+                "website_url": "http://www.arthurspub.ie",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "668348669",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "190992619",
+            "checkout_flow": "widget",
+            "name": "Arthur\u2019s Jazz Jam",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/arthurs-jazz-jam-tickets-791211132797",
+            "hide_start_date": false,
+            "summary": "Open jazz jam",
+            "is_online_event": false,
+            "eid": "ekzcxkfz",
+            "published": "2024-01-05T16:51:49Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#0c180e",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F655614429%2F266712971713%2F1%2Foriginal.20231208-162630?w=400&auto=format%2Ccompress&q=75&sharp=10&s=75bc8a79d5dc197b80163a91b53c3d5c",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F655614429%2F266712971713%2F1%2Foriginal.20231208-162630?auto=format%2Ccompress&q=75&sharp=10&s=98e254e3a83866c97464801b9c4f7112",
+                    "width": 2160,
+                    "height": 1080
+                },
+                "crop_mask": null,
+                "aspect_ratio": "2",
+                "id": "655614429"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-12-08T10:00:00",
+                    "utc": "2023-12-08T10:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "774449789167",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "57701803893",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=774449789167",
+            "hide_end_date": true,
+            "start_date": "2024-02-07",
+            "end_time": "01:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "15.99",
+                    "value": 1599,
+                    "display": "15.99 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "15.99",
+                    "value": 1599,
+                    "display": "15.99 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-08",
+            "tags": [
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/maynooth",
+                    "display_name": "maynooth",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/studentevents",
+                    "display_name": "studentevents",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/tradmusic",
+                    "display_name": "tradmusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/maynoothuniversity",
+                    "display_name": "maynoothuniversity",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/tumblingpaddies",
+                    "display_name": "tumblingpaddies",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/theroostmaynooth",
+                    "display_name": "theroostmaynooth",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "774449789167",
+            "start_time": "20:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Roost Maynooth",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Maynooth",
+                    "country": "IE",
+                    "region": "Kildare",
+                    "longitude": "-6.590574",
+                    "localized_address_display": "Main Street, Maynooth",
+                    "address_1": "Main Street",
+                    "address_2": "",
+                    "latitude": "53.3816986",
+                    "localized_multi_line_address_display": [
+                        "Main Street",
+                        "Maynooth"
+                    ],
+                    "localized_area_display": "Maynooth"
+                },
+                "venue_profile_url": "",
+                "id": "187674899"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "The Roost Maynooth",
+                "profile_type": "organizer",
+                "num_followers": 335,
+                "url": "https://www.eventbrite.ie/o/the-roost-maynooth-57701803893",
+                "twitter": null,
+                "summary": "The Roost is a large public house with separate bars, a public bar, lounge area, mezzanine bar and a music bar. It combines the old with the new, as the pub still has many of its original pieces in pl...",
+                "num_saves": null,
+                "image_id": "402325029",
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "57701803893",
+                "website_url": "https://www.roostmaynooth.ie",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "655614429",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "187674899",
+            "checkout_flow": "widget",
+            "name": "The Tumbling Paddies Live at The Roost",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/the-tumbling-paddies-live-at-the-roost-tickets-774449789167",
+            "hide_start_date": false,
+            "summary": "The Tumbling Paddies are one of Ireland's best up and coming bands. This is a student event. Student ID required",
+            "is_online_event": false,
+            "eid": "ekwcqdxt",
+            "published": "2023-12-08T16:28:41Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#5f6a86",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F616747339%2F148007360577%2F1%2Foriginal.20231009-233000?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C131%2C2560%2C1280&s=d3e50431df928a86ecf21bad0213bc9b",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F616747339%2F148007360577%2F1%2Foriginal.20231009-233000?auto=format%2Ccompress&q=75&sharp=10&s=dd1d1a37434b558704037ac8170ca97c",
+                    "width": 2560,
+                    "height": 1714
+                },
+                "crop_mask": {
+                    "width": 2560,
+                    "height": 1280,
+                    "top_left": {
+                        "y": 131,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "616747339"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-10-10T01:00:00",
+                    "utc": "2023-10-10T00:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "735031437817",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "59313366413",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=735031437817",
+            "hide_end_date": true,
+            "start_date": "2024-02-10",
+            "end_time": "22:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "22.42",
+                    "value": 2242,
+                    "display": "22.42 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "22.42",
+                    "value": 2242,
+                    "display": "22.42 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-10",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3017",
+                    "display_name": "Rock"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/concert",
+                    "display_name": "concert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/rock",
+                    "display_name": "rock",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/livemusic",
+                    "display_name": "livemusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/grunge",
+                    "display_name": "grunge",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/nirvana",
+                    "display_name": "nirvana",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublinevents",
+                    "display_name": "dublinevents",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/livemusicvenue",
+                    "display_name": "livemusicvenue",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dunlaoghaire",
+                    "display_name": "dunlaoghaire",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "735031437817",
+            "start_time": "19:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Lighthouse",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.137185499999999",
+                    "localized_address_display": "88 George's Street Lower, A96 YA39 Dublin",
+                    "postal_code": "A96 YA39",
+                    "address_1": "88 George's Street Lower",
+                    "address_2": "",
+                    "latitude": "53.29319719999999",
+                    "localized_multi_line_address_display": [
+                        "88 George's Street Lower",
+                        "A96 YA39 Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "178304649"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Plug Artists",
+                "profile_type": "organizer",
+                "num_followers": 284,
+                "url": "https://www.eventbrite.ie/o/plug-artists-59313366413",
+                "twitter": null,
+                "summary": null,
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "59313366413",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "616747339",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "178304649",
+            "checkout_flow": "widget",
+            "name": "Nirvana  'Unplugged in New York' feat: In Bloom",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/nirvana-unplugged-in-new-york-feat-in-bloom-tickets-735031437817",
+            "hide_start_date": false,
+            "summary": "After a sell out show at The Purty Kitchen 'In Bloom' return to Dun Laoghaire to The Lighthouse venue this coming February!",
+            "is_online_event": false,
+            "eid": "ekfpthmq",
+            "published": "2023-10-09T23:37:28Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#010101",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F661529109%2F119551220253%2F1%2Foriginal.20231220-164202?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C64%2C684%2C342&s=835a40ea6eeed8a58e4781c33db5c5bb",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F661529109%2F119551220253%2F1%2Foriginal.20231220-164202?auto=format%2Ccompress&q=75&sharp=10&s=04392965fa10034d9dd5cc31431c2476",
+                    "width": 684,
+                    "height": 470
+                },
+                "crop_mask": {
+                    "width": 684,
+                    "height": 342,
+                    "top_left": {
+                        "y": 64,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "661529109"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-12-20T16:30:00",
+                    "utc": "2023-12-20T16:30:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "780705610497",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "7474750537",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=780705610497",
+            "hide_end_date": false,
+            "start_date": "2024-02-14",
+            "end_time": "20:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "17.07",
+                    "value": 1707,
+                    "display": "17.07 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "17.07",
+                    "value": 1707,
+                    "display": "17.07 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-14",
+            "tags": [
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/concert",
+                    "display_name": "concert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/valentines",
+                    "display_name": "valentines",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/valentines_day",
+                    "display_name": "valentines_day",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/chet_baker",
+                    "display_name": "chet_baker",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "780705610497",
+            "start_time": "18:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "Arthur's Jazz & Blues Pub",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.281703200000038",
+                    "localized_address_display": "28 Thomas Street, Dublin",
+                    "address_1": "28 Thomas Street",
+                    "address_2": "",
+                    "latitude": "53.343132",
+                    "localized_multi_line_address_display": [
+                        "28 Thomas Street",
+                        "Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "189110339"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Arthur's Blues and Jazz Club",
+                "profile_type": "organizer",
+                "num_followers": 3174,
+                "url": "https://www.eventbrite.ie/o/arthurs-blues-and-jazz-club-7474750537",
+                "twitter": "ArthursPub",
+                "summary": "Arthur's Blues and Jazz club in the heart of the Liberites.Blues & Jazz gigs 4-5nights a week",
+                "num_saves": null,
+                "image_id": "484742159",
+                "followed_by_you": false,
+                "facebook": "161719167799505",
+                "num_collections": null,
+                "id": "7474750537",
+                "website_url": "http://www.arthurspub.ie",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "661529109",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "189110339",
+            "checkout_flow": "widget",
+            "name": "Charlie sings Chet - Valentines night",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/charlie-sings-chet-valentines-night-tickets-780705610497",
+            "hide_start_date": false,
+            "summary": "Special Chet Baker tribute on Valentines night by The Charlie Moon Quintet",
+            "is_online_event": false,
+            "eid": "ekxmhbrf",
+            "published": "2023-12-20T16:43:25Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#040404",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F614795029%2F23364492546%2F1%2Foriginal.20231006-140915?w=500&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C32%2C500%2C250&s=679f1958b4f967eb0dfa40864242a39b",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F614795029%2F23364492546%2F1%2Foriginal.20231006-140915?auto=format%2Ccompress&q=75&sharp=10&s=f101700e6000d3ac1e31e21df2b37a6f",
+                    "width": 500,
+                    "height": 333
+                },
+                "crop_mask": {
+                    "width": 500,
+                    "height": 250,
+                    "top_left": {
+                        "y": 32,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "614795029"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-10-06T00:00:00",
+                    "utc": "2023-10-05T23:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "733430439187",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "6199153427",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=733430439187",
+            "hide_end_date": false,
+            "start_date": "2024-02-04",
+            "end_time": "03:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "27.79",
+                    "value": 2779,
+                    "display": "27.79 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "16.67",
+                    "value": 1667,
+                    "display": "16.67 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-05",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3006",
+                    "display_name": "EDM / Electronic"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/present",
+                    "display_name": "present",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/bodytonic",
+                    "display_name": "bodytonic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/slither",
+                    "display_name": "slither",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/digitalmystikz",
+                    "display_name": "digitalmystikz",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "733430439187",
+            "start_time": "23:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "Wigwam",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 1",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.262308300000001",
+                    "localized_address_display": "54 Middle Abbey Street, D01 E2X4 Dublin 1",
+                    "postal_code": "D01 E2X4",
+                    "address_1": "54 Middle Abbey Street",
+                    "address_2": "",
+                    "latitude": "53.34788890000001",
+                    "localized_multi_line_address_display": [
+                        "54 Middle Abbey Street",
+                        "D01 E2X4 Dublin 1"
+                    ],
+                    "localized_area_display": "Dublin 1"
+                },
+                "venue_profile_url": "",
+                "id": "177877819"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Bodytonic",
+                "profile_type": "organizer",
+                "num_followers": 4130,
+                "url": "https://www.eventbrite.ie/o/bodytonic-6199153427",
+                "twitter": null,
+                "summary": null,
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": "DublinCityMum",
+                "num_collections": null,
+                "id": "6199153427",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "614795029",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "177877819",
+            "checkout_flow": "widget",
+            "name": "Bodytonic X Slither Present: Digital Mystikz",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/bodytonic-x-slither-present-digital-mystikz-tickets-733430439187",
+            "hide_start_date": false,
+            "summary": "Bodytonic & Slither welcome Digital Mystikz to the Wigwam basement on Sunday February 4th 2024.",
+            "is_online_event": false,
+            "eid": "ekfdmbzt",
+            "published": "2023-10-06T14:21:23Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#460000",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F683607299%2F1295128991763%2F1%2Foriginal.20240126-201143?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=18%2C0%2C1236%2C618&s=1bdd2267be32dce881f46d3c7bbcf47c",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F683607299%2F1295128991763%2F1%2Foriginal.20240126-201143?auto=format%2Ccompress&q=75&sharp=10&s=13c6fdd88703a07eaa693fc4a5df3c79",
+                    "width": 1272,
+                    "height": 618
+                },
+                "crop_mask": {
+                    "width": 1236,
+                    "height": 618,
+                    "top_left": {
+                        "y": 0,
+                        "x": 18
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "683607299"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2024-01-26T19:48:00",
+                    "utc": "2024-01-26T19:48:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "811770476347",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "57667817643",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=811770476347",
+            "hide_end_date": false,
+            "start_date": "2024-02-10",
+            "end_time": "22:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "15.00",
+                    "value": 1500,
+                    "display": "15.00 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "15.00",
+                    "value": 1500,
+                    "display": "15.00 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-10",
+            "tags": [
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/theatre",
+                    "display_name": "theatre",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/brothers",
+                    "display_name": "brothers",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/ritz",
+                    "display_name": "ritz",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/valentinespecial",
+                    "display_name": "valentinespecial",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin_events",
+                    "display_name": "dublin_events",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/ritzbrothers",
+                    "display_name": "ritzbrothers",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "811770476347",
+            "start_time": "20:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "PYE, Dundrum, D14 V9R3",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.243163",
+                    "localized_address_display": "PYE Main Street, Dundrum, D14 V9R3 Dublin",
+                    "postal_code": "D14 V9R3",
+                    "address_1": "PYE",
+                    "address_2": "Main Street, Dundrum",
+                    "latitude": "53.2890043",
+                    "localized_multi_line_address_display": [
+                        "PYE",
+                        "Main Street, Dundrum",
+                        "D14 V9R3 Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "194906709"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "The Ritz Brothers",
+                "profile_type": "organizer",
+                "num_followers": 14,
+                "url": "https://www.eventbrite.ie/o/the-ritz-brothers-57667817643",
+                "twitter": null,
+                "summary": "There's no show quite like a Ritz Brothers\u2019 show.  These theatrical, musical troubadours play melodies from the jukebox of your heart. Every show is a magical celebration of songs and stories, tunes a...",
+                "num_saves": null,
+                "image_id": "405139229",
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "57667817643",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "683607299",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "194906709",
+            "checkout_flow": "widget",
+            "name": "The Ritz Brothers Valentine's Special",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/the-ritz-brothers-valentines-special-tickets-811770476347",
+            "hide_start_date": false,
+            "summary": "A magical night of love and laughter with the Ritz Brothers - in the Penthouse  PYE Dundrum",
+            "is_online_event": false,
+            "eid": "emdqmrtx",
+            "published": "2024-01-26T20:13:00Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#000000",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F664210279%2F174791867810%2F1%2Foriginal.20231228-174625?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=1%2C239%2C1078%2C539&s=7768be11caa72a77045f0d880d00e563",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F664210279%2F174791867810%2F1%2Foriginal.20231228-174625?auto=format%2Ccompress&q=75&sharp=10&s=ba5fd6afda7fbb3ec9b774b7a7e7aa92",
+                    "width": 1079,
+                    "height": 1156
+                },
+                "crop_mask": {
+                    "width": 1078,
+                    "height": 539,
+                    "top_left": {
+                        "y": 239,
+                        "x": 1
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "664210279"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2024-01-13T15:00:00",
+                    "utc": "2024-01-13T15:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "785209541877",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "10838676331",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=785209541877",
+            "hide_end_date": false,
+            "start_date": "2024-02-16",
+            "end_time": "03:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "20.00",
+                    "value": 2000,
+                    "display": "20.00 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "17.07",
+                    "value": 1707,
+                    "display": "17.07 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-17",
+            "tags": [
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/change",
+                    "display_name": "change",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/revolution",
+                    "display_name": "revolution",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/karim",
+                    "display_name": "karim",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/r3volution",
+                    "display_name": "r3volution",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "785209541877",
+            "start_time": "22:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "So Below Club",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 1",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.257915000000001",
+                    "localized_address_display": "10 Eden Quay, D01 V6F4 Dublin 1",
+                    "postal_code": "D01 V6F4",
+                    "address_1": "10 Eden Quay",
+                    "address_2": "",
+                    "latitude": "53.3481167",
+                    "localized_multi_line_address_display": [
+                        "10 Eden Quay",
+                        "D01 V6F4 Dublin 1"
+                    ],
+                    "localized_area_display": "Dublin 1"
+                },
+                "venue_profile_url": "",
+                "id": "189808629"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Pulse Entertainment & Friends",
+                "profile_type": "organizer",
+                "num_followers": 33,
+                "url": "https://www.eventbrite.ie/o/pulse-entertainment-friends-10838676331",
+                "twitter": null,
+                "summary": null,
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": "dancedublin",
+                "num_collections": null,
+                "id": "10838676331",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "664210279",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "189808629",
+            "checkout_flow": "widget",
+            "name": "R3VOLUTION",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/r3volution-tickets-785209541877",
+            "hide_start_date": false,
+            "summary": "R3VOLUTION returns for 1 Night  Its been  10 years since KARIM has played in Dublin Also John Kerrigan & Lee Sallinger NO REFUNDS on tickets",
+            "is_online_event": false,
+            "eid": "ekycymqf",
+            "published": "2024-01-05T12:30:40Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#5d5d5e",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F657288469%2F1918189709033%2F1%2Foriginal.20231212-131345?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=89%2C249%2C1088%2C544&s=8d5ebc3c8f1f3180fbbbbe7fcc62ab66",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F657288469%2F1918189709033%2F1%2Foriginal.20231212-131345?auto=format%2Ccompress&q=75&sharp=10&s=5f71a7d49f6252cbeec62aa6e2842bfa",
+                    "width": 1253,
+                    "height": 947
+                },
+                "crop_mask": {
+                    "width": 1088,
+                    "height": 544,
+                    "top_left": {
+                        "y": 249,
+                        "x": 89
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "657288469"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-12-04T00:00:00",
+                    "utc": "2023-12-04T00:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "768929989297",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "75672061273",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=768929989297",
+            "hide_end_date": true,
+            "start_date": "2024-02-10",
+            "end_time": "23:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "30.00",
+                    "value": 3000,
+                    "display": "30.00 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "30.00",
+                    "value": 3000,
+                    "display": "30.00 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-10",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3017",
+                    "display_name": "Rock"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/concert",
+                    "display_name": "concert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/music",
+                    "display_name": "music",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/band",
+                    "display_name": "band",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/tribute",
+                    "display_name": "tribute",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/mackfleetwood",
+                    "display_name": "mackfleetwood",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "768929989297",
+            "start_time": "20:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "Portmarnock Resort & Jameson Golf Links",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Portmarnock",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.1323235",
+                    "localized_address_display": "Strand Road, Portmarnock",
+                    "address_1": "Strand Road",
+                    "address_2": "",
+                    "latitude": "53.424898",
+                    "localized_multi_line_address_display": [
+                        "Strand Road",
+                        "Portmarnock"
+                    ],
+                    "localized_area_display": "Portmarnock"
+                },
+                "venue_profile_url": "",
+                "id": "186323769"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Portmarnock Resort",
+                "profile_type": "organizer",
+                "num_followers": 11,
+                "url": "https://www.eventbrite.com/o/portmarnock-resort-75672061273",
+                "twitter": null,
+                "summary": null,
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "75672061273",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "657288469",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "186323769",
+            "checkout_flow": "widget",
+            "name": "Portmarnock Resort presents MACK FLEETWOOD LIVE",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.com/e/portmarnock-resort-presents-mack-fleetwood-live-tickets-768929989297",
+            "hide_start_date": false,
+            "summary": "Europe\u2019s premier tribute to the supergroup Fleetwood Mac",
+            "is_online_event": false,
+            "eid": "ekrxhgkz",
+            "published": "2023-11-30T15:57:28Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#897857",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F677568739%2F200981702270%2F1%2Foriginal.20240118-171147?w=480&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C61%2C480%2C240&s=00d232c1311b9047658c35c8ecf233a0",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F677568739%2F200981702270%2F1%2Foriginal.20240118-171147?auto=format%2Ccompress&q=75&sharp=10&s=5a99212bbfc0e6f65ad12fae661c4a4b",
+                    "width": 480,
+                    "height": 640
+                },
+                "crop_mask": {
+                    "width": 480,
+                    "height": 240,
+                    "top_left": {
+                        "y": 61,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "677568739"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2024-01-18T18:00:00",
+                    "utc": "2024-01-18T18:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "803183853527",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "12819716214",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=803183853527",
+            "hide_end_date": false,
+            "start_date": "2024-02-10",
+            "end_time": "23:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "27.79",
+                    "value": 2779,
+                    "display": "27.79 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "24.57",
+                    "value": 2457,
+                    "display": "24.57 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-10",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3999",
+                    "display_name": "Other"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/music",
+                    "display_name": "music",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/rnb",
+                    "display_name": "rnb",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/rockabilly",
+                    "display_name": "rockabilly",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/rocknroll",
+                    "display_name": "rocknroll",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/allstars",
+                    "display_name": "allstars",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/sonnygeorge",
+                    "display_name": "sonnygeorge",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/bozboorer",
+                    "display_name": "bozboorer",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "803183853527",
+            "start_time": "20:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Thomas House",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 8",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.280218699999978",
+                    "localized_address_display": "Thomas Street, Dublin 8",
+                    "address_1": "Thomas Street",
+                    "address_2": "",
+                    "latitude": "53.34311779999999",
+                    "localized_multi_line_address_display": [
+                        "Thomas Street",
+                        "Dublin 8"
+                    ],
+                    "localized_area_display": "Dublin 8"
+                },
+                "venue_profile_url": "",
+                "id": "193299149"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "The Thomas House",
+                "profile_type": "organizer",
+                "num_followers": 89,
+                "url": "https://www.eventbrite.ie/o/the-thomas-house-12819716214",
+                "twitter": "thomashousedub",
+                "summary": "The Thomas House is a bar and venue located at 86 Thomas Street, Dublin 8.",
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": "thomashousedublin",
+                "num_collections": null,
+                "id": "12819716214",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "677568739",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "193299149",
+            "checkout_flow": "widget",
+            "name": "Sonny George & The Boz Boorer Allstars",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/sonny-george-the-boz-boorer-allstars-tickets-803183853527",
+            "hide_start_date": false,
+            "summary": "Rock N Roll Legend Sonny George & The Boz Boorer All-Stars in Dublin!",
+            "is_online_event": false,
+            "eid": "emcggbph",
+            "published": "2024-01-18T17:17:12Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#9fa4a9",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F626843689%2F286119880748%2F1%2Foriginal.20231023-205001?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C5472%2C2736&s=d7b0176d3fceb06f57e482e6d626d47c",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F626843689%2F286119880748%2F1%2Foriginal.20231023-205001?auto=format%2Ccompress&q=75&sharp=10&s=5813c3ace02533168b685765c392993c",
+                    "width": 5472,
+                    "height": 3648
+                },
+                "crop_mask": {
+                    "width": 5472,
+                    "height": 2736,
+                    "top_left": {
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "626843689"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-10-23T13:00:00",
+                    "utc": "2023-10-23T12:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "GBP",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "743812592487",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "18403775915",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=743812592487",
+            "hide_end_date": false,
+            "start_date": "2024-02-25",
+            "end_time": "22:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "GBP",
+                    "major_value": "40.55",
+                    "value": 4055,
+                    "display": "40.55 GBP"
+                },
+                "minimum_ticket_price": {
+                    "currency": "GBP",
+                    "major_value": "38.36",
+                    "value": 3836,
+                    "display": "38.36 GBP"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-25",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3008",
+                    "display_name": "Hip Hop / Rap"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                }
+            ],
+            "eventbrite_event_id": "743812592487",
+            "start_time": "19:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Button Factory",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.2645949",
+                    "localized_address_display": "Curved Street, Dublin",
+                    "address_1": "Curved Street",
+                    "address_2": "",
+                    "latitude": "53.3448944",
+                    "localized_multi_line_address_display": [
+                        "Curved Street",
+                        "Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "181509279"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Plus44Events",
+                "profile_type": "organizer",
+                "num_followers": 561,
+                "url": "https://www.eventbrite.co.uk/o/plus44events-18403775915",
+                "twitter": null,
+                "summary": "Najlepsze koncerty w Wielkiej Brytanii. Wejd\u017a w zak\u0142adk\u0119 \"events\" \u017ceby sprawdzi\u0107, co si\u0119 dzieje w Twojej okolicy!",
+                "num_saves": null,
+                "image_id": "339694569",
+                "followed_by_you": false,
+                "facebook": "232254506925494",
+                "num_collections": null,
+                "id": "18403775915",
+                "website_url": "https://www.eventbrite.co.uk/o/plus44events-18403775915",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "626843689",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "181509279",
+            "checkout_flow": "widget",
+            "name": "Paktofonika DUBLIN",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.co.uk/e/paktofonika-dublin-tickets-743812592487",
+            "hide_start_date": false,
+            "summary": "Ju\u017c 25 lutego 2024 w Dublinie wyst\u0105pi\u0105 Rahim oraz Fokus po raz pierwszy graj\u0105c kawa\u0142ki z kultowej Kinematografii.",
+            "is_online_event": false,
+            "eid": "743812592487",
+            "published": "2023-12-07T08:01:36Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#d8d3e9",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F619225519%2F291853615894%2F1%2Foriginal.20231012-171450?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C60%2C1920%2C960&s=bb1b07035c927d9673927efba5e8297e",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F619225519%2F291853615894%2F1%2Foriginal.20231012-171450?auto=format%2Ccompress&q=75&sharp=10&s=35406d26bfde8b118bc2b075a57395de",
+                    "width": 1920,
+                    "height": 1080
+                },
+                "crop_mask": {
+                    "width": 1920,
+                    "height": 960,
+                    "top_left": {
+                        "y": 60,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "619225519"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-11-22T00:00:00",
+                    "utc": "2023-11-22T00:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "733802030627",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "41833830203",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=733802030627",
+            "hide_end_date": false,
+            "start_date": "2024-03-10",
+            "end_time": "21:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "86.78",
+                    "value": 8678,
+                    "display": "86.78 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "33.15",
+                    "value": 3315,
+                    "display": "33.15 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-03-10",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3017",
+                    "display_name": "Rock"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin",
+                    "display_name": "dublin",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/liveconcert",
+                    "display_name": "liveconcert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/thewarehouse",
+                    "display_name": "thewarehouse",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/brainstrom",
+                    "display_name": "brainstrom",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "733802030627",
+            "start_time": "19:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "THE WAREHOUSE DUBLIN",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Clondalkin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.362800000000001",
+                    "localized_address_display": "Naas Road, Clondalkin",
+                    "address_1": "Naas Road",
+                    "address_2": "",
+                    "latitude": "53.31924799999999",
+                    "localized_multi_line_address_display": [
+                        "Naas Road",
+                        "Clondalkin"
+                    ],
+                    "localized_area_display": "Clondalkin"
+                },
+                "venue_profile_url": "",
+                "id": "178004079"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "MainStage Events",
+                "profile_type": "organizer",
+                "num_followers": 127,
+                "url": "https://www.eventbrite.ie/o/mainstage-events-41833830203",
+                "twitter": null,
+                "summary": "MainStage Events  is event Management Company organizing events for specific communities living in Ireland. We are bringing entertainment for foreign nationals in their own Language as well as Interna...",
+                "num_saves": null,
+                "image_id": "232449949",
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "41833830203",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "619225519",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "178004079",
+            "checkout_flow": "widget",
+            "name": "BRAINSTORM - DUBLIN",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/brainstorm-dublin-tickets-733802030627",
+            "hide_start_date": false,
+            "summary": "BrainStorm / Pr\u0101ta V\u0113tra coming to Ireland in spring 2024.",
+            "is_online_event": false,
+            "eid": "ekfgggrf",
+            "published": "2023-10-11T17:06:25Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#4a4a4a",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F661789399%2F119551220253%2F1%2Foriginal.20231220-234428?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C68%2C750%2C375&s=e7b1c52fb6a40a9fe11c4e0f0680e4f2",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F661789399%2F119551220253%2F1%2Foriginal.20231220-234428?auto=format%2Ccompress&q=75&sharp=10&s=a5ebdd864e45164cbd745e7dec221cfd",
+                    "width": 750,
+                    "height": 512
+                },
+                "crop_mask": {
+                    "width": 750,
+                    "height": 375,
+                    "top_left": {
+                        "y": 68,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "661789399"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-10-06T00:00:00",
+                    "utc": "2023-10-05T23:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "779649541767",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "7474750537",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=779649541767",
+            "hide_end_date": false,
+            "start_date": "2024-02-10",
+            "end_time": "23:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "18.00",
+                    "value": 1800,
+                    "display": "18.00 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "18.00",
+                    "value": 1800,
+                    "display": "18.00 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-10",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3002",
+                    "display_name": "Blues & Jazz"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/bossanova",
+                    "display_name": "bossanova",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "779649541767",
+            "start_time": "20:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "Arthur\u2019s Blues & Jazz Club",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.281703200000038",
+                    "localized_address_display": "28 thomas street, Dublin",
+                    "address_1": "28 thomas street",
+                    "address_2": "",
+                    "latitude": "53.343132",
+                    "localized_multi_line_address_display": [
+                        "28 thomas street",
+                        "Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "188852149"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Arthur's Blues and Jazz Club",
+                "profile_type": "organizer",
+                "num_followers": 3174,
+                "url": "https://www.eventbrite.ie/o/arthurs-blues-and-jazz-club-7474750537",
+                "twitter": "ArthursPub",
+                "summary": "Arthur's Blues and Jazz club in the heart of the Liberites.Blues & Jazz gigs 4-5nights a week",
+                "num_saves": null,
+                "image_id": "484742159",
+                "followed_by_you": false,
+                "facebook": "161719167799505",
+                "num_collections": null,
+                "id": "7474750537",
+                "website_url": "http://www.arthurspub.ie",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "661789399",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "188852149",
+            "checkout_flow": "widget",
+            "name": "Mario Bakuna Band - Getz/Gilberto",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/mario-bakuna-band-getzgilberto-tickets-779649541767",
+            "hide_start_date": false,
+            "summary": "Tribute to the iconic 1963 Getz/Gilberto  album",
+            "is_online_event": false,
+            "eid": "ekxfppmq",
+            "published": "2023-12-18T19:40:58Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#82593f",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F596508479%2F148007360577%2F1%2Foriginal.20230912-231730?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=1%2C555%2C1586%2C793&s=66abb81311149a47a271bf547c9524d7",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F596508479%2F148007360577%2F1%2Foriginal.20230912-231730?auto=format%2Ccompress&q=75&sharp=10&s=5532017464dea61258bd79fb75ea6d1b",
+                    "width": 1587,
+                    "height": 2245
+                },
+                "crop_mask": {
+                    "width": 1586,
+                    "height": 793,
+                    "top_left": {
+                        "y": 555,
+                        "x": 1
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "596508479"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-09-13T01:10:00",
+                    "utc": "2023-09-13T00:10:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "718210987397",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "59313366413",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=718210987397",
+            "hide_end_date": true,
+            "start_date": "2024-02-24",
+            "end_time": "23:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "27.79",
+                    "value": 2779,
+                    "display": "27.79 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "27.79",
+                    "value": 2779,
+                    "display": "27.79 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-24",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3017",
+                    "display_name": "Rock"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/concert",
+                    "display_name": "concert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/rock",
+                    "display_name": "rock",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/experience",
+                    "display_name": "experience",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/rattle",
+                    "display_name": "rattle",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/u2",
+                    "display_name": "u2",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/hum",
+                    "display_name": "hum",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "718210987397",
+            "start_time": "20:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "The Purty Kitchen",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.148153799999999",
+                    "localized_address_display": "3-5 Old Dunleary Road #3-5, A96 X7W1 Dublin",
+                    "postal_code": "A96 X7W1",
+                    "address_1": "3-5 Old Dunleary Road",
+                    "address_2": "#3-5",
+                    "latitude": "53.2952087",
+                    "localized_multi_line_address_display": [
+                        "3-5 Old Dunleary Road",
+                        "#3-5",
+                        "A96 X7W1 Dublin"
+                    ],
+                    "localized_area_display": "Dublin"
+                },
+                "venue_profile_url": "",
+                "id": "173712419"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Plug Artists",
+                "profile_type": "organizer",
+                "num_followers": 284,
+                "url": "https://www.eventbrite.ie/o/plug-artists-59313366413",
+                "twitter": null,
+                "summary": null,
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "59313366413",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "596508479",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "173712419",
+            "checkout_flow": "widget",
+            "name": "'RATTLE & HUM' - THE U2 EXPERIENCE - LIVE IN CONCERT",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/rattle-hum-the-u2-experience-live-in-concert-tickets-718210987397",
+            "hide_start_date": false,
+            "summary": "'RATTLE & HUM' The U2 Experience - Live in Concert",
+            "is_online_event": false,
+            "eid": "ehzkbwbt",
+            "published": "2023-09-12T23:30:24Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#9f372f",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F668270089%2F231331917957%2F1%2Foriginal.20240105-151500?w=450&auto=format%2Ccompress&q=75&sharp=10&s=4adc8b05d7bd59904609056725131ada",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F668270089%2F231331917957%2F1%2Foriginal.20240105-151500?auto=format%2Ccompress&q=75&sharp=10&s=57d46261359695dff6ed79f61811ed93",
+                    "width": 4000,
+                    "height": 1562
+                },
+                "crop_mask": null,
+                "aspect_ratio": "2.571428571428571428571428571",
+                "id": "668270089"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2024-01-05T14:30:00",
+                    "utc": "2024-01-05T14:30:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "791124353237",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "76868558533",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=791124353237",
+            "hide_end_date": false,
+            "start_date": "2024-02-04",
+            "end_time": "17:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "22.42",
+                    "value": 2242,
+                    "display": "22.42 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "22.42",
+                    "value": 2242,
+                    "display": "22.42 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-04",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3003",
+                    "display_name": "Classical"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/choir",
+                    "display_name": "choir",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/orchestra",
+                    "display_name": "orchestra",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/dublin",
+                    "display_name": "dublin",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/baroque",
+                    "display_name": "baroque",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/bach",
+                    "display_name": "bach",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/cantatas",
+                    "display_name": "cantatas",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "791124353237",
+            "start_time": "15:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "St Ann's Church of Ireland",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 2",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.2581792",
+                    "localized_address_display": "18 Dawson Street, D02 YV57 Dublin 2",
+                    "postal_code": "D02 YV57",
+                    "address_1": "18 Dawson Street",
+                    "address_2": "",
+                    "latitude": "53.3409992",
+                    "localized_multi_line_address_display": [
+                        "18 Dawson Street",
+                        "D02 YV57 Dublin 2"
+                    ],
+                    "localized_area_display": "Dublin 2"
+                },
+                "venue_profile_url": "",
+                "id": "190975889"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Dublin Bach Cantatas Series",
+                "profile_type": "organizer",
+                "num_followers": 46,
+                "url": "https://www.eventbrite.com/o/dublin-bach-cantatas-series-76868558533",
+                "twitter": null,
+                "summary": "Reviving the tradition of Bach Cantata Concerts at St Ann's Church.Artistic Director: Bl\u00e1naid Murphy",
+                "num_saves": null,
+                "image_id": "665865269",
+                "followed_by_you": false,
+                "facebook": "DublinBachCantatas",
+                "num_collections": null,
+                "id": "76868558533",
+                "website_url": "https://www.facebook.com/DublinBachCantatas",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "668270089",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "190975889",
+            "checkout_flow": "widget",
+            "name": "Dublin Bach Cantatas 2024: Concert 2",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.com/e/dublin-bach-cantatas-2024-concert-2-tickets-791124353237",
+            "hide_start_date": false,
+            "summary": "Join Continuum Choir, Marlborough Baroque Orchestra, soloists and conductor Bl\u00e1naid Murphy for a performance of Bach's cantatas.",
+            "is_online_event": false,
+            "eid": "ekzcqgkx",
+            "published": "2024-01-05T15:20:58Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#88776e",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F553435389%2F95130422973%2F1%2Foriginal.20230712-083555?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C357%2C3456%2C1728&s=ea13abec5cce1aa92241bf61c41ca63f",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F553435389%2F95130422973%2F1%2Foriginal.20230712-083555?auto=format%2Ccompress&q=75&sharp=10&s=ff304087bffadf4568d1686c075decaf",
+                    "width": 3456,
+                    "height": 2304
+                },
+                "crop_mask": {
+                    "width": 3456,
+                    "height": 1728,
+                    "top_left": {
+                        "y": 357,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "553435389"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-07-12T09:45:00",
+                    "utc": "2023-07-12T08:45:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "676524110827",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "6309278947",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=676524110827",
+            "hide_end_date": false,
+            "start_date": "2024-02-13",
+            "end_time": "12:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "16.62",
+                    "value": 1662,
+                    "display": "16.62 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "16.62",
+                    "value": 1662,
+                    "display": "16.62 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-13",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3003",
+                    "display_name": "Classical"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/concert",
+                    "display_name": "concert",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/culture",
+                    "display_name": "culture",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/livemusic",
+                    "display_name": "livemusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/babies",
+                    "display_name": "babies",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/toddlers",
+                    "display_name": "toddlers",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/classicalmusic",
+                    "display_name": "classicalmusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/babyfriendly",
+                    "display_name": "babyfriendly",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/musicforbabies",
+                    "display_name": "musicforbabies",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/classicalkids",
+                    "display_name": "classicalkids",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "676524110827",
+            "start_time": "11:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "St Brigid's Community Centre",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Blanchardstown",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.37585",
+                    "localized_address_display": "Church Avenue, Blanchardstown",
+                    "address_1": "Church Avenue",
+                    "address_2": "",
+                    "latitude": "53.3849503",
+                    "localized_multi_line_address_display": [
+                        "Church Avenue",
+                        "Blanchardstown"
+                    ],
+                    "localized_area_display": "Blanchardstown"
+                },
+                "venue_profile_url": "",
+                "id": "163765619"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Classicalkids.ie",
+                "profile_type": "organizer",
+                "num_followers": 737,
+                "url": "https://www.eventbrite.ie/o/classicalkidsie-6309278947",
+                "twitter": "classicalkidsie",
+                "summary": "Relaxed, fun & affordable classical music concerts for parents, kids, toddlers & babies in local community settings.Classicalkids.ie was formed in 2013 by mums Aura and Sylvia. As professional musicia...",
+                "num_saves": null,
+                "image_id": "6435285",
+                "followed_by_you": false,
+                "facebook": "classicalkids.ie",
+                "num_collections": null,
+                "id": "6309278947",
+                "website_url": "http://classicalkids.ie",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "553435389",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "163765619",
+            "checkout_flow": "widget",
+            "name": "Blanchardstown: Music for Babies",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.ie/e/blanchardstown-music-for-babies-tickets-676524110827",
+            "hide_start_date": false,
+            "summary": "Live, accessible, classical concerts for you and your child. Bring your babies along to experience the finest chamber music. On their terms.",
+            "is_online_event": false,
+            "eid": "ehkkymht",
+            "published": "2023-07-12T09:20:20Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#000000",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F657934969%2F1487863595643%2F1%2Foriginal.20231213-121649?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=b8633dc693abbeb2f7e1eadc683f2148",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F657934969%2F1487863595643%2F1%2Foriginal.20231213-121649?auto=format%2Ccompress&q=75&sharp=10&s=29a07c6170a335ee9e7c69b7a24b61c5",
+                    "width": 2160,
+                    "height": 1080
+                },
+                "crop_mask": {
+                    "width": 2160,
+                    "height": 1080,
+                    "top_left": {
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "657934969"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-12-13T11:55:00",
+                    "utc": "2023-12-13T11:55:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "776830389607",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "66903528213",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=776830389607",
+            "hide_end_date": true,
+            "start_date": "2024-02-28",
+            "end_time": "23:00",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "74.98",
+                    "value": 7498,
+                    "display": "74.98 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "74.98",
+                    "value": 7498,
+                    "display": "74.98 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-28",
+            "tags": [
+                {
+                    "prefix": "EventbriteSubCategory",
+                    "tag": "EventbriteSubCategory/3002",
+                    "display_name": "Blues & Jazz"
+                },
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/event",
+                    "display_name": "event",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/night",
+                    "display_name": "night",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/swingmusic",
+                    "display_name": "swingmusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/setmenu",
+                    "display_name": "setmenu",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/harcourtstreet",
+                    "display_name": "harcourtstreet",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/1900restaurant",
+                    "display_name": "1900restaurant",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/sunshineswing",
+                    "display_name": "sunshineswing",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/sunshine1068",
+                    "display_name": "sunshine1068",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/swingnight",
+                    "display_name": "swingnight",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/tomcolejunior",
+                    "display_name": "tomcolejunior",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "776830389607",
+            "start_time": "19:00",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "1900 Restaurant",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 2",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.262831900000001",
+                    "localized_address_display": "59 Harcourt Street, D02 WN73 Dublin 2",
+                    "postal_code": "D02 WN73",
+                    "address_1": "59 Harcourt Street",
+                    "address_2": "",
+                    "latitude": "53.3343254",
+                    "localized_multi_line_address_display": [
+                        "59 Harcourt Street",
+                        "D02 WN73 Dublin 2"
+                    ],
+                    "localized_area_display": "Dublin 2"
+                },
+                "venue_profile_url": "",
+                "id": "188236839"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "1900 Restaurant",
+                "profile_type": "organizer",
+                "num_followers": 28,
+                "url": "https://www.eventbrite.ie/o/1900-restaurant-66903528213",
+                "twitter": null,
+                "summary": "Come and enjoy a night of fine dining in 1900 Restaurant and Cocktail Bar. Nestled in the heart of Harcourt Street, our chefs and staff will prepare you the most exquisite dining experience. Our signa...",
+                "num_saves": null,
+                "image_id": "530052579",
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "66903528213",
+                "website_url": "https://www.1900.ie/",
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "657934969",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "188236839",
+            "checkout_flow": "widget",
+            "name": "Tom Cole Junior-  A Night of Swing Music at 1900 Restaurant",
+            "language": "en-us",
+            "url": "https://www.eventbrite.ie/e/tom-cole-junior-a-night-of-swing-music-at-1900-restaurant-tickets-776830389607",
+            "hide_start_date": false,
+            "summary": "Tom Cole is back again in 2024 with a night of exquisite food and quality entertainment  in 1900 Restaurant!",
+            "is_online_event": false,
+            "eid": "ekwrbmxc",
+            "published": "2023-12-13T12:18:25Z"
+        },
+        {
+            "image": {
+                "edge_color_set": true,
+                "edge_color": "#5c5549",
+                "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F652455749%2F33067325241%2F1%2Foriginal.20231203-181258?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2048%2C1024&s=fc2dfd170e9506f2db096debbd02093e",
+                "original": {
+                    "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F652455749%2F33067325241%2F1%2Foriginal.20231203-181258?auto=format%2Ccompress&q=75&sharp=10&s=3c87001b17aef64f1be15a2555fa6c8a",
+                    "width": 2048,
+                    "height": 2048
+                },
+                "crop_mask": {
+                    "width": 2048,
+                    "height": 1024,
+                    "top_left": {
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                "aspect_ratio": "2",
+                "id": "652455749"
+            },
+            "event_sales_status": {
+                "start_sales_date": {
+                    "timezone": "Europe/Dublin",
+                    "local": "2023-12-03T19:00:00",
+                    "utc": "2023-12-03T19:00:00Z"
+                },
+                "default_message": null,
+                "sales_status": "on_sale",
+                "currency": "EUR",
+                "message_code": null,
+                "message": null,
+                "message_type": null
+            },
+            "timezone": "Europe/Dublin",
+            "id": "771137822987",
+            "privacy_setting": "unlocked",
+            "tickets_by": "Eventbrite",
+            "primary_organizer_id": "8044675278",
+            "tickets_url": "https://www.eventbrite.com/checkout-external?eid=771137822987",
+            "hide_end_date": false,
+            "start_date": "2024-02-20",
+            "end_time": "22:30",
+            "status": "live",
+            "_type": "destination_event",
+            "ticket_availability": {
+                "maximum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "22.42",
+                    "value": 2242,
+                    "display": "22.42 EUR"
+                },
+                "minimum_ticket_price": {
+                    "currency": "EUR",
+                    "major_value": "22.42",
+                    "value": 2242,
+                    "display": "22.42 EUR"
+                },
+                "is_free": false,
+                "has_bogo_tickets": false,
+                "has_available_tickets": true,
+                "is_sold_out": false
+            },
+            "end_date": "2024-02-20",
+            "tags": [
+                {
+                    "prefix": "EventbriteCategory",
+                    "tag": "EventbriteCategory/103",
+                    "display_name": "Music",
+                    "localized": {
+                        "display_name": "Music"
+                    }
+                },
+                {
+                    "prefix": "EventbriteFormat",
+                    "tag": "EventbriteFormat/6",
+                    "display_name": "Concert or Performance"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/music",
+                    "display_name": "music",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/performance",
+                    "display_name": "performance",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/american",
+                    "display_name": "american",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/singers",
+                    "display_name": "singers",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/americana",
+                    "display_name": "americana",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/singersongwriter",
+                    "display_name": "singersongwriter",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/americanamusic",
+                    "display_name": "americanamusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/singers__live_music",
+                    "display_name": "singers__live_music",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/americanrootsmusic",
+                    "display_name": "americanrootsmusic",
+                    "prefix": "OrganizerTag"
+                },
+                {
+                    "_type": "tag",
+                    "tag": "OrganizerTag/sessionamericana",
+                    "display_name": "sessionamericana",
+                    "prefix": "OrganizerTag"
+                }
+            ],
+            "eventbrite_event_id": "771137822987",
+            "start_time": "20:30",
+            "primary_venue": {
+                "_type": "destination_venue",
+                "name": "Cherrytree Pub",
+                "venue_profile_id": null,
+                "address": {
+                    "city": "Dublin 12",
+                    "country": "IE",
+                    "region": "Dublin",
+                    "longitude": "-6.3164447",
+                    "localized_address_display": "Walkinstown, Dublin, Ireland., Dublin 12",
+                    "address_1": "Walkinstown, Dublin, Ireland.",
+                    "address_2": "",
+                    "latitude": "53.3218189",
+                    "localized_multi_line_address_display": [
+                        "Walkinstown, Dublin, Ireland.",
+                        "Dublin 12"
+                    ],
+                    "localized_area_display": "Dublin 12"
+                },
+                "venue_profile_url": "",
+                "id": "186882769"
+            },
+            "primary_organizer": {
+                "_type": "destination_profile",
+                "num_upcoming_events": null,
+                "name": "Musiclee.ie",
+                "profile_type": "organizer",
+                "num_followers": 102,
+                "url": "https://www.eventbrite.com/o/musicleeie-8044675278",
+                "twitter": null,
+                "summary": "Music Promotion",
+                "num_saves": null,
+                "image_id": null,
+                "followed_by_you": false,
+                "facebook": null,
+                "num_collections": null,
+                "id": "8044675278",
+                "website_url": null,
+                "num_following": null
+            },
+            "series_id": null,
+            "image_id": "652455749",
+            "is_protected_event": false,
+            "is_cancelled": null,
+            "primary_venue_id": "186882769",
+            "checkout_flow": "widget",
+            "name": "Session Americana with Eleanor Buckland in concert.",
+            "language": "en-gb",
+            "url": "https://www.eventbrite.com/e/session-americana-with-eleanor-buckland-in-concert-tickets-771137822987",
+            "hide_start_date": false,
+            "summary": "No egos, no big production, just some great songs stripped down to their bare essentials and performed by 6 ace musicians/singers.",
+            "is_online_event": false,
+            "eid": "ekthpztf",
+            "published": "2023-12-03T18:23:54Z"
+        }
+    ]
+}

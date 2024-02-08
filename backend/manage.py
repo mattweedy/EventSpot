@@ -3,6 +3,7 @@
 import os
 import sys
 
+sys.path.append("D:/SpotEvent")
 
 def main():
     """Run administrative tasks."""

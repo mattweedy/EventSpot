@@ -1,18 +1,19 @@
-# import django
-# import os
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.core.settings')
+import datetime
+import django
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'spotevent.settings')
 # django.setup()
-# from django.conf import settings
-# import sys
+from django.conf import settings
+import sys
 
-# sys.path.append('D:/SpotEvent')
-# settings.configure()
-# django.setup()
+sys.path.append('D:/SpotEvent')
+settings.configure()
+django.setup()
 
 from playwright.sync_api import sync_playwright
 # from pydantic_models import ResponseModel
-from pydantic_models_short import ResponseModel
-# from backend.core.models import Event, Venue
+# from pydantic_models_short import ResponseModel
+from models import Event, Venue
 from bs4 import BeautifulSoup
 from rich import print
 import requests
@@ -64,12 +65,44 @@ def event_data_get(event_ids):
     event_ids_str = ",".join(map(str, event_ids))
     url = EVENT_DATA_GET_URL.format(event_ids_str)
     response = requests.get(url)
-    # TODO: DEBUGGING
-    # print("response.text : ",response.text)
     data = json.loads(response.text)
-    model_data = ResponseModel(**data)
-    for event in model_data.events:
-        print(event)
+    
+    return print(data)
+    events_data = data['events']
+
+    for event_data in events_data:
+        venue_data = event_data['primary_venue']
+
+        # Create a new Venue instance
+        venue = Venue(
+            name=venue_data['name'],
+            venue_id=venue_data['id'],
+            address=venue_data['address']['localized_address_display'],
+            city=venue_data['address']['region'],
+            country=venue_data['address']['country']
+        )
+        venue.save()  # Save the Venue instance to the database
+
+        # Create a new Event instance
+        event = Event(
+            name=event_data['name'],
+            event_id=event_data['id'],
+            price=event_data['ticket_availability']['minimum_ticket_price']['major_value'],  # Assuming you want the minimum price
+            venue=venue,  # Associate the Event with the Venue
+            image=event_data['image']['url'],
+            tags=[tag['display_name'] for tag in event_data['tags']],  # Assuming tags is a list of strings
+            tickets_url=event_data['tickets_url'],
+            start_date=event_data['start_date'],
+            end_date=event_data['end_date'],
+            start_time=event_data['start_time'],
+            end_time=event_data['end_time'],
+            status = "upcoming" if event_data['start_date'] > datetime.now() else "past"
+        )
+        event.save()  # Save the Event instance to the database
+    
+    # model_data = ResponseModel(**data)
+    # for event in model_data.events:
+        # print(event)
         
         # yield event
 
@@ -93,7 +126,7 @@ def run(p):
             # then go to next page and repeat
             event_ids = extract_event_ids(soup)
             print(event_ids)
-            event_data_get(event_ids)
+            event_data_get(event_ids[0])
             break
             # TODO: getting Response 429 from Eventbrite API - TOO MANY REQUESTS
 

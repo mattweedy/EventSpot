@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 
 class Event(models.Model):
+    class Meta:
+        app_label = 'core'
+    
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     event_id = models.CharField(max_length=255, unique=True)
@@ -25,6 +28,9 @@ class Event(models.Model):
 
 
 class Venue(models.Model):
+    class Meta:
+        app_label = 'core'
+    
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     venue_id = models.CharField(max_length=255, unique=True)

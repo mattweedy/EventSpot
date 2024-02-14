@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework import viewsets
 from django.db.models import F
 from . models import *
 from . serializer import *
@@ -16,11 +17,15 @@ from . serializer import *
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class EventView(generics.ListCreateAPIView):
-    queryset = Event.objects.all().order_by(F('date').asc(nulls_last=True), 'start_time')
-    # queryset = Event.objects.all()
+# class EventView(generics.ListCreateAPIView):
+#     # queryset = Event.objects.all().order_by(F('date').asc(nulls_last=True), 'start_time')
+#     queryset = Event.objects.all()
+#     serializer_class = EventSerializer
+class EventView(viewsets.ModelViewSet):
+    # queryset = Event.objects.all().order_by(F('date').asc(nulls_last=True), 'start_time')
+    queryset = Event.objects.all()
     serializer_class = EventSerializer
 
-class VenueView(generics.ListCreateAPIView):
+class VenueView(viewsets.ModelViewSet):
     queryset = Venue.objects.all()
     serializer_class = VenueSerializer

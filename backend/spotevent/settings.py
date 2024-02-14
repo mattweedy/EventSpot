@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "core",
+    "backend",
     "corsheaders",
     "rest_framework",
 ]
@@ -133,10 +133,10 @@ STATIC_URL = "static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    # tell django where react's static files are
-    os.path.join(BASE_DIR, "build/static"),
-]
+# STATICFILES_DIRS = [
+#     # tell django where react's static files are
+#     os.path.join(BASE_DIR, "build/static"),
+# ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 

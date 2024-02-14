@@ -31,3 +31,5 @@ class EventModel(BaseModel):
 class ResponseModel(BaseModel):
     events: list[EventModel]
     venues: list[VenueModel]
+    def __init__(self, events, **kwargs):
+        events = events["events"]

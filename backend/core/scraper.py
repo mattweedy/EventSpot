@@ -26,7 +26,7 @@ async def navigate_to_page(context, url):
     return page
 
 
-async def extract_event_ids(soup, start_index=0):
+async def extract_event_ids(soup, start_index):
     """
     Extract event IDs from a BeautifulSoup object starting from a given index.
     """
@@ -103,6 +103,7 @@ async def run(p):
     browser = await p.chromium.launch(headless=False)
     context = await browser.new_context()
     page = await navigate_to_page(context, EVENT_URL)
+    last_index = 0
     
 
     # click the next page button for as many pages of results there are
@@ -111,10 +112,13 @@ async def run(p):
             # get list of events from current page's html
             html = await page.inner_html('body')
             soup = BeautifulSoup(html, 'html.parser')
+            
 
             # then go to next page and repeat
-            event_ids = await extract_event_ids(soup)
+            event_ids = await extract_event_ids(soup, last_index)
             print(event_ids)
+
+            last_index += len(event_ids)
             # uncomment when data is secure - don't spam requests
             next_button = await page.wait_for_selector(NEXT_BUTTON_SELECTOR)
             if next_button:

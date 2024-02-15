@@ -13,7 +13,7 @@ from rich import print
 import requests
 import json
 
-EVENT_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/?page=2"
+EVENT_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/"
 EVENT_DATA_GET_URL = "https://eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
 NEXT_BUTTON_SELECTOR = "button[data-spec='page-next']"
 
@@ -26,17 +26,19 @@ async def navigate_to_page(context, url):
     return page
 
 
-async def extract_event_ids(soup):
+async def extract_event_ids(soup, start_index=0):
     """
-    Extract event IDs from a BeautifulSoup object.
+    Extract event IDs from a BeautifulSoup object starting from a given index.
     """
     event_ids_list = []
     script_tags = soup.find_all('script', type="application/ld+json")
 
-    for script in script_tags:
+    for i in range(start_index, len(script_tags)):
+        script = script_tags[i]
         try:
             data = json.loads(script.get_text()) # create json obj
             url = data.get('url') # get url from json obj
+            print(url)
             if url and '-' in url: # if url exists and has a hyphen
                 event_id = url.rsplit('-', 1)[-1] # split url on hyphen and take last element AKA event ID
                 event_ids_list.append(event_id) # add event ID to list
@@ -44,6 +46,14 @@ async def extract_event_ids(soup):
             continue
 
     return event_ids_list
+
+# TODO: stop requesting API data
+# TODO: get next button loop working
+#       aka. get all event IDs from all pages
+#       save all these to CSV or JSON or POSTGRES
+#       then make requests for single ID
+#       or 
+
 
 
 # TODO: save to Postgres
@@ -101,26 +111,28 @@ async def run(p):
             # get list of events from current page's html
             html = await page.inner_html('body')
             soup = BeautifulSoup(html, 'html.parser')
+
             # then go to next page and repeat
             event_ids = await extract_event_ids(soup)
             print(event_ids)
-            try:
-                events, venues = await event_data_get(event_ids)
-            except TypeError:
-                print("Error occurred while getting event and venue data.")
-                await context.close()
-                await browser.close()
-                break
-            print(events)
-            print(venues)
+            # uncomment when data is secure - don't spam requests
+            next_button = await page.wait_for_selector(NEXT_BUTTON_SELECTOR)
+            if next_button:
+                await next_button.click()
+                # await page.wait_for_timeout(20000)
+
+            # try:
+            #     events, venues = await event_data_get(event_ids)
+            # except TypeError:
+            #     print("Error occurred while getting event and venue data.")
+            #     await context.close()
+            #     await browser.close()
+            #     break
+            # print(events)
+            # print(venues)
             # break
             # TODO: getting Response 429 from Eventbrite API - TOO MANY REQUESTS
 
-            # uncomment when data is secure - don't spam requests
-            next_button = page.wait_for_selector(NEXT_BUTTON_SELECTOR)
-            if next_button:
-                next_button.click()
-                page.wait_for_timeout(20000)
         except Exception as e:
             print("Error occurred. Exiting.")
             print(e)

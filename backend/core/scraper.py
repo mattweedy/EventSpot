@@ -95,15 +95,17 @@ async def event_data_get():
                     # new_venue.to_csv(f'backend/spotevent/data/events-csv/venue{count}.csv')
                     if new_venue.venue_id not in venues:
                         venues[new_venue.venue_id] = new_venue
-                        print(new_venue.venue_id)
+                        print("stored (",new_venue.venue_id, ") in core_venue:Postgres")
+                        # ensure that postgres only inserts if the venue_id is unique
+                        
                         new_venue.save()
                 
                     new_event = Event(event)
                     # new_event.to_csv(f'backend/spotevent/data/events-csv/event{count}.csv')
-                    if new_event.event_id not in events:
-                        events[new_event.event_id] = new_event
-                        print(new_event.event_id)
-                        new_event.save()
+                    # if new_event.event_id not in events:
+                    #     events[new_event.event_id] = new_event
+                    #     print(new_event.event_id)
+                    new_event.save()
                     count += 1
             except json.decoder.JSONDecodeError:
                 print("Error decoding JSON.")

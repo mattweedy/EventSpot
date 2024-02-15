@@ -20,6 +20,6 @@ from core.views import EventView, VenueView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('events/', EventView.as_view(), name='events'),
-    path('venues/', VenueView.as_view(), name='venues')
+    path('events/', EventView.as_view({'get':'list'}), name='events'),
+    path('venues/', VenueView.as_view({'get':'list'}), name='venues')
 ]

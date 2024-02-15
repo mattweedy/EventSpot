@@ -6,7 +6,7 @@ class Event(models.Model):
     class Meta:
         app_label = "core"
 
-    def __init__(self, event, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, event : list, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.name = event["name"]
         self.event_id = event["eventbrite_event_id"]
@@ -36,11 +36,13 @@ class Venue(models.Model):
         
     def __init__(self, event, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.name = event["primary_venue"]["name"]
-        self.venue_id = event["primary_venue"]["id"]
-        self.address = event["primary_venue"]["address"]["localized_address_display"]
-        self.city = event["primary_venue"]["address"]["region"]
-        self.country = event["primary_venue"]["address"]["country"]
+        venue = event["primary_venue"]
+        address = venue["address"]
+        self.name = venue["name"]
+        self.venue_id = venue["id"]
+        self.address = address["localized_address_display"]
+        self.city = address["region"]
+        self.country = address["country"]
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)

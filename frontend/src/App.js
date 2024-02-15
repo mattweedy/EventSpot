@@ -39,10 +39,8 @@ class App extends React.Component {
     return (
       <div>
         <h1 style={{ textAlign: 'center' }}>Event Data Generated From Django</h1>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', margin: '10px' }}>
           <div style={{ flex: 1 }}>
-            {/* <button onClick={() => this.fetchData('/events/')}>Get Events</button>
-            <button onClick={() => this.fetchData('/venues/')}>Get Venues</button> */}
             {this.state.events && this.state.events.map(event => (
               // Render each event
               <div key={event.id}>

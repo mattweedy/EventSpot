@@ -89,49 +89,25 @@ async def event_data_get():
                 # for loop that creates new Venue and Event objects
                 count = 0
                 for event in events:
-                    # try:
-                    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEVENT", event)
-                    new_venue = Venue.create_from_event(event)
-                    print("new venue :", new_venue)
-                    print("new venue id :", new_venue.venue_id)
-                    # return
-                    print (f"------------------------\nevent {count}\n------------------------\n",event)
-                    # except Exception as e:
-                    #     print("Error occurred while creating venue object.")
-                    #     print(e)
+                    try:
+                        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEVENT", event)
+                        new_venue = Venue.create_from_event(event)
+                        print (f"------------------------\nevent {count}")
+                        print(new_venue)
+                        print("new venue id :", new_venue.venue_id)
+                    except Exception as e:
+                        print("Error occurred while creating venue object.")
+                        print(e)
 
-                    return
-                    new_event = Event(event)    
-                    try:             
-                        # Update or create Event
-                        insert_event, created = Event.objects.update_or_create(
-                            event=event,
-                            event_id=new_event['event_id'],
-                            defaults={
-                                'name': new_event.name,
-                                'event_id': new_event.event_id,
-                                'price': new_event.price,
-                                'venue': venue,
-                                'image': new_event.image,
-                                'tags': new_event.tags,
-                                'tickets_url': new_event.tickets_url,
-                                'date': new_event.date,
-                                'summary': new_event.summary
-                            }
-                        )
+                    try:
+                        new_event = Event(event)
+                        new_event = Event.create_from_event_and_venue(event, new_venue)
+                        print(new_event)
+                        print("new event id :", new_event.event_id)
                     except Exception as e:
                         print("Error occurred while creating event object.")
                         print(e)
-                    # if new_venue.venue_id not in venues:
-                    #     venues[new_venue.venue_id] = new_venue
-                    #     print("stored (",new_venue.venue_id, ") in core_venue:Postgres")
-                    #     # ensure that postgres only inserts if the venue_id is unique
-                
-                    # if new_event.event_id not in events:
-                    #     events[new_event.event_id] = new_event
-                    #     print(new_event.event_id)
-                    # new_event.save()
-                    # count += 1
+                    count += 1
             except json.decoder.JSONDecodeError:
                 print("Error decoding JSON.")
                 return

@@ -58,40 +58,57 @@ async def extract_event_ids(soup, start_index):
 
 # TODO: save to Postgres
 # TODO: decide whether to do this in the scraper or in other backend file
-async def event_data_get(event_ids):
+async def event_data_get():
     """
     Get event data from Eventbrite API.
     """
-    event_ids_str = ",".join(map(str, event_ids))
-    print(len(event_ids))
-    url = EVENT_DATA_GET_URL.format(event_ids_str)
-    response = requests.get(url)
-    # TODO: DEBUGGING
-    # 429 error back
-    print("response.text : ",response.text)
-    try:
-        data = json.loads(response.text)
-    except json.decoder.JSONDecodeError:
-        print("Error decoding JSON.")
-        return
-    venues = {}
-    events = {}
+    file = 'backend/spotevent/data/test-data/event_ids_scraped_TENSEP.txt'
 
-    for event, num in enumerate(data["events"]):
-        new_venue = Venue(event)
-        new_venue.to_csv(f'backend/spotevent/data/events-csv/venue{num}.csv')
-        if new_venue.venue_id not in venues:
-            venues[new_venue.venue_id] = new_venue
-            print(new_venue.venue_id)
-            new_venue.save()
+    with open(file, 'r') as f:
+        event_ids = f.read().rstrip().split('\n')
+        venues = {}
+        events = {}
+
+        # for loop that creates new API call with 20 event IDs
+        for i in range(0, len(event_ids), 20):
+            # create a string of 20 event IDs separated by commas
+            event_ids_string = ','.join(event_ids[i:i+20])
+            # create API call URL with 20 event IDs
+            url = EVENT_DATA_GET_URL.format(event_ids_string)
+            # make API call
+            response = requests.get(url)
     
-        new_event = Event(event)
-        new_event.to_csv(f'backend/spotevent/data/events-csv/event{num}.csv')
-        if new_event.event_id not in events:
-            events[new_event.event_id] = new_event
-            print(new_event.event_id)
-            new_event.save()
+            # TODO: DEBUGGING
+            # 429 error back
+            # print("response.text : ",response.text)
+            try:
+                data = json.loads(response.text)
+                events = data["events"]
+                print(events)
 
+                # for loop that creates new Venue and Event objects
+                count = 0
+                for event in events:
+                    new_venue = Venue(event)
+                    print (f"------------------------\nevent {count}\n------------------------\n",event)
+                    print(new_venue)
+                    # new_venue.to_csv(f'backend/spotevent/data/events-csv/venue{count}.csv')
+                    if new_venue.venue_id not in venues:
+                        venues[new_venue.venue_id] = new_venue
+                        print(new_venue.venue_id)
+                        new_venue.save()
+                
+                    new_event = Event(event)
+                    # new_event.to_csv(f'backend/spotevent/data/events-csv/event{count}.csv')
+                    if new_event.event_id not in events:
+                        events[new_event.event_id] = new_event
+                        print(new_event.event_id)
+                        new_event.save()
+                    count += 1
+            except json.decoder.JSONDecodeError:
+                print("Error decoding JSON.")
+                return
+            
     return (events, venues)
 
 
@@ -112,7 +129,6 @@ async def run(p):
             # get list of events from current page's html
             html = await page.inner_html('body')
             soup = BeautifulSoup(html, 'html.parser')
-            
 
             # then go to next page and repeat
             event_ids = await extract_event_ids(soup, last_index)
@@ -150,6 +166,9 @@ async def main():
     """
     main function to run the scraper
     """
+    await event_data_get()
+    return
+
     async with async_playwright() as p:
         await run(p)
 

@@ -4,18 +4,7 @@ from django.utils import timezone
 
 class Event(models.Model):
     class Meta:
-        app_label = "core"
-
-    # def __init__(self, event : list, *args: Any, **kwargs: Any) -> None:
-    #     super().__init__(*args, **kwargs)
-    #     self.name = event["name"]
-    #     self.event_id = event["eventbrite_event_id"]
-    #     self.price = event["ticket_availability"]["minimum_ticket_price"]["major_value"]
-    #     self.image = event["image"]["url"]
-    #     self.tags = ','.join(tag['display_name'] for tag in event['tags'])
-    #     self.tickets_url = event["tickets_url"]
-    #     self.date = event["start_date"]
-    #     self.summary = event["summary"]
+        app_label = "backend"
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
@@ -55,6 +44,10 @@ class Event(models.Model):
                 'summary': summary
             },
         )
+        if created:
+            print("A new event was created.")
+        else:
+            print("An existing event was updated.")
 
         return event_insert
     
@@ -72,7 +65,7 @@ class Event(models.Model):
 
 class Venue(models.Model):
     class Meta:
-        app_label = "core"
+        app_label = "backend"
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=1000)
@@ -105,6 +98,10 @@ class Venue(models.Model):
                 'country': country 
             },
         )
+        if created:
+            print("A new venue was created.")
+        else:
+            print("An existing venue was updated.")
 
         return venue
     

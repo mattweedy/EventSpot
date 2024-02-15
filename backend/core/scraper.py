@@ -78,19 +78,14 @@ async def event_data_get():
             # make API call
             response = requests.get(url)
     
-            # TODO: DEBUGGING
-            # 429 error back
-            # print("response.text : ",response.text)
             try:
                 data = json.loads(response.text)
                 events = data["events"]
-                print(events)
 
                 # for loop that creates new Venue and Event objects
                 count = 0
                 for event in events:
                     try:
-                        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEVENT", event)
                         new_venue = Venue.create_from_event(event)
                         print (f"------------------------\nevent {count}")
                         print(new_venue)
@@ -142,18 +137,6 @@ async def run(p):
             next_button = await page.wait_for_selector(NEXT_BUTTON_SELECTOR)
             if next_button:
                 await next_button.click()
-                # await page.wait_for_timeout(20000)
-
-            # try:
-            #     events, venues = await event_data_get(event_ids)
-            # except TypeError:
-            #     print("Error occurred while getting event and venue data.")
-            #     await context.close()
-            #     await browser.close()
-            #     break
-            # print(events)
-            # print(venues)
-            # break
             # TODO: getting Response 429 from Eventbrite API - TOO MANY REQUESTS
 
         except Exception as e:
@@ -172,8 +155,8 @@ async def main():
     await event_data_get()
     return
 
-    async with async_playwright() as p:
-        await run(p)
+    # async with async_playwright() as p:
+    #     await run(p)
 
 
 if __name__ == "__main__":

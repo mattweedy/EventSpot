@@ -89,24 +89,49 @@ async def event_data_get():
                 # for loop that creates new Venue and Event objects
                 count = 0
                 for event in events:
-                    new_venue = Venue(event)
+                    # try:
+                    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEVENT", event)
+                    new_venue = Venue.create_from_event(event)
+                    print("new venue :", new_venue)
+                    print("new venue id :", new_venue.venue_id)
+                    # return
                     print (f"------------------------\nevent {count}\n------------------------\n",event)
-                    print(new_venue)
-                    # new_venue.to_csv(f'backend/spotevent/data/events-csv/venue{count}.csv')
-                    if new_venue.venue_id not in venues:
-                        venues[new_venue.venue_id] = new_venue
-                        print("stored (",new_venue.venue_id, ") in core_venue:Postgres")
-                        # ensure that postgres only inserts if the venue_id is unique
-                        
-                        new_venue.save()
+                    # except Exception as e:
+                    #     print("Error occurred while creating venue object.")
+                    #     print(e)
+
+                    return
+                    new_event = Event(event)    
+                    try:             
+                        # Update or create Event
+                        insert_event, created = Event.objects.update_or_create(
+                            event=event,
+                            event_id=new_event['event_id'],
+                            defaults={
+                                'name': new_event.name,
+                                'event_id': new_event.event_id,
+                                'price': new_event.price,
+                                'venue': venue,
+                                'image': new_event.image,
+                                'tags': new_event.tags,
+                                'tickets_url': new_event.tickets_url,
+                                'date': new_event.date,
+                                'summary': new_event.summary
+                            }
+                        )
+                    except Exception as e:
+                        print("Error occurred while creating event object.")
+                        print(e)
+                    # if new_venue.venue_id not in venues:
+                    #     venues[new_venue.venue_id] = new_venue
+                    #     print("stored (",new_venue.venue_id, ") in core_venue:Postgres")
+                    #     # ensure that postgres only inserts if the venue_id is unique
                 
-                    new_event = Event(event)
-                    # new_event.to_csv(f'backend/spotevent/data/events-csv/event{count}.csv')
                     # if new_event.event_id not in events:
                     #     events[new_event.event_id] = new_event
                     #     print(new_event.event_id)
-                    new_event.save()
-                    count += 1
+                    # new_event.save()
+                    # count += 1
             except json.decoder.JSONDecodeError:
                 print("Error decoding JSON.")
                 return

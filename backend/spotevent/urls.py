@@ -16,10 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from core.views import EventView, VenueView
+
+router = DefaultRouter()
+router.register(r'events', EventView, basename='events')
+router.register(r'venues', VenueView, basename='venues')
+
+# urlpatterns = [
+#     path("admin/", admin.site.urls),
+#     path("", include(router.urls)),
+# ]
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('events/', EventView.as_view(), name='events'),
-    path('venues/', VenueView.as_view(), name='venues')
+    path('events/', EventView.as_view({'get':'list'}), name='events'),
+    path('venues/', VenueView.as_view({'get':'list'}), name='venues')
 ]

@@ -1,6 +1,6 @@
-backend/core/scraper.py
 *.pyc
 backend/spotevent/__pycache__
+backend/core/scraper.py
 backend/core/__pycache__
 backend/__pycache____pycache__/
 __pycache__/

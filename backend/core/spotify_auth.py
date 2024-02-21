@@ -2,15 +2,13 @@ import base64
 import hashlib
 import os
 import requests
-from decouple import config
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives import serialization
+from django.conf import settings
+from django.http import HttpResponse
+from django.shortcuts import redirect
 
-SPOTIFY_CLIENT_ID = config('SPOTIFY_CLIENT_ID')
-SPOTIFY_REDIRECT_URI = config('SPOTIFY_REDIRECT_URI')
-
-# client_id = 
-redirect_uri = 'http://localhost:8000'
+client_id = settings.SPOTIFY_CLIENT_ID
+client_secret = settings.SPOTIFY_CLIENT_SECRET
+redirect_uri = settings.SPOTIFY_REDIRECT_URI
 
 # generate a code verifier
 # 40 bytes of random data, decoded to a utf-8 string
@@ -29,16 +27,43 @@ authorization_url = f'https://accounts.spotify.com/authorize?client_id={client_i
 # after user authorizes the app, Spotify will redirect to the redirect_uri with a code
 # use code to get an access token
 
-# POST request to Spotify's token endpoint
-# note: the code_verifier is sent to the token endpoint
-response = requests.post(
-    'https://accounts.spotify.com/api/token',
-    data={
+def start_auth(request):
+    """
+    Redirect user to Spotify's authorization page.
+    """
+    return redirect(authorization_url)
+
+
+def spotify_callback(request):
+    code = request.GET.get('code')
+    if code is None:
+        return HttpResponse('Error: no code provided', status=400)
+    
+    try:
+        access_token = exchange_code_for_token(code)
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)}', status=500)
+    
+    return HttpResponse('Success', status=200)
+
+
+def exchange_code_for_token(code):
+    """
+    Exchange a code for an access token.
+    """
+    data = {
         'client_id': client_id,
+        'client_secret': client_secret,
         'grant_type': 'authorization_code',
         'code': code,
         'redirect_uri': redirect_uri,
         'code_verifier': code_verifier,
-    },
-)
-access_token = response.json()['access_token']
+    }
+
+    response = requests.post('https://accounts.spotify.com/api/token', data=data)
+    response.raise_for_status()
+
+    access_token = response.json()['access_token']
+    return access_token
+
+# TODO: make code_verifier not global, per user

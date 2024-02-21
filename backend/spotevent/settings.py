@@ -22,10 +22,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # export to environment variable
 SECRET_KEY = config('DJANGO_SECRET_KEY')
+
+# database
 DATABASE_NAME = config('DATABASE_NAME')
 DATABASE_USER = config('DATABASE_USER')
 DATABASE_PASSWORD = config('DATABASE_PASSWORD')
 DATABASE_HOST = config('DATABASE_HOST')
+
+# spotify
+SPOTIFY_CLIENT_ID = config('SPOTIFY_CLIENT_ID')
+SPOTIFY_CLIENT_SECRET = config('SPOTIFY_CLIENT_SECRET')
+SPOTIFY_REDIRECT_URI = config('SPOTIFY_REDIRECT_URI')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

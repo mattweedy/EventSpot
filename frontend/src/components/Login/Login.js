@@ -4,7 +4,12 @@ import React, { useEffect, useState } from 'react';
 // and refresh token
 
 function Login() {
-    // Add your login UI component code here
+    // Add login UI component code here
+    const handleLogin = () => {
+        // Handle login logic here...
+        window.location.href = 'http://localhost:8000/api/spotify/login';
+    };
+
     useEffect(() => {
         // code to run on component mount
         // check if the user is already logged in
@@ -13,20 +18,14 @@ function Login() {
     }, []);
 
     useState(() => {
-        // Add your login UI component code here
+        // Add login UI component code here
         // check if the user is already logged in
         // if the user is already logged in, redirect to the home page
         // if the user is not logged in, show the login UI
     });
 
     return (
-        // JSX code for the login UI
-        
-        <div>
-            <h1>Login</h1>
-            <button>Login with Spotify</button>
-        </div>
-
+        <button onClick={handleLogin}>Login to Spotify</button>
     );
 }
 

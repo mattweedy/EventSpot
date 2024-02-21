@@ -1,10 +1,19 @@
+import sys
+print(sys.path)
+import os
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.spotevent.settings')
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+django.setup()
+
 import base64
 import hashlib
-import os
+# import os
 import requests
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from requests_oauthlib import OAuth2Session
 
 client_id = settings.SPOTIFY_CLIENT_ID
 client_secret = settings.SPOTIFY_CLIENT_SECRET
@@ -31,6 +40,12 @@ def start_auth(request):
     """
     Redirect user to Spotify's authorization page.
     """
+    spotify = OAuth2Session(client_id, redirect_uri=redirect_uri)
+    authorization_url, state = spotify.authorization_url('https://accounts.spotify.com/authorize')
+
+    # store this state in the session for later to protect against CSRF
+    request.session['oauth_state'] = state
+
     return redirect(authorization_url)
 
 

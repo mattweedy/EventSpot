@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Login from './components/Login/Login';
 // import "./App.css";
 
 class App extends React.Component {
@@ -40,10 +41,10 @@ class App extends React.Component {
       <div>
         {/* since this is technically index/home page */}
         {/* login button - redirects to /login/ or /start/ for spotify PKCE flow */}
-        <a href="/login"><button>login</button></a>
+        <Login />
 
         {/* if /login/ begin PKCE flow */}
-        
+
 
 
         <h1 style={{ textAlign: 'center' }}>Event Data Generated From Django</h1>

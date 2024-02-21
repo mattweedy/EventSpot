@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from core.views import EventView, VenueView
+from core.spotify_auth import start_auth
 
 router = DefaultRouter()
 router.register(r'events', EventView, basename='events')
@@ -31,5 +32,6 @@ router.register(r'venues', VenueView, basename='venues')
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/events/', EventView.as_view({'get':'list'}), name='events'),
-    path('api/venues/', VenueView.as_view({'get':'list'}), name='venues')
+    path('api/venues/', VenueView.as_view({'get':'list'}), name='venues'),
+    path('api/spotify/login', start_auth, name='start_auth'),
 ]

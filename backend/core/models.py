@@ -35,7 +35,7 @@ class Event(models.Model):
                 'name': name,
                 'event_id': event_id,
                 'price': price,
-                'venue': venue,
+                'venue': venue, # this should be Venue.venue_id pretty much
                 'image': image,
                 'tags': tags,
                 'tickets_url': tickets_url,

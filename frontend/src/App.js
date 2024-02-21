@@ -38,6 +38,14 @@ class App extends React.Component {
     
     return (
       <div>
+        {/* since this is technically index/home page */}
+        {/* login button - redirects to /login/ or /start/ for spotify PKCE flow */}
+        <a href="/login"><button>login</button></a>
+
+        {/* if /login/ begin PKCE flow */}
+        
+
+
         <h1 style={{ textAlign: 'center' }}>Event Data Generated From Django</h1>
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>

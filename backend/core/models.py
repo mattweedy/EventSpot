@@ -1,4 +1,3 @@
-from typing import Any
 from django.db import models
 from django.utils import timezone
 
@@ -80,7 +79,6 @@ class Venue(models.Model):
         address = venue["address"]
         
         # extract information from event
-
         name = venue["name"]
         venue_id = event['primary_venue_id']
         localised_addr = address["localized_address_display"]
@@ -113,5 +111,45 @@ class Venue(models.Model):
             f"ADDRESS : {self.address}\n"
             f"CITY    : {self.city}\n"
             f"COUNTRY : {self.country}"
+            f"\n------------------------"
+        )
+    
+
+class User(models.Model):
+    class Meta:
+        app_label = "backend"
+
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=255)
+    access_token = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    password = models.CharField(max_length=255)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def create_user(cls, username, email, password):
+        user, created = cls.objects.update_or_create(
+            email=email,
+            defaults={
+                'username': username,
+                'email': email,
+                'password': password
+            },
+        )
+        if created:
+            print("A new user was created.")
+        else:
+            print("An existing user was updated.")
+
+        return user
+
+    def __str__(self):
+        return (
+            f"------------------------\n"
+            f"USERNAME : {self.username}\n"
+            f"EMAIL    : {self.email}\n"
+            f"CREATED  : {self.created_at}\n"
+            f"UPDATED  : {self.updated_at}"
             f"\n------------------------"
         )

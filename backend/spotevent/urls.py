@@ -33,7 +33,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/events/', EventView.as_view({'get':'list'}), name='events'),
     path('api/venues/', VenueView.as_view({'get':'list'}), name='venues'),
-    # path('api/users/', UserView.as_view({'get':'list'}), name='users'),
+    path('api/users/', UserView.as_view({'get':'list'}), name='users'),
     path('api/spotify/login', start_auth, name='start_auth'),
-    path('callback', UserView.as_view({'get':'list'}), name='users')
 ]

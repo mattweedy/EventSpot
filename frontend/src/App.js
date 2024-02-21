@@ -12,7 +12,7 @@ class App extends React.Component {
   }
 
   fetchData(endpoint) {
-    axios.get(`http://localhost:8000${endpoint}`)
+    axios.get(`http://localhost:8000/api${endpoint}`)
       .then(res => {
         const data = res.data;
         console.log(endpoint, "data:", data);

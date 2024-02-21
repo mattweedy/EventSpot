@@ -30,6 +30,6 @@ router.register(r'venues', VenueView, basename='venues')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('events/', EventView.as_view({'get':'list'}), name='events'),
-    path('venues/', VenueView.as_view({'get':'list'}), name='venues')
+    path('api/events/', EventView.as_view({'get':'list'}), name='events'),
+    path('api/venues/', VenueView.as_view({'get':'list'}), name='venues')
 ]

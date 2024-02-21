@@ -1,5 +1,5 @@
-import sys
-print(sys.path)
+# import sys
+# print(sys.path)
 import os
 import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.spotevent.settings')

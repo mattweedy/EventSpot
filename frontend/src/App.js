@@ -41,6 +41,7 @@ class App extends React.Component {
       <div>
         {/* since this is technically index/home page */}
         {/* login button - redirects to /login/ or /start/ for spotify PKCE flow */}
+        begin by logging in to spotify :D<br></br>
         <Login />
 
         {/* if /login/ begin PKCE flow */}

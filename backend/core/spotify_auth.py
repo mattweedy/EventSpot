@@ -29,7 +29,6 @@ def generate_code_verifier(length=128):
     """
     Generate a code verifier for PKCE.
     """
-
     allowed_chars = string.ascii_letters + string.digits + '-._~' # create string of all allowed characters
 
     # randomly select characters from allowed_chars and join them together
@@ -65,7 +64,6 @@ def start_auth(request):
         # store the state and code_verifier in the session for later to protect against CSRF
         request.session['oauth_state'] = state
         request.session['code_verifier'] = code_verifier
-        print(f"Code verifier in start_auth: {code_verifier}")
 
         return redirect(authorization_url)
     except Exception as e:

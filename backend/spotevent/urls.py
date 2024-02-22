@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from core.views import EventView, VenueView, UserView
-from core.spotify_auth import start_auth, spotify_callback, get_user_profile
+from spotify.spotify_auth import start_auth, spotify_callback, get_user_profile
 
 router = DefaultRouter()
 router.register(r'events', EventView, basename='events')

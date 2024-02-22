@@ -66,6 +66,14 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
+
 REST_FRAMEWORK = { 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny'] }
 
 CORS_ORIGIN_ALLOW_ALL = True

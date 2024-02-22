@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.cache import cache
 
 class Event(models.Model):
     class Meta:

@@ -1,55 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Login from './components/Login/Login';
 import Header from './components/Header';
 import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
 
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isLoggedIn: false,
-			userProfile: null,
-		};
-	}
+function App() {
+    const [accessToken, setAccessToken] = useState('');
+    const [userProfile, setUserProfile] = useState(null);
 
-	componentDidMount() {
-		// check if user is logged in and set state accordingly
-		const isLoggedIn = localStorage.getItem('isLoggedIn');
-		this.setState({ isLoggedIn });
-
-		if (isLoggedIn) {
-			this.fetchUserProfile();
-		}
-	}
-
-	fetchUserProfile() {
-		axios.get('/user-profile')
-			.then(response => {
-				this.setState({ userProfile: response.data });
-			})
-			.catch(error => {
-				console.error('Error fetching user profile:', error);
-			});
-	};
+    useEffect(() => {
+        // fetch access token from backend when component mounts
+        console.log("sending /spotify/logged_in request to backend...");
+        axios.get('http://localhost:8000/spotify/logged_in')
+            .then(response => {
+                console.log("Response from /spotify/logged_in:", response.data);
+                if (response.data.isLoggedIn) {
+                    setAccessToken(response.data.accessToken);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching access token:", error);
+            });
+    }, []);
 
 
-	render() {
-		return (
-			<div>
-				{/* since this is technically index/home page */}
-				<div style={{ textAlign: 'center' }}>
-					<Header />
-					begin by logging in to spotify :D<br></br>
-					<Login /><br></br><br></br>
+    useEffect(() => {
+        // Fetch the user profile when the access token changes
+        if (accessToken) {
+            console.log("sending /spotify/profile request to backend...");
+            axios.get('http://localhost:8000/spotify/profile', {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+                .then(response => {
+                    console.log("User profile data received from backend:", response.data);
+                    setUserProfile(response.data);
+                });
+        }
+    }, [accessToken]);
 
-					<DisplayEventVenueData />
-				</div>
-				{/* if /login/ begin PKCE flow */}
-			</div>
-		)
-	}
+    // if user is logged in, display the user's name
+    if (accessToken) {
+        return (
+            <div>
+                <div style={{ textAlign: 'center' }}>
+                    <p>{accessToken}</p>
+                    <Header />
+                    <h2>Welcome, {userProfile.displayName}!</h2>
+                    {/* other components only for logged in */}
+                    <DisplayEventVenueData />
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <div style={{ textAlign: 'center' }}>
+                    <Header />
+                    <Login />
+                </div>
+            </div>
+        );
+    }
 
 }
 

@@ -70,7 +70,8 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': 'D:/SpotEvent/backend/spotevent/data/var/tmp/django_cache',
     }
 }
 

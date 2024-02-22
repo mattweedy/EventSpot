@@ -13,7 +13,7 @@ import string
 import secrets
 import requests
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import RequestException
@@ -106,7 +106,7 @@ def get_user_profile(request):
     access_token = request.session['access_token']
 
     if not access_token:
-        return "Access token not found. Please authenticate with Spotify."
+        return JsonResponse({"error": "Access token not found. Please authenticate with Spotify."}, status=401)
     
     headers = {
         'Authorization': f'Bearer {access_token}'
@@ -115,9 +115,9 @@ def get_user_profile(request):
     response = requests.get('https://api.spotify.com/v1/me', headers=headers)
 
     if response.status_code == 200:
-        print(response.json())
-        return response.json()
+        return JsonResponse(response.json(), safe=False)
     else:
-        return "Error: " + response.text
+        return JsonResponse({"error": "Error fetching user profile : " + response.text}, status=response.status_code)
+    
 
 # TODO: make code_verifier not global, per user

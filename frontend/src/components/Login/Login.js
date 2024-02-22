@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // basic react login UI component for user login using spotfiy PKCE flow
 // uses the spotify web api to authenticate the user and get the access token
 // and refresh token

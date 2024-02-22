@@ -2,7 +2,11 @@ import React from 'react';
 
 function Header() {
     return (
-        <header>SpotEvent - Music Event Discovery</header>
+        <header>
+            <h1>
+                SpotEvent - Music Event Discovery
+            </h1>
+        </header>
     );
 }
 

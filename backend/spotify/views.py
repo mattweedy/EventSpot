@@ -9,10 +9,10 @@ def check_logged_in(request):
         access_token = cache.get('access_token')
         if access_token:
             print("User is logged in.")
-            return JsonResponse({"logged_in": True})
+            return JsonResponse({"isLoggedIn": True, "accessToken": access_token})
         else:
             print("User is not logged in.")
-            return JsonResponse({"logged_in": False})
+            return JsonResponse({"isLoggedIn": False})
     except Exception as e:
         print(f"An error occurred during the check_logged_in process: {e}")
-        return JsonResponse({"logged_in": False})
+        return JsonResponse({"isLoggedIn": False})

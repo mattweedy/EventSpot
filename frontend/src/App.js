@@ -15,8 +15,11 @@ function App() {
         axios.get('http://localhost:8000/spotify/logged_in')
             .then(response => {
                 console.log("Response from /spotify/logged_in:", response.data);
+                console.log("Is user logged in?", response.data.isLoggedIn);
                 if (response.data.isLoggedIn) {
+                    console.log("Access token set to:", response.data.accessToken);
                     setAccessToken(response.data.accessToken);
+                    console.log(accessToken);
                 }
             })
             .catch(error => {
@@ -46,9 +49,9 @@ function App() {
         return (
             <div>
                 <div style={{ textAlign: 'center' }}>
-                    <p>{accessToken}</p>
                     <Header />
-                    <h2>Welcome, {userProfile.displayName}!</h2>
+                    <h2>Welcome!</h2>
+                    {/* <h2>Welcome, {userProfile.displayName}!</h2> */}
                     {/* other components only for logged in */}
                     <DisplayEventVenueData />
                 </div>

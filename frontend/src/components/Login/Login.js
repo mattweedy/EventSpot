@@ -5,7 +5,6 @@ import React from 'react';
 
 function Login() {
 
-    // Add login UI component code here
     const handleLogin = () => {
         // redirect to django's login/authenticate route
         window.location.href = 'http://localhost:8000/spotify/login';

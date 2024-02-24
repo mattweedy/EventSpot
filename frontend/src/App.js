@@ -93,6 +93,9 @@ function App() {
             return (
                 <div style={{ backgroundColor: '#202020', color: '#fff' }}>
                     {userProfile.display_name} logged in
+                    <div>
+                        <img src={userProfile.images[0].url} alt="user profile picture" />
+                    </div>
                     <div style={{ textAlign: 'center' }}>
                         <Header />
                         <h2>Welcome!</h2>

@@ -123,8 +123,6 @@ function App() {
             );
         }
         if (accessToken && userProfile && !isLoading) {
-            fetchTopItems('tracks');
-            fetchTopItems('artists');
             return (
                 <div style={{ backgroundColor: '#202020', color: '#fff' }}>
                     <div style={{ textAlign: 'center' }}>
@@ -133,6 +131,9 @@ function App() {
                             isLoggedIn={isLoggedIn}
                         />
                         <DisplayEventVenueData />
+                        <button onClick={() => fetchTopItems('tracks')}>Get Top Tracks</button>
+                        <br />
+                        <button onClick={() => fetchTopItems('artists')}>Get Top Artists</button>
                         <br />
                         <Logout />
                     </div>

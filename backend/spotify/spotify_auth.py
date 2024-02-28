@@ -136,6 +136,7 @@ def get_user_top_items(request, type, limit):
     """
     Get the user's top 20 tracks or artists.
     """
+    # TODO: im currently saying its top 20, but it is actualy limit of results per request
     access_token = utils.get_access_token()
 
     if not access_token:

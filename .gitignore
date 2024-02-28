@@ -6,3 +6,4 @@ backend/__pycache____pycache__/
 __pycache__/
 backend/spotevent/.env
 backend/spotevent/data/var/tmp/django_cache
+*.djcache

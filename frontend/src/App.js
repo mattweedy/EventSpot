@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Login from './components/Login/Login';
 import Header from './components/Header';
@@ -17,14 +17,14 @@ function App() {
             sessionStorage.clear();
         };
 
-        // Cleanup function
+        // cleanup function
         return () => {
             window.onbeforeunload = null;
         };
     }, []);
 
 
-    const fetchUserProfile = async () => {
+    const fetchUserProfile = useCallback(async () => {
         if (accessToken) {
             setIsLoading(true);
             console.log("USER PROFILE : sending backend request to spotify/profile...");
@@ -46,7 +46,7 @@ function App() {
                     setIsLoading(false);
                 });
         }
-    }
+    }, [accessToken]);
 
 
     useEffect(() => {
@@ -76,7 +76,7 @@ function App() {
     
     useEffect(() => {
         fetchUserProfile();
-    }, [accessToken]);
+    }, [accessToken, fetchUserProfile]);
 
 
     // if user is logged in, display the user's name
@@ -92,12 +92,15 @@ function App() {
         if (accessToken && userProfile && !isLoading) {
             return (
                 <div style={{ backgroundColor: '#202020', color: '#fff' }}>
-                    {userProfile.display_name} logged in
+                    {/* {userProfile.display_name} logged in
                     <div>
                         <img src={userProfile.images[0].url} alt="user profile picture" />
-                    </div>
+                    </div> */}
                     <div style={{ textAlign: 'center' }}>
-                        <Header />
+                        <Header 
+                            userProfile={userProfile}
+                            isLoggedIn={isLoggedIn}
+                        />
                         <h2>Welcome!</h2>
                         <DisplayEventVenueData />
                         <br />
@@ -109,9 +112,8 @@ function App() {
     } else {
         return (
             <div style={{ backgroundColor: '#202020', color: '#fff' }}>
-                logged out
                 <div style={{ textAlign: 'center' }}>
-                    <Header />
+                    <Header isLoggedIn={isLoggedIn}/>
                     <Login />
                 </div>
             </div>

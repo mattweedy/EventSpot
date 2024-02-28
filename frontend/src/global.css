@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ff9d3b;
+    /* background-color: #28ff68; */
+    min-height: 100vh;
+}
+/* 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ff9d3b;
+    background-color: #28ff68;
+    min-height: 100vh;
+} */
+
+/* div {
+    background-color: #ffffff;
+    color: black;
+} */
+
+span {
+    color: #28ff68;
+    /* color: #ff9d3b; */
+}

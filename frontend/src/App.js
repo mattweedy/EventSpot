@@ -1,3 +1,4 @@
+import './global.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Login from './components/Login/Login';
@@ -78,6 +79,38 @@ function App() {
         fetchUserProfile();
     }, [accessToken, fetchUserProfile]);
 
+    const fetchTopItems = useCallback(async (type) => {
+        // console.log("accessToken:", accessToken);
+
+        if (type == 'tracks') {
+            console.log("GETTING TOP TRACKS : sending backend request to spotify/top/tracks...");
+            axios.get(`http://localhost:8000/spotify/top/${type}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+                .then(response => {
+                    console.log("GETTING TOP TRACKS : Top tracks data received from backend:", response.data);
+                })
+                .catch(error => {
+                    console.error("GETTING TOP TRACKS : Error fetching top tracks:", error);
+                });
+        } else if (type == 'artists') {
+            console.log("GETTING TOP ARTISTS : sending backend request to spotify/top/artists...");
+            axios.get(`http://localhost:8000/spotify/top/${type}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+                .then(response => {
+                    console.log("GETTING TOP ARTISTS : Top artists data received from backend:", response.data);
+                })
+                .catch(error => {
+                    console.error("GETTING TOP ARTISTS : Error fetching top artists:", error);
+                });
+        }
+    }, [accessToken]);
+
 
     // if user is logged in, display the user's name
     if (isLoggedIn) {
@@ -90,18 +123,15 @@ function App() {
             );
         }
         if (accessToken && userProfile && !isLoading) {
+            fetchTopItems('tracks');
+            fetchTopItems('artists');
             return (
                 <div style={{ backgroundColor: '#202020', color: '#fff' }}>
-                    {/* {userProfile.display_name} logged in
-                    <div>
-                        <img src={userProfile.images[0].url} alt="user profile picture" />
-                    </div> */}
                     <div style={{ textAlign: 'center' }}>
                         <Header 
                             userProfile={userProfile}
                             isLoggedIn={isLoggedIn}
                         />
-                        <h2>Welcome!</h2>
                         <DisplayEventVenueData />
                         <br />
                         <Logout />

@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from core.views import EventView, VenueView, UserView
-from spotify.views import check_logged_in, logout_view
-from spotify.spotify_auth import start_auth, spotify_callback, get_user_profile
+from core.views import EventView, VenueView
+# from core.views import EventView, VenueView, UserView
+from spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
+from spotify.spotify_auth import *
 
 router = DefaultRouter()
 router.register(r'events', EventView, basename='events')
@@ -34,10 +35,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/events/', EventView.as_view({'get':'list'}), name='events'),
     path('api/venues/', VenueView.as_view({'get':'list'}), name='venues'),
-    path('api/users/', UserView.as_view({'get':'list'}), name='users'),
+    # path('api/users/', UserView.as_view({'get':'list'}), name='users'),
     path('spotify/login', start_auth, name='start_auth'),
     path('spotify/logout', logout_view, name='logout'),
     path('spotify/callback', spotify_callback, name='spotify_callback'),
-    path('spotify/profile', get_user_profile, name='get_user_profile'),
+    path('spotify/profile', user_profile, name='get_user_profile'),
     path('spotify/logged_in', check_logged_in, name='check_logged_in'),
+    path('spotify/top/tracks', top_tracks, name='get_user_top_items'),
+    path('spotify/top/artists', top_artists, name='get_user_top_items'),
 ]

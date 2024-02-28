@@ -17,7 +17,7 @@ from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
 client_id = settings.SPOTIFY_CLIENT_ID
 client_secret = settings.SPOTIFY_CLIENT_SECRET
 redirect_uri = settings.SPOTIFY_REDIRECT_URI
-scope = 'user-read-private user-read-email'
+scope = 'user-read-private user-read-email user-top-read'
 authUrl = 'https://accounts.spotify.com/authorize'
 
 
@@ -37,7 +37,7 @@ def start_auth(request):
     Start authentication process and redirect user to Spotify's authorization page.
     """
     try:
-        spotify = OAuth2Session(client_id, redirect_uri=redirect_uri)
+        spotify = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
 
         # generate a code verifier
         code_verifier = generate_code_verifier()
@@ -50,8 +50,6 @@ def start_auth(request):
         # redirect user to Spotify authorization apge
         authorization_url, state = spotify.authorization_url(
             'https://accounts.spotify.com/authorize',
-            # response_type='code',
-            # scope=scope,
             code_challenge_method='S256',
             code_challenge=code_challenge,
         )
@@ -124,12 +122,36 @@ def get_user_profile(request):
         'Authorization': f'Bearer {access_token}'
     }
 
+    print("GET : Requesting User Profile")
     response = requests.get('https://api.spotify.com/v1/me', headers=headers)
 
     if response.status_code == 200:
         return JsonResponse(response.json(), safe=False)
     else:
+        print("ERROR : Fetching user profile : ", response.text)
         return JsonResponse({"error": "Fetching user profile : " + response.text}, status=response.status_code)
     
+
+def get_user_top_items(request, type, limit):
+    """
+    Get the user's top 20 tracks or artists.
+    """
+    access_token = utils.get_access_token()
+
+    if not access_token:
+        return JsonResponse({"error": "Access token not found. Please authenticate with Spotify."}, status=401)
+    
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    print(f"GET : Requesting User Top 20 {type}")
+    response = requests.get(f'https://api.spotify.com/v1/me/top/{type}?limit={limit}', headers=headers)
+
+    if response.status_code == 200:
+        return JsonResponse(response.json(), safe=False)
+    else:
+        print(f"ERROR : Fetching user top 20 {type} : ", response.text)
+        return JsonResponse({"error": f"Fetching user top 20 {type} : " + response.text}, status=response.status_code)
 
 # TODO: make code_verifier not global, per user

@@ -12,8 +12,17 @@ function Header({ userProfile, isLoggedIn }) {
     if (!isLoggedIn) {
         return (
             <header>
-                <p style={{ textAlign: 'right', marginTop: '0px' }}>logged out</p>
-                <h1 style={{ color:  '#888fff'}}>SpotEvent - Music Event Discovery</h1>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <p style={{ display: 'flex', alignItems: 'center', position: 'absolute', top: '0', right: '0', marginRight: '5px' }}>logged out</p>
+
+                    <h1 style={{ alignItems: 'center', marginTop: '10px', marginBottom: '0px' }}>
+                        Spot<span style={{ color: '#888fff' }}>Event</span>
+                    </h1>
+
+                    <h2 style={{ marginTop: '0px' }}>
+                        Music Event Discovery
+                    </h2>                    
+                </div>
             </header>
         );
     } else if (isLoggedIn) {

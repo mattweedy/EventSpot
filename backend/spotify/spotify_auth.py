@@ -165,14 +165,14 @@ def get_artist_genres(artist_id):
     """
     Artist = apps.get_model('backend', 'Artist')
 
-    # Check if the artist exists in the database
+    # check if artist exists in the database
     try:
         artist = Artist.objects.get(spotify_id=artist_id)
         if artist.genres:
-            # If the artist has genres, return them
+            # ff the artist has genres, return them
             return artist.genres
     except ObjectDoesNotExist:
-        # If the artist doesn't exist in the database, continue to fetch genres from Spotify API
+        # ff the artist doesn't exist in the database, continue to fetch genres from Spotify API
         pass
 
     access_token = utils.get_access_token()

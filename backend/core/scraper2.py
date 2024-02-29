@@ -149,16 +149,22 @@ async def event_data_get(event_ids):
     for event, num in enumerate(data["events"]):
         new_venue = Venue(event)
         new_venue.to_csv(f'backend/spotevent/data/events-csv/venue{num}.csv')
-        if new_venue.venue_id not in venues:
-            venues[new_venue.venue_id] = new_venue
-            print(new_venue.venue_id)
+        # if new_venue.venue_id not in venues:
+        if new_venue.name not in venues:
+            # venues[new_venue.venue_id] = new_venue
+            venues[new_venue.name] = new_venue
+            # print(new_venue.venue_id)
+            print(new_venue.name)
             new_venue.save()
     
         new_event = Event(event)
         new_event.to_csv(f'backend/spotevent/data/events-csv/event{num}.csv')
-        if new_event.event_id not in events:
-            events[new_event.event_id] = new_event
-            print(new_event.event_id)
+        # if new_event.event_id not in events:
+        if new_event.name not in events:
+            # events[new_event.event_id] = new_event
+            events[new_event.name] = new_event
+            # print(new_event.event_id)
+            print(new_event.name)
             new_event.save()
 
     return (events, venues)

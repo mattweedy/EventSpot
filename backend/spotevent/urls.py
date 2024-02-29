@@ -22,14 +22,9 @@ from core.views import EventView, VenueView
 from spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
 from spotify.spotify_auth import *
 
-router = DefaultRouter()
-router.register(r'events', EventView, basename='events')
-router.register(r'venues', VenueView, basename='venues')
-
-# urlpatterns = [
-#     path("admin/", admin.site.urls),
-#     path("", include(router.urls)),
-# ]
+# router = DefaultRouter()
+# router.register(r'events', EventView, basename='events')
+# router.register(r'venues', VenueView, basename='venues')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -43,4 +38,5 @@ urlpatterns = [
     path('spotify/logged_in', check_logged_in, name='check_logged_in'),
     path('spotify/top/tracks', top_tracks, name='get_user_top_items'),
     path('spotify/top/artists', top_artists, name='get_user_top_items'),
+    # path('spotify/artist_genres/<str:artist_id>', get_artist_genres, name='get_artist_genres'),
 ]

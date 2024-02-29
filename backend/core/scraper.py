@@ -95,7 +95,7 @@ async def event_data_get():
                         print(e)
 
                     try:
-                        new_event = Event(event)
+                        # new_event = Event(event) commented after use, check if has impact
                         new_event = Event.create_from_event_and_venue(event, new_venue)
                         print(new_event)
                         print("new event id :", new_event.event_id)

@@ -74,15 +74,11 @@ function App() {
             });
     }, []);
 
-    
-    useEffect(() => {
-        fetchUserProfile();
-    }, [accessToken, fetchUserProfile]);
 
     const fetchTopItems = useCallback(async (type) => {
         // console.log("accessToken:", accessToken);
 
-        if (type == 'tracks') {
+        if (type === 'tracks') {
             console.log("GETTING TOP TRACKS : sending backend request to spotify/top/tracks...");
             axios.get(`http://localhost:8000/spotify/top/${type}`, {
                 headers: {
@@ -95,7 +91,7 @@ function App() {
                 .catch(error => {
                     console.error("GETTING TOP TRACKS : Error fetching top tracks:", error);
                 });
-        } else if (type == 'artists') {
+        } else if (type === 'artists') {
             console.log("GETTING TOP ARTISTS : sending backend request to spotify/top/artists...");
             axios.get(`http://localhost:8000/spotify/top/${type}`, {
                 headers: {
@@ -103,13 +99,27 @@ function App() {
                 }
             })
                 .then(response => {
-                    console.log("GETTING TOP ARTISTS : Top artists data received from backend:", response.data);
+                    console.log("GETTING TOP ARTISTS : Top artists data received from backend:", response);
                 })
                 .catch(error => {
                     console.error("GETTING TOP ARTISTS : Error fetching top artists:", error);
                 });
         }
     }, [accessToken]);
+
+
+    useEffect(() => {
+        fetchUserProfile();
+    }, [accessToken, fetchUserProfile]);
+
+
+    useEffect(() => {
+        if (userProfile) {
+            fetchTopItems('tracks');
+            fetchTopItems('artists');
+            // fetchArtistGenres();
+        }
+    }, [userProfile, fetchTopItems]);
 
 
     // if user is logged in, display the user's name
@@ -131,9 +141,9 @@ function App() {
                             isLoggedIn={isLoggedIn}
                         />
                         <DisplayEventVenueData />
-                        <button onClick={() => fetchTopItems('tracks')}>Get Top Tracks</button>
+                        {/* <button onClick={() => fetchTopItems('tracks')}>Get Top Tracks</button> */}
                         <br />
-                        <button onClick={() => fetchTopItems('artists')}>Get Top Artists</button>
+                        {/* <button onClick={() => fetchTopItems('artists')}>Get Top Artists</button> */}
                         <br />
                         <Logout />
                     </div>

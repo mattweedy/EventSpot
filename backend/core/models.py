@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.cache import cache
-# from spotify.models import Track, Artist
+from spotify.models import Track, Artist
 
 class Event(models.Model):
     class Meta:
@@ -117,46 +117,46 @@ class Venue(models.Model):
         )
     
 
-# class User(models.Model):
-#     class Meta:
-#         app_label = "backend"
+class User(models.Model):
+    class Meta:
+        app_label = "backend"
 
-#     id = models.AutoField(primary_key=True)
-#     username = models.CharField(max_length=255)
-#     email = models.EmailField(unique=True)
-#     venue_preferences = models.TextField(null=True)
-#     genre_preferences = models.TextField(null=True)
-#     queer_events = models.BooleanField(default=False, null=True)
-#     past_events = models.TextField(null=True)
-#     recommended_events = models.TextField(null=True)
-#     top_tracks = models.ManyToManyField(Track)
-#     top_artists = models.ManyToManyField(Artist)
-#     created_at = models.DateTimeField(default=timezone.now)
-#     updated_at = models.DateTimeField(auto_now=True)
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    venue_preferences = models.TextField(null=True)
+    genre_preferences = models.TextField(null=True)
+    queer_events = models.BooleanField(default=False, null=True)
+    past_events = models.TextField(null=True)
+    recommended_events = models.TextField(null=True)
+    top_tracks = models.ManyToManyField(Track)
+    top_artists = models.ManyToManyField(Artist)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
-#     @classmethod
-#     def create_user(cls, username, email, password):
-#         user, created = cls.objects.update_or_create(
-#             email=email,
-#             defaults={
-#                 'username': username,
-#                 'email': email,
-#                 'password': password
-#             },
-#         )
-#         if created:
-#             print("A new user was created.")
-#         else:
-#             print("An existing user was updated.")
+    @classmethod
+    def create_user(cls, username, email, password):
+        user, created = cls.objects.update_or_create(
+            email=email,
+            defaults={
+                'username': username,
+                'email': email,
+                'password': password
+            },
+        )
+        if created:
+            print("A new user was created.")
+        else:
+            print("An existing user was updated.")
 
-#         return user
+        return user
 
-#     def __str__(self):
-#         return (
-#             f"------------------------\n"
-#             f"USERNAME : {self.username}\n"
-#             f"EMAIL    : {self.email}\n"
-#             f"CREATED  : {self.created_at}\n"
-#             f"UPDATED  : {self.updated_at}"
-#             f"\n------------------------"
-#         )
+    def __str__(self):
+        return (
+            f"------------------------\n"
+            f"USERNAME : {self.username}\n"
+            f"EMAIL    : {self.email}\n"
+            f"CREATED  : {self.created_at}\n"
+            f"UPDATED  : {self.updated_at}"
+            f"\n------------------------"
+        )

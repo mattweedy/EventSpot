@@ -1,18 +1,20 @@
-import os
+import json
 import utils
 import base64
 import string
 import hashlib
 import secrets
-from datetime import datetime, timedelta
 import requests
+from django.apps import apps
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect
 from django.core.cache import cache
+from django.shortcuts import redirect
+from django.http import HttpResponse, JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime, timedelta
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import RequestException
-from oauthlib.oauth2.rfc6749.errors import InvalidGrantError
+
 
 client_id = settings.SPOTIFY_CLIENT_ID
 client_secret = settings.SPOTIFY_CLIENT_SECRET
@@ -122,7 +124,7 @@ def get_user_profile(request):
         'Authorization': f'Bearer {access_token}'
     }
 
-    print("GET : Requesting User Profile")
+    print(f"[{datetime.now()}] GET : Requesting User Profile")
     response = requests.get('https://api.spotify.com/v1/me', headers=headers)
 
     if response.status_code == 200:
@@ -146,13 +148,56 @@ def get_user_top_items(request, type, limit):
         'Authorization': f'Bearer {access_token}'
     }
 
-    print(f"GET : Requesting User Top 20 {type}")
+    print(f"[{datetime.now()}] GET : Requesting User Top 20 {type}")
     response = requests.get(f'https://api.spotify.com/v1/me/top/{type}?limit={limit}', headers=headers)
 
     if response.status_code == 200:
-        return JsonResponse(response.json(), safe=False)
+        # return JsonResponse(response.json(), safe=False)
+        return json.loads(response.text)
     else:
         print(f"ERROR : Fetching user top 20 {type} : ", response.text)
         return JsonResponse({"error": f"Fetching user top 20 {type} : " + response.text}, status=response.status_code)
+
+
+def get_artist_genres(artist_id):
+    """
+    Get the genres of a given artist.
+    """
+    Artist = apps.get_model('backend', 'Artist')
+
+    # Check if the artist exists in the database
+    try:
+        artist = Artist.objects.get(spotify_id=artist_id)
+        if artist.genres:
+            # If the artist has genres, return them
+            return artist.genres
+    except ObjectDoesNotExist:
+        # If the artist doesn't exist in the database, continue to fetch genres from Spotify API
+        pass
+
+    access_token = utils.get_access_token()
+
+    if not access_token:
+        return JsonResponse({"error": "Access token not found. Please authenticate with Spotify."}, status=401)
+    
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    print(f"[{datetime.now()}] GET : Requesting Artist Genres")
+    response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}', headers=headers)
+    response_json = response.json()
+    genres = response_json['genres']
+
+    print(f"GENRES : {genres}")
+    if genres == []:
+        response_json['genres'] = "No genres found for this artist"
+        return genres
+
+    if response.status_code == 200:
+        return genres
+    else:
+        print("ERROR : Fetching artist genres : ", response.text)
+        return JsonResponse({"error": "Fetching artist genres : " + response.text}, status=response.status_code)
 
 # TODO: make code_verifier not global, per user

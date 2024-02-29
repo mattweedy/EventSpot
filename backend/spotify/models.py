@@ -1,5 +1,7 @@
+from django.apps import apps
 from django.db import models
 from spotify.spotify_auth import get_artist_genres
+from django.core.exceptions import ObjectDoesNotExist
 
 class Track(models.Model):
     class Meta:
@@ -20,27 +22,68 @@ class Track(models.Model):
         popularity = track['popularity']
 
         # for genres, pull genres from artist
-        genres_list = get_artist_genres(artist_id=artist_id)
-        genres = genres_list
+        try:
+            artist_obj = Artist.objects.get(spotify_id=artist_id)
+            if artist_obj.genres:
+                genres = artist_obj.genres
+            else:
+                genres = get_artist_genres(artist_id=artist_id)
+                artist_obj.genres = genres
+                artist_obj.save()
+        except ObjectDoesNotExist:
+            genres = get_artist_genres(artist_id=artist_id)
+            Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, popularity=popularity or 0)
 
+        defaults={
+            'name': name,
+            'artist': artist,
+            'artist_id': artist_id,
+            'genres': genres,
+            'popularity': popularity,
+        }
 
-        track_insert, created = cls.objects.update_or_create(
-            spotify_id=track['id'],
-            defaults={
-                'name': name,
-                'spotify_id': spotify_id,
-                'artist': artist,
-                'artist_id': artist_id,
-                'genres': genres,
-                'popularity': popularity,
-            },
-        )
-        if created:
-            print("A new track was created.")
-        else:
+        try:
+            track_obj = cls.objects.get(spotify_id=spotify_id)
+            for key, value in defaults.items():
+                if getattr(track_obj, key) != value:
+                    setattr(track_obj, key, value)
+            track_obj.save()
             print("An existing track was updated.")
+        except cls.DoesNotExist:
+            track_obj = cls.objects.create(spotify_id=spotify_id, **defaults)
+            print("A new track was created.")
 
-        return track_insert
+        return track_obj
+
+    # def create_track_from_spotify(cls, track):
+    #     name = track['name']
+    #     spotify_id = track['id']
+    #     artist = track['artists'][0]['name']
+    #     artist_id = track['artists'][0]['id']
+    #     popularity = track['popularity']
+
+    #     # for genres, pull genres from artist
+    #     genres_list = get_artist_genres(artist_id=artist_id)
+    #     genres = genres_list
+
+
+    #     track_obj, created = cls.objects.update_or_create(
+    #         spotify_id=track['id'],
+    #         defaults={
+    #             'name': name,
+    #             'spotify_id': spotify_id,
+    #             'artist': artist,
+    #             'artist_id': artist_id,
+    #             'genres': genres,
+    #             'popularity': popularity,
+    #         },
+    #     )
+    #     if created:
+    #         print("A new track was created.")
+    #     else:
+    #         print("An existing track was updated.")
+
+    #     return track_obj
 
 
     def __str__(self):
@@ -75,7 +118,7 @@ class Artist(models.Model):
         link = artist["external_urls"]["spotify"]
         popularity = artist["popularity"]
 
-        artist_insert, created = cls.objects.update_or_create(
+        artist_obj, created = cls.objects.update_or_create(
             spotify_id=artist["id"],
             defaults={
                 'name': name,
@@ -90,7 +133,7 @@ class Artist(models.Model):
         else:
             print("An existing artist was updated.")
 
-        return artist_insert
+        return artist_obj
 
     def to_dict(self):
         return (

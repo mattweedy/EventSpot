@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.cache import cache
+from django.apps import apps
 from spotify.models import Track, Artist
 
 class Event(models.Model):
@@ -65,6 +66,9 @@ class Event(models.Model):
 
 
 class Venue(models.Model):
+    # Track = apps.get_model("backend", "Track")
+    # Artist = apps.get_model("backend", "Artist")
+    
     class Meta:
         app_label = "backend"
 

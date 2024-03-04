@@ -1,9 +1,9 @@
 import utils
 from django.http import JsonResponse
 from django.core.cache import cache
-from datetime import datetime, timedelta
 from django.shortcuts import redirect
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from .spotify_auth import get_user_profile, get_user_top_items
 from spotify.models import Track, Artist
 
@@ -73,6 +73,11 @@ genre_dict = {
     "portuguese": ["fado", "portuguese"],
     "tango": ["tango", "argentinian"],
 }
+
+
+@login_required
+def protected_view(request):
+    pass
 
 
 def add_genres(genre_list):

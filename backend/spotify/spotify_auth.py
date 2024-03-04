@@ -9,11 +9,13 @@ from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.shortcuts import redirect
+from django.contrib.auth import login
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import RequestException
+from core.models import User
 
 
 client_id = settings.SPOTIFY_CLIENT_ID
@@ -77,6 +79,25 @@ def spotify_callback(request):
         # call get_spotify_access_token to get the access token
         
         get_spotify_access_token(request)
+
+        # get user profile
+        profile_response = get_user_profile(request)
+        profile_data = profile_response.json()
+
+        # check if user exists, if not create new user
+        user, created = User.objects.get_or_create(
+            spotify_id=profile_data['id'],
+            defaults={
+                'username': profile_data['display_name'],
+                'email': profile_data['email'],
+            },
+        )
+
+        if created:
+            print(f"Created new user : {user.username}")
+
+        # log the user in
+        login(request, user)
 
         return redirect('http://localhost:3000')
     except RequestException as e:

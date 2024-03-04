@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class Track(models.Model):
     class Meta:
-        app_label = "backend"
+        app_label = "spotify"
 
     name = models.CharField(max_length=200)
     spotify_id = models.CharField(max_length=200)
@@ -55,37 +55,6 @@ class Track(models.Model):
 
         return track_obj
 
-    # def create_track_from_spotify(cls, track):
-    #     name = track['name']
-    #     spotify_id = track['id']
-    #     artist = track['artists'][0]['name']
-    #     artist_id = track['artists'][0]['id']
-    #     popularity = track['popularity']
-
-    #     # for genres, pull genres from artist
-    #     genres_list = get_artist_genres(artist_id=artist_id)
-    #     genres = genres_list
-
-
-    #     track_obj, created = cls.objects.update_or_create(
-    #         spotify_id=track['id'],
-    #         defaults={
-    #             'name': name,
-    #             'spotify_id': spotify_id,
-    #             'artist': artist,
-    #             'artist_id': artist_id,
-    #             'genres': genres,
-    #             'popularity': popularity,
-    #         },
-    #     )
-    #     if created:
-    #         print("A new track was created.")
-    #     else:
-    #         print("An existing track was updated.")
-
-    #     return track_obj
-
-
     def __str__(self):
         return (
             f"------------------------\n"
@@ -100,7 +69,7 @@ class Track(models.Model):
     
 class Artist(models.Model):
     class Meta:
-        app_label = "backend"
+        app_label = "spotify"
 
     name = models.CharField(max_length=200)
     spotify_id = models.CharField(max_length=200)

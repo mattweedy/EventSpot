@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "backend",
+    "core",
+    "spotify",
     "corsheaders",
     "rest_framework",
 ]
@@ -113,6 +115,11 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+
+LOGIN_URL = '/spotify/login'
+
+AUTH_USER_MODEL = 'backend.User'
 
 
 # Password validation

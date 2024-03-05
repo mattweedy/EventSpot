@@ -5,17 +5,18 @@ from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from .spotify_auth import get_user_profile, get_user_top_items
-from spotify.models import Track, Artist
+from backend.spotify.models import Track, Artist
 
 genre_dict = {
-    "techno": ["techno", "electronic", "edm", "dance"],
-    "house": ["house", "electronic", "edm", "dance"],
-    "trance": ["trance", "electronic", "edm", "dance"],
+    "techno": ["techno", "electronic", "edm", "dance", "rave"],
+    "rave": ["rave", "electronic", "edm", "techno", "dance"],
+    "house": ["house", "electronic", "edm", "dance", "rave"],
+    "trance": ["trance", "electronic", "edm", "dance", "rave"],
     "dubstep": ["dubstep", "electronic", "edm", "dance"],
-    "drum and bass": ["drum and bass", "electronic", "edm", "dance"],
+    "drum and bass": ["drum and bass", "electronic", "edm", "dance", "rave"],
     "gabber": ["gabber", "electronic", "edm", "dance"],
-    "hardgroove": ["hardgroove", "electronic", "dance", "techno"],
-    "hardstyle": ["hardstyle", "electronic", "edm", "dance", "techno"],
+    "hardgroove": ["hardgroove", "electronic", "dance", "techno", "rave"],
+    "hardstyle": ["hardstyle", "electronic", "edm", "dance", "techno", "rave"],
     "psytrance": ["psytrance", "electronic", "edm", "dance", "trance"],
     "synthpop": ["synthpop", "grunge", "alternative", "indie"],
     "trap": ["trap", "rap", "hip hop", "street"],

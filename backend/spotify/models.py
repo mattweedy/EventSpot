@@ -1,11 +1,11 @@
 from django.apps import apps
 from django.db import models
-from spotify.spotify_auth import get_artist_genres
+from backend.spotify.spotify_auth import get_artist_genres
 from django.core.exceptions import ObjectDoesNotExist
 
 class Track(models.Model):
     class Meta:
-        app_label = "spotify"
+        app_label = "backend"
 
     name = models.CharField(max_length=200)
     spotify_id = models.CharField(max_length=200)
@@ -69,7 +69,7 @@ class Track(models.Model):
     
 class Artist(models.Model):
     class Meta:
-        app_label = "spotify"
+        app_label = "backend"
 
     name = models.CharField(max_length=200)
     spotify_id = models.CharField(max_length=200)

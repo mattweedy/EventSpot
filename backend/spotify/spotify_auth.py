@@ -1,5 +1,5 @@
 import json
-import utils
+from .. import utils
 import base64
 import string
 import hashlib
@@ -15,7 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import RequestException
-from core.models import User
+from backend.core.models import User
 
 
 client_id = settings.SPOTIFY_CLIENT_ID
@@ -71,6 +71,29 @@ def start_auth(request):
         return HttpResponse(status=500)
 
 
+def fetch_user_profile(request):
+    """
+    Fetch the user's profile information and return it as a dictionary.
+    """
+    access_token = utils.get_access_token()
+
+    if not access_token:
+        return {"error": "Access token not found. Please authenticate with Spotify."}
+
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    print(f"[{datetime.now()}] GET : Requesting User Profile")
+    response = requests.get('https://api.spotify.com/v1/me', headers=headers)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print("ERROR : Fetching user profile : ", response.text)
+        return {"error": "Fetching user profile : " + response.text}
+
+
 def spotify_callback(request):
     """
     Callback for Spotify's authorization page.
@@ -81,23 +104,29 @@ def spotify_callback(request):
         get_spotify_access_token(request)
 
         # get user profile
-        profile_response = get_user_profile(request)
-        profile_data = profile_response.json()
+        profile_data = fetch_user_profile(request)
 
+        print("attepting to create user")
         # check if user exists, if not create new user
-        user, created = User.objects.get_or_create(
-            spotify_id=profile_data['id'],
-            defaults={
-                'username': profile_data['display_name'],
-                'email': profile_data['email'],
-            },
-        )
+        try:
+            user, created = User.objects.get_or_create(
+                username=profile_data['id'],
+                defaults={
+                    'username': profile_data['display_name'],
+                    'email': profile_data['email'],
+                },
+            )
+            if created:
+                print(f"Created new user : {user.username}")
+            else:
+                print(f"failed to create new user : {user.username}")
+        except KeyError as e:
+            print(f"KeyError: {e}")
+            print(f"profile_data: {profile_data}")
 
-        if created:
-            print(f"Created new user : {user.username}")
 
-        # log the user in
-        login(request, user)
+        # # log the user in
+        # login(request, user)
 
         return redirect('http://localhost:3000')
     except RequestException as e:
@@ -135,24 +164,8 @@ def get_user_profile(request):
     """
     Get the user's profile information.
     """
-    # access_token = cache.get('spotify_access_token')
-    access_token = utils.get_access_token()
-
-    if not access_token:
-        return JsonResponse({"error": "Access token not found. Please authenticate with Spotify."}, status=401)
-    
-    headers = {
-        'Authorization': f'Bearer {access_token}'
-    }
-
-    print(f"[{datetime.now()}] GET : Requesting User Profile")
-    response = requests.get('https://api.spotify.com/v1/me', headers=headers)
-
-    if response.status_code == 200:
-        return JsonResponse(response.json(), safe=False)
-    else:
-        print("ERROR : Fetching user profile : ", response.text)
-        return JsonResponse({"error": "Fetching user profile : " + response.text}, status=response.status_code)
+    profile_data = fetch_user_profile(request)
+    return JsonResponse(profile_data, safe=False)
     
 
 def get_user_top_items(request, type, limit):

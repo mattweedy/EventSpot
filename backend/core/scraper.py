@@ -7,7 +7,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 
 from playwright.async_api import async_playwright
-from models import Event, Venue
+from backend.core.models import Event, Venue
 from bs4 import BeautifulSoup
 from rich import print
 import requests
@@ -62,7 +62,9 @@ async def event_data_get():
     """
     Get event data from Eventbrite API.
     """
-    file = 'backend/spotevent/data/test-data/event_ids_scraped_TENSEP.txt'
+    # script_dir = os.path.dirname(__file__)
+    # file = os.path.join(script_dir, 'backend\\spotevent\\data/test-data/eventbrite-ids-04-03-24.txt')
+    file = 'backend/spotevent/data/test-data/eventbrite-ids-04-03-24.txt'
 
     with open(file, 'r') as f:
         event_ids = f.read().rstrip().split('\n')
@@ -77,6 +79,7 @@ async def event_data_get():
             url = EVENT_DATA_GET_URL.format(event_ids_string)
             # make API call
             response = requests.get(url)
+            await asyncio.sleep(7)
     
             try:
                 data = json.loads(response.text)
@@ -95,7 +98,7 @@ async def event_data_get():
                         print(e)
 
                     try:
-                        # new_event = Event(event) commented after use, check if has impact
+                        new_event = Event(event)
                         new_event = Event.create_from_event_and_venue(event, new_venue)
                         print(new_event)
                         print("new event id :", new_event.event_id)
@@ -104,8 +107,11 @@ async def event_data_get():
                         print(e)
                     count += 1
             except json.decoder.JSONDecodeError:
-                print("Error decoding JSON.")
+                print("Error decoding JSON.", response.text)
                 return
+            except Exception as e:
+                print("Error occurred while making API call.", response.text)
+                print(e)
             
     return (events, venues)
 

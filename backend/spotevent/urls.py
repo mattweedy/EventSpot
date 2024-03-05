@@ -17,10 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from core.views import EventView, VenueView
+from backend.core.views import EventView, VenueView
 # from core.views import EventView, VenueView, UserView
-from spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
-from spotify.spotify_auth import *
+from backend.spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
+from backend.spotify.spotify_auth import *
 
 # router = DefaultRouter()
 # router.register(r'events', EventView, basename='events')

@@ -3,12 +3,12 @@ import sys
 print(sys.path)
 import os
 import django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.spotevent.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.spotevent')
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 
 from playwright.async_api import async_playwright
-from models import Event, Venue
+from backend.core.models import Event, Venue
 from bs4 import BeautifulSoup
 from rich import print
 import requests

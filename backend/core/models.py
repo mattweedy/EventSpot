@@ -12,7 +12,7 @@ class Event(models.Model):
     name = models.CharField(max_length=255)
     event_id = models.CharField(max_length=255, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    venue = models.ForeignKey("Venue", on_delete=models.CASCADE)
+    venue_id = models.IntegerField()
     venue_identifier = models.CharField(max_length=255, null=True, blank=True)
     image = models.URLField()
     tags = models.CharField(max_length=255)
@@ -25,8 +25,8 @@ class Event(models.Model):
         name = event["name"]
         event_id = event["eventbrite_event_id"]
         price = event["ticket_availability"]["minimum_ticket_price"]["major_value"]
-        venue = venue["id"]
-        venue_identifier = venue["venue_id"]
+        venue_id = venue.id
+        venue_identifier = venue.venue_id
         image = event["image"]["url"]
         tags = ','.join(tag['display_name'].lower() for tag in event['tags'])
         tickets_url = event["tickets_url"]
@@ -40,7 +40,7 @@ class Event(models.Model):
                 'name': name,
                 'event_id': event_id,
                 'price': price,
-                'venue': venue, # this should be Venue.venue_id pretty much
+                'venue_id': venue_id, # this should be Venue.venue_id pretty much
                 'venue_identifier': venue_identifier,
                 'image': image,
                 'tags': tags,

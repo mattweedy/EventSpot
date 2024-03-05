@@ -1,3 +1,4 @@
+import random
 import sys
 print(sys.path)
 import os
@@ -79,7 +80,7 @@ async def event_data_get():
             url = EVENT_DATA_GET_URL.format(event_ids_string)
             # make API call
             response = requests.get(url)
-            await asyncio.sleep(7)
+            await asyncio.sleep(random.randint(3,13))
     
             try:
                 data = json.loads(response.text)
@@ -90,7 +91,7 @@ async def event_data_get():
                 for event in events:
                     try:
                         new_venue = Venue.create_from_event(event)
-                        print (f"------------------------\nevent {count}")
+                        print (f"------------------------\nevent {count} / 20")
                         print(new_venue)
                         print("new venue id :", new_venue.venue_id)
                     except Exception as e:

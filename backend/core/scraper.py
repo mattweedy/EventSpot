@@ -68,7 +68,9 @@ async def event_data_get():
     file = 'backend/spotevent/data/test-data/eventbrite-ids-04-03-24.txt'
 
     with open(file, 'r') as f:
-        event_ids = f.read().rstrip().split('\n')
+        event_ids = f.read()
+        event_ids = event_ids.split('\n')
+        event_ids = [x.rstrip() for x in event_ids]
         venues = {}
         events = {}
 
@@ -76,11 +78,14 @@ async def event_data_get():
         for i in range(0, len(event_ids), 20):
             # create a string of 20 event IDs separated by commas
             event_ids_string = ','.join(event_ids[i:i+20])
+            print(event_ids_string)
             # create API call URL with 20 event IDs
             url = EVENT_DATA_GET_URL.format(event_ids_string)
+            # print(url)
+            # raise Exception
             # make API call
             response = requests.get(url)
-            await asyncio.sleep(random.randint(3,13))
+            await asyncio.sleep(random.randint(1,4))
     
             try:
                 data = json.loads(response.text)
@@ -105,7 +110,16 @@ async def event_data_get():
                         print("new event id :", new_event.event_id)
                     except Exception as e:
                         print("Error occurred while creating event object.")
-                        print(e)
+                        print(f"{e = }--------------------\n"
+                              f"{event["name"] =}\n"
+                              f"{event["eventbrite_event_id"] = }\n"
+                              f"{event["ticket_availability"]["minimum_ticket_price"]["major_value"] = }\n"
+                              f"{event["image"]["url"]}\n"
+                              f"{event["tickets_url"] = }\n"
+                              f"{event["start_date"] = }\n"
+                              f"{event["summary"] = }\n"
+                              f"---------------------------"
+                        )
                     count += 1
             except json.decoder.JSONDecodeError:
                 print("Error decoding JSON.", response.text)

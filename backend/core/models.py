@@ -9,16 +9,16 @@ class Event(models.Model):
         app_label = "backend"
 
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    event_id = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=500)
+    event_id = models.CharField(max_length=500, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     venue_id = models.IntegerField()
-    venue_identifier = models.CharField(max_length=255, null=True, blank=True)
-    image = models.URLField()
-    tags = models.CharField(max_length=255)
-    tickets_url = models.URLField()
-    date = models.CharField(max_length=255)
-    summary = models.TextField(max_length=255, blank=True, null=True)
+    venue_identifier = models.CharField(max_length=500, null=True, blank=True)
+    image = models.URLField(max_length=500)
+    tags = models.CharField(max_length=500)
+    tickets_url = models.URLField(max_length=500)
+    date = models.CharField(max_length=500)
+    summary = models.TextField(max_length=500, blank=True, null=True)
 
     @classmethod
     def create_from_event_and_venue(cls, event, venue):

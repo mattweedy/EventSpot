@@ -144,6 +144,7 @@ def top_tracks(request):
     try:
         offset = request.GET.get('offset', 0)
         limit = request.GET.get('limit', 25)
+        username = request.GET.get('username', None)
         top_tracks = get_user_top_items(request=access_token, type='tracks', limit=limit, offset=offset)
         # return JsonResponse(top_tracks, safe=False)
 
@@ -152,7 +153,7 @@ def top_tracks(request):
 
             for track in tracks:
                 try:
-                    new_track = Track.create_track_from_spotify(cls=Track, track=track)
+                    new_track = Track.create_track_from_spotify(cls=Track, track=track, user=username)
                     print(new_track)
                 except Exception as e:
                     print("An error occurred while creating track object")
@@ -179,6 +180,7 @@ def top_artists(request):
     try:
         offset = request.GET.get('offset', 0)
         limit = request.GET.get('limit', 25)
+        username = request.GET.get('username', None)
         top_artists = get_user_top_items(request=access_token, type='artists', limit=limit, offset=offset)
 
         if 'items' in top_artists:
@@ -188,21 +190,11 @@ def top_artists(request):
                 try:
                     # add genres to the artist
                     artist['genres'] = add_genres(artist['genres'])
-                    new_artist = Artist.create_artist_from_spotify(cls=Artist, artist=artist)
+                    new_artist = Artist.create_artist_from_spotify(cls=Artist, artist=artist, user=username)
                     print(new_artist)
                 except Exception as e:
                     print("An error occurred while creating track object")
                     print(e)
-
-                    # convert the Artist object to a dictionary
-                    # artist_dict = new_artist.__dict__
-
-                    # remove any non-serializable attributes
-                    # artist_dict = {k: v for k, v in artist_dict.items() if not callable(v)}
-
-                # except Exception as e:
-                    # print("An error occurred while creating artist object")
-                    # print(e)
         else:
             print("No items found in top_artists")
             return JsonResponse({"error": "No items found in top_artists"})

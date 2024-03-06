@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.db import models
+from backend import utils
 from backend.spotify.spotify_auth import get_artist_genres
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -7,14 +8,15 @@ class Track(models.Model):
     class Meta:
         app_label = "backend"
 
-    name = models.CharField(max_length=200)
-    spotify_id = models.CharField(max_length=200)
-    artist = models.CharField(max_length=200)
-    artist_id = models.CharField(max_length=200)
-    genres = models.CharField(max_length=200)
+    name = models.CharField(max_length=500)
+    spotify_id = models.CharField(max_length=500)
+    artist = models.CharField(max_length=500)
+    artist_id = models.CharField(max_length=500)
+    genres = models.CharField(max_length=500)
     popularity = models.IntegerField()
+    users = models.CharField(max_length=250, default="")
 
-    def create_track_from_spotify(cls, track):
+    def create_track_from_spotify(cls, track, user):
         name = track['name']
         spotify_id = track['id']
         artist = track['artists'][0]['name']
@@ -23,13 +25,24 @@ class Track(models.Model):
 
         # for genres, pull genres from artist
         try:
-            artist_obj = Artist.objects.get(spotify_id=artist_id)
-            if artist_obj.genres:
-                genres = artist_obj.genres
+            # artist_obj = Artist.objects.get(spotify_id=artist_id)
+            # if artist_obj.genres:
+            #     genres = artist_obj.genres
+            # else:
+            #     genres = get_artist_genres(artist_id=artist_id)
+            #     artist_obj.genres = genres
+            #     artist_obj.save()
+            artist_obj = Artist.objects.filter(spotify_id=artist_id).first()
+            if artist_obj:
+                if artist_obj.genres:
+                    genres = artist_obj.genres
+                else:
+                    genres = get_artist_genres(artist_id=artist_id)
+                    artist_obj.genres = genres
+                    artist_obj.save()
             else:
                 genres = get_artist_genres(artist_id=artist_id)
-                artist_obj.genres = genres
-                artist_obj.save()
+                Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, popularity=popularity or 0)
         except ObjectDoesNotExist:
             genres = get_artist_genres(artist_id=artist_id)
             Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, popularity=popularity or 0)
@@ -53,6 +66,12 @@ class Track(models.Model):
             track_obj = cls.objects.create(spotify_id=spotify_id, **defaults)
             print("A new track was created.")
 
+        # attatch the user who added the track
+        if utils.get_access_token():
+            if user not in track_obj.users:
+                track_obj.users += user + ","
+                track_obj.save()
+
         return track_obj
 
     def __str__(self):
@@ -62,7 +81,8 @@ class Track(models.Model):
             f"ID         : {self.spotify_id}\n"
             f"ARTIST     : {self.artist}\n"
             f"GENRES     : {self.genres}\n"
-            f"POPULARITY : {self.popularity}"
+            f"POPULARITY : {self.popularity}\n"
+            f"USERS      : {self.users}"
             f"\n------------------------"
         )
     
@@ -71,13 +91,14 @@ class Artist(models.Model):
     class Meta:
         app_label = "backend"
 
-    name = models.CharField(max_length=200)
-    spotify_id = models.CharField(max_length=200)
-    genres = models.CharField(max_length=200)
-    link = models.CharField(max_length=200)
+    name = models.CharField(max_length=500)
+    spotify_id = models.CharField(max_length=500)
+    genres = models.CharField(max_length=500)
+    link = models.CharField(max_length=500)
     popularity = models.IntegerField()
+    users = models.CharField(max_length=250, default="")
 
-    def create_artist_from_spotify(cls, artist):
+    def create_artist_from_spotify(cls, artist, user):
         # check that the artist dictionary contains all the necessary keys
         required_keys = ['id', 'name', 'genres', 'external_urls', 'popularity']
         for key in required_keys:
@@ -98,6 +119,11 @@ class Artist(models.Model):
                 popularity=artist['popularity'] or 0
             )
             artist_obj.save()
+
+        if utils.get_access_token():
+            artist_obj.users += user + ","
+            artist_obj.save()
+
         return artist_obj
 
     def to_dict(self):
@@ -107,6 +133,7 @@ class Artist(models.Model):
             f"ID         : {self.spotify_id}\n"
             f"GENRES     : {self.genres}\n"
             f"LINK       : {self.link}\n"
-            f"POPULARITY : {self.popularity}"
+            f"POPULARITY : {self.popularity}\n"
+            f"USERS      : {self.users}"
             f"\n------------------------"
         )

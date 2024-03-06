@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime, timedelta
+from datetime import datetime
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import RequestException
 from backend.core.models import User
@@ -84,7 +84,10 @@ def fetch_user_profile(request):
         'Authorization': f'Bearer {access_token}'
     }
 
-    print(f"[{datetime.now()}] GET : Requesting User Profile")
+    # print(f"[{datetime.now()}] GET : Requesting User Profile")
+    # current format : [2024-03-06 18:12:30.934581]
+    print(f"[{datetime.now().strftime('%d/%b/%Y %H:%M:%S')}] GET : Requesting User Profile")
+    # target format  : [06/Mar/2024 18:12:31]
     response = requests.get('https://api.spotify.com/v1/me', headers=headers)
 
     if response.status_code == 200:
@@ -182,7 +185,7 @@ def get_user_top_items(request, type, limit, offset):
         'Authorization': f'Bearer {access_token}'
     }
 
-    print(f"[{datetime.now()}] GET : Requesting User Top {limit} {type} with offset {offset}")
+    print(f"[{datetime.now().strftime('%d/%b/%Y %H:%M:%S')}] GET : Requesting User Top {limit} {type} with offset {offset}")
     response = requests.get(f'https://api.spotify.com/v1/me/top/{type}?limit={limit}&offset={offset}', headers=headers)
 
     if response.status_code == 200:
@@ -217,7 +220,7 @@ def get_artist_genres(artist_id):
         'Authorization': f'Bearer {access_token}'
     }
 
-    print(f"[{datetime.now()}] GET : Requesting Artist Genres")
+    print(f"[{datetime.now().strftime('%d/%b/%Y %H:%M:%S')}] GET : Requesting Artist Genres")
     response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}', headers=headers)
     response_json = response.json()
     genres = response_json['genres']

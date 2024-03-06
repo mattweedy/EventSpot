@@ -89,7 +89,7 @@ function App() {
             let items = [];
             for (let i = 0; i < 4; i++) {
                 try {
-                    const response = await axios.get(`http://localhost:8000/spotify/top/${type}?limit=${limit}&offset=${i * 20}&username=${userProfile.display_name}`, {
+                    const response = await axios.get(`http://localhost:8000/spotify/top/${type}?limit=${limit}&offset=${i * 25}&username=${userProfile.display_name}`, {
                         headers: {
                             'Authorization': `Bearer ${accessToken}`
                         }

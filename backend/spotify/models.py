@@ -121,12 +121,13 @@ class Artist(models.Model):
             artist_obj.save()
 
         if utils.get_access_token():
-            artist_obj.users += user + ","
-            artist_obj.save()
+            if user not in artist_obj.users:
+                artist_obj.users += user + ","
+                artist_obj.save()
 
         return artist_obj
 
-    def to_dict(self):
+    def __str__(self):
         return (
             f"------------------------\n"
             f"ARTIST     : {self.name}\n"

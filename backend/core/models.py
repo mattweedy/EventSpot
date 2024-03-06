@@ -135,8 +135,8 @@ class User(models.Model):
     queer_events = models.BooleanField(default=False, null=True)
     past_events = models.TextField(null=True)
     recommended_events = models.TextField(null=True)
-    top_tracks = models.TextField(null=True)
-    top_artists = models.TextField(null=True)
+    # top_tracks = models.TextField(null=True)
+    # top_artists = models.TextField(null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 

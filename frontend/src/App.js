@@ -8,10 +8,12 @@ import Logout from './components/Login/Logout';
 
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [accessToken, setAccessToken] = useState('');
-    const [userProfile, setUserProfile] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [accessToken, setAccessToken] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userProfile, setUserProfile] = useState(null);
+    const [isFetchingTopItems, setIsFetchingTopItems] = useState({ tracks: false, artists: false });
+    const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
 
     useEffect(() => {
         window.onbeforeunload = function () {
@@ -26,7 +28,8 @@ function App() {
 
 
     const fetchUserProfile = useCallback(async () => {
-        if (accessToken) {
+        if (accessToken && !isFetchingUserProfile) {
+            setIsFetchingUserProfile(true);
             setIsLoading(true);
             console.log("USER PROFILE : sending backend request to spotify/profile...");
             axios.get('http://localhost:8000/spotify/profile', {
@@ -47,6 +50,10 @@ function App() {
                     setIsLoading(false);
                 });
         }
+    }, [accessToken, isFetchingUserProfile]);
+
+    useEffect(() => {
+        setIsFetchingUserProfile(false);
     }, [accessToken]);
 
 
@@ -74,38 +81,33 @@ function App() {
             });
     }, []);
 
-
+    
     const fetchTopItems = useCallback(async (type) => {
-        // console.log("accessToken:", accessToken);
-
-        if (type === 'tracks') {
-            console.log("GETTING TOP TRACKS : sending backend request to spotify/top/tracks...");
-            axios.get(`http://localhost:8000/spotify/top/${type}`, {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
+        if (accessToken && !isFetchingTopItems[type]) {
+            setIsFetchingTopItems(prevState => ({ ...prevState, [type]: true }));
+            let limit = 25;
+            let items = [];
+            for (let i = 0; i < 4; i++) {
+                try {
+                    const response = await axios.get(`http://localhost:8000/spotify/top/${type}?limit=${limit}&offset=${i * 20}`, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    });
+                    console.log(`Successfully fetched page ${i + 1} of top ${type} from backend.`, response.data.items, "items");
+                    items = items.concat(response.data.items);
+                } catch (error) {
+                    console.error(`Error fetching page ${i + 1} of top ${type} from backend:`, error);  
                 }
-            })
-                .then(response => {
-                    console.log("GETTING TOP TRACKS : Top tracks data received from backend:", response.data);
-                })
-                .catch(error => {
-                    console.error("GETTING TOP TRACKS : Error fetching top tracks:", error);
-                });
-        } else if (type === 'artists') {
-            console.log("GETTING TOP ARTISTS : sending backend request to spotify/top/artists...");
-            axios.get(`http://localhost:8000/spotify/top/${type}`, {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            })
-                .then(response => {
-                    console.log("GETTING TOP ARTISTS : Top artists data received from backend:", response);
-                })
-                .catch(error => {
-                    console.error("GETTING TOP ARTISTS : Error fetching top artists:", error);
-                });
+            }
+            console.log(`Total number of top ${type} fetched: ${items.length}`);
         }
     }, [accessToken]);
+
+
+    useEffect(() => {
+        setIsFetchingTopItems(prevState => ({ ...prevState, tracks: false }));
+    }, [userProfile]);
 
 
     useEffect(() => {

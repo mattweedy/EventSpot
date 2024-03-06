@@ -168,7 +168,7 @@ def get_user_profile(request):
     return JsonResponse(profile_data, safe=False)
     
 
-def get_user_top_items(request, type, limit):
+def get_user_top_items(request, type, limit, offset):
     """
     Get the user's top 20 tracks or artists.
     """
@@ -182,15 +182,14 @@ def get_user_top_items(request, type, limit):
         'Authorization': f'Bearer {access_token}'
     }
 
-    print(f"[{datetime.now()}] GET : Requesting User Top 20 {type}")
-    response = requests.get(f'https://api.spotify.com/v1/me/top/{type}?limit={limit}', headers=headers)
+    print(f"[{datetime.now()}] GET : Requesting User Top {limit} {type} with offset {offset}")
+    response = requests.get(f'https://api.spotify.com/v1/me/top/{type}?limit={limit}&offset={offset}', headers=headers)
 
     if response.status_code == 200:
-        # return JsonResponse(response.json(), safe=False)
         return json.loads(response.text)
     else:
-        print(f"ERROR : Fetching user top 20 {type} : ", response.text)
-        return JsonResponse({"error": f"Fetching user top 20 {type} : " + response.text}, status=response.status_code)
+        print(f"ERROR : Fetching user top {limit} {type} with offset {offset} : ", response.text)
+        return JsonResponse({"error": f"Fetching user top {limit} {type} with offset {offset} : " + response.text}, status=response.status_code)
 
 
 def get_artist_genres(artist_id):

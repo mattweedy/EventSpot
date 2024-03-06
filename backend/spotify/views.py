@@ -142,7 +142,9 @@ def top_tracks(request):
         return JsonResponse({"TOKEN ERROR : Couldn't retrieve access token": str(e)})
 
     try:
-        top_tracks = get_user_top_items(access_token, 'tracks', 20)
+        offset = request.GET.get('offset', 0)
+        limit = request.GET.get('limit', 25)
+        top_tracks = get_user_top_items(request=access_token, type='tracks', limit=limit, offset=offset)
         # return JsonResponse(top_tracks, safe=False)
 
         if 'items' in top_tracks:
@@ -175,7 +177,9 @@ def top_artists(request):
         return JsonResponse({"TOKEN ERROR : Couldn't retrieve access token": str(e)})
     
     try:
-        top_artists = get_user_top_items(access_token, 'artists', 20)
+        offset = request.GET.get('offset', 0)
+        limit = request.GET.get('limit', 25)
+        top_artists = get_user_top_items(request=access_token, type='artists', limit=limit, offset=offset)
 
         if 'items' in top_artists:
             artists = top_artists["items"]
@@ -186,16 +190,19 @@ def top_artists(request):
                     artist['genres'] = add_genres(artist['genres'])
                     new_artist = Artist.create_artist_from_spotify(cls=Artist, artist=artist)
                     print(new_artist)
+                except Exception as e:
+                    print("An error occurred while creating track object")
+                    print(e)
 
                     # convert the Artist object to a dictionary
-                    artist_dict = new_artist.__dict__
+                    # artist_dict = new_artist.__dict__
 
                     # remove any non-serializable attributes
-                    artist_dict = {k: v for k, v in artist_dict.items() if not callable(v)}
+                    # artist_dict = {k: v for k, v in artist_dict.items() if not callable(v)}
 
-                except Exception as e:
-                    print("An error occurred while creating artist object")
-                    print(e)
+                # except Exception as e:
+                    # print("An error occurred while creating artist object")
+                    # print(e)
         else:
             print("No items found in top_artists")
             return JsonResponse({"error": "No items found in top_artists"})

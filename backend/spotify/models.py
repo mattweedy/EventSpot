@@ -78,30 +78,26 @@ class Artist(models.Model):
     popularity = models.IntegerField()
 
     def create_artist_from_spotify(cls, artist):
-        name = artist["name"]
-        spotify_id = artist["id"]
-        try:
-            genres = artist["genres"]
-        except KeyError:
-            genres = "N/A"
-        link = artist["external_urls"]["spotify"]
-        popularity = artist["popularity"]
+        # check that the artist dictionary contains all the necessary keys
+        required_keys = ['id', 'name', 'genres', 'external_urls', 'popularity']
+        for key in required_keys:
+            if key not in artist:
+                raise ValueError(f"Key '{key}' not found in artist dictionary")
 
-        artist_obj, created = cls.objects.update_or_create(
-            spotify_id=artist["id"],
-            defaults={
-                'name': name,
-                'spotify_id': spotify_id,
-                'genres': genres,
-                'link': link,
-                'popularity': popularity,
-            },
-        )
-        if created:
-            print("A new artist was created.")
-        else:
-            print("An existing artist was updated.")
+        # check that the 'external_urls' dictionary contains the 'spotify' key
+        if 'spotify' not in artist['external_urls']:
+            raise ValueError("'spotify' key not found in 'external_urls' dictionary")
 
+        artist_obj, created = cls.objects.filter(spotify_id=artist['id']).first(), True
+        if not artist_obj:
+            artist_obj = cls(
+                spotify_id=artist['id'], 
+                name=artist['name'], 
+                genres=artist['genres'], 
+                link=artist['external_urls']['spotify'], 
+                popularity=artist['popularity'] or 0
+            )
+            artist_obj.save()
         return artist_obj
 
     def to_dict(self):

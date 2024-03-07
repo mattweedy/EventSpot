@@ -102,7 +102,7 @@ function App() {
             }
             console.log(`Total number of top ${type} fetched: ${items.length}`);
         }
-    }, [accessToken, userProfile]);
+    }, [accessToken, userProfile, isFetchingTopItems]);
 
 
     useEffect(() => {

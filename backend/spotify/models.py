@@ -25,21 +25,18 @@ class Track(models.Model):
 
         # for genres, pull genres from artist
         try:
-            # artist_obj = Artist.objects.get(spotify_id=artist_id)
-            # if artist_obj.genres:
-            #     genres = artist_obj.genres
-            # else:
-            #     genres = get_artist_genres(artist_id=artist_id)
-            #     artist_obj.genres = genres
-            #     artist_obj.save()
+            # check if artist exists in the database
             artist_obj = Artist.objects.filter(spotify_id=artist_id).first()
             if artist_obj:
+                # if the artist has genres, return them
                 if artist_obj.genres:
                     genres = artist_obj.genres
+                # if the artist doesn't have genres, fetch them from Spotify API
                 else:
                     genres = get_artist_genres(artist_id=artist_id)
                     artist_obj.genres = genres
                     artist_obj.save()
+            # if the artist doesn't exist in the database, continue to fetch genres from Spotify API
             else:
                 genres = get_artist_genres(artist_id=artist_id)
                 Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, popularity=popularity or 0)
@@ -55,14 +52,18 @@ class Track(models.Model):
             'popularity': popularity,
         }
 
+        # create or update the Track
         try:
+            # check if track exists in the database
             track_obj = cls.objects.get(spotify_id=spotify_id)
             for key, value in defaults.items():
+                # update the track if any of the fields have changed
                 if getattr(track_obj, key) != value:
                     setattr(track_obj, key, value)
             track_obj.save()
             print("An existing track was updated.")
         except cls.DoesNotExist:
+            # create a new track if it doesn't exist
             track_obj = cls.objects.create(spotify_id=spotify_id, **defaults)
             print("A new track was created.")
 

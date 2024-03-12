@@ -43,34 +43,6 @@ const DisplayEventVenueData = () => {
                     </div>
                 </div>
             )}
-
-            {/* <h1 style={{ textAlign: 'center' }}>Event Data Generated From Django</h1>
-            <div style={{ display: 'flex' }}>
-                <div style={{ flex: 1 }}>
-                    {events && events.map(event => (
-                        <div key={event.id}>
-                            <hr></hr>
-                            <img src={event.image} style={{ maxWidth: "50%" }} alt=''></img>
-                            <h2>{event.name}</h2>
-                            <p>{event.event_id}</p>
-                            <p>{event.price}</p>
-                            <p>{event.summary}</p>
-                            <a href={event.tickets_url}>tickets</a>
-                        </div>
-                    ))}
-                </div>
-                <div style={{ flex: 1 }}>
-                    {venues && venues.map(venue => (
-                        <div key={venue.id}>
-                            <hr></hr>
-                            <h2>{venue.name}</h2>
-                            <p>{venue.venue_id}</p>
-                            <p>{venue.address}</p>
-                            <p>{venue.summary}</p>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
         </div>
     );
 };

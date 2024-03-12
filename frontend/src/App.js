@@ -143,9 +143,7 @@ function App() {
                             isLoggedIn={isLoggedIn}
                         />
                         <DisplayEventVenueData />
-                        {/* <button onClick={() => fetchTopItems('tracks')}>Get Top Tracks</button> */}
-                        <br />
-                        {/* <button onClick={() => fetchTopItems('artists')}>Get Top Artists</button> */}
+                        {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
                         <br />
                         <Logout />
                     </div>

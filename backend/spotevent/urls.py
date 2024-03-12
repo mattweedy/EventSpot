@@ -14,23 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import path
 from django.contrib import admin
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from backend.core.views import EventView, VenueView
-# from core.views import EventView, VenueView, UserView
-from backend.spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
+from backend.core.views import EventView, VenueView, UserView
 from backend.spotify.spotify_auth import *
-
-# router = DefaultRouter()
-# router.register(r'events', EventView, basename='events')
-# router.register(r'venues', VenueView, basename='venues')
+from backend.spotify.views import TrackView, ArtistView
+from backend.spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/events/', EventView.as_view({'get':'list'}), name='events'),
     path('api/venues/', VenueView.as_view({'get':'list'}), name='venues'),
-    # path('api/users/', UserView.as_view({'get':'list'}), name='users'),
+    path('api/users/', UserView.as_view({'get':'list'}), name='users'),
+    path('api/tracks/', TrackView.as_view({'get':'list'}), name='tracks'),
+    path('api/artists/', ArtistView.as_view({'get':'list'}), name='artists'),
     path('spotify/login', start_auth, name='start_auth'),
     path('spotify/logout', logout_view, name='logout'),
     path('spotify/callback', spotify_callback, name='spotify_callback'),
@@ -38,5 +35,4 @@ urlpatterns = [
     path('spotify/logged_in', check_logged_in, name='check_logged_in'),
     path('spotify/top/tracks', top_tracks, name='get_user_top_items'),
     path('spotify/top/artists', top_artists, name='get_user_top_items'),
-    # path('spotify/artist_genres/<str:artist_id>', get_artist_genres, name='get_artist_genres'),
 ]

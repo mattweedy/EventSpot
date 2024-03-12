@@ -1,11 +1,23 @@
 import utils
-from django.http import JsonResponse
+from rest_framework import viewsets
 from django.core.cache import cache
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from .spotify_auth import get_user_profile, get_user_top_items
+from . spotify_auth import get_user_profile, get_user_top_items
 from backend.spotify.models import Track, Artist
+from . serializer import TrackSerializer, ArtistSerializer
+
+
+class TrackView(viewsets.ModelViewSet):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
+
+class ArtistView(viewsets.ModelViewSet):
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
+
 
 genre_dict = {
     "techno": ["techno", "electronic", "edm", "dance", "rave"],

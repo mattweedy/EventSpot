@@ -1,5 +1,4 @@
 import React from 'react';
-// import axios from 'axios';
 
 // basic react login UI component for user logout
 // uses the spotify web api to logout the user

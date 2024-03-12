@@ -23,3 +23,62 @@ span {
     color: #28ff68;
     /* color: #ff9d3b; */
 }
+
+.priceRange {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 18vh;
+}
+
+.slider {
+    width: 100%;
+    height: 2px;
+    background-color: #28ff694d;
+    margin-top: 50px;
+}
+
+.slider .thumb {
+    width: 23px;
+    height: 23px;
+    cursor: grab;
+    background: #fff;
+    border-radius: 50%;
+    border: 2px solid #28ff68;
+    top: -12px;
+}
+
+.box {
+    width: 100%;
+    max-width: 420px;
+    padding: 36px 32px;
+    background: #4b4b4b;
+    border-radius: 10px;
+    color: #fff;
+    text-align: left;
+}
+
+.values {
+    margin: 0;
+    font-weight: 500;
+    color: #28ff68;
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+h3 span {
+    font-weight: 500;
+    color: #fff;
+}
+
+small {
+    font-size: 14px;
+    margin-top: 8px;
+    display: block;
+    color: #cecece;
+}

@@ -5,7 +5,11 @@ import Login from './components/Login/Login';
 import Header from './components/Header';
 import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
 import Logout from './components/Login/Logout';
+import QuizForm from './components/Quiz/QuizForm';
 
+// TODO: display recommendations
+// TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
+// TODO: Implement a loading spinner for when the app is fetching data from the backend
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -97,7 +101,7 @@ function App() {
                     console.log(`Successfully fetched page ${i + 1} of top ${type} from backend.`, response.data.items, "items");
                     items = items.concat(response.data.items);
                 } catch (error) {
-                    console.error(`Error fetching page ${i + 1} of top ${type} from backend:`, error);  
+                    console.error(`Error fetching page ${i + 1} of top ${type} from backend:`, error);
                 }
             }
             console.log(`Total number of top ${type} fetched: ${items.length}`);
@@ -138,7 +142,7 @@ function App() {
             return (
                 <div style={{ backgroundColor: '#202020', color: '#fff' }}>
                     <div style={{ textAlign: 'center' }}>
-                        <Header 
+                        <Header
                             userProfile={userProfile}
                             isLoggedIn={isLoggedIn}
                         />
@@ -154,8 +158,9 @@ function App() {
         return (
             <div style={{ backgroundColor: '#202020', color: '#fff' }}>
                 <div style={{ textAlign: 'center' }}>
-                    <Header isLoggedIn={isLoggedIn}/>
+                    <Header isLoggedIn={isLoggedIn} />
                     <Login />
+                    <QuizForm />
                 </div>
             </div>
         );

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PriceRange from "./PriceRange";
+// import useFetchData from "../Data/useFetchData";
+import axios from "axios";
 
-export default function QuizForm() {
-    // TODO: figure out how to handle the selectedVenues and selectedGenres fields
+export default function QuizForm({ username }) {
     const [formData, setFormData] = useState({
+        username: username,
         selectedVenues: [],
         selectedGenres: [],
         priceRange: [0, 100], // this is a range
@@ -11,6 +13,13 @@ export default function QuizForm() {
         howSoon: '', // this is a date field(?)
         city: '', // maybe use a dropdown
     });
+
+    useEffect(() => {
+        setFormData(prev => ({
+            ...prev,
+            username: username
+        }));
+    }, [username]);
 
     const handleFormChange = (e) => {
         setFormData(prev => ({
@@ -26,24 +35,43 @@ export default function QuizForm() {
         }));
     }
 
-    // TODO: store the form data in user preferences
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // console.log(formData);
+        const data = {
+            username: formData.username,
+            venuePreferences: formData.selectedVenues,
+            genrePreferences: formData.selectedGenres,
+            priceRange: formData.priceRange,
+            queerPreference: formData.queerPreference,
+            howSoon: formData.howSoon,
+            city: formData.city,
+        };
+
+        axios.post('http://localhost:8000/api/preferences', data)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
 
 
-    // TODO: insert price range component
     // TODO: handle cities
     return (
-        <form>
-            <input
+        <form onSubmit={handleSubmit}>
+            <input className="venueCheckbox"
                 type="checkbox"
                 onChange={handleFormChange}
                 name="selectedVenues"
             />
-            <input
+            <input className="genreCheckbox"
                 type="checkbox"
                 onChange={handleFormChange}
                 name="selectedGenres"
             />
-            {/* TODO: insert price range component */}
             <PriceRange
                 values={formData.priceRange}
                 setValues={handlePriceRangeChange}
@@ -65,6 +93,7 @@ export default function QuizForm() {
                 onChange={handleFormChange}
                 name="city"
             />
+            <button type="submit">Submit</button>
         </form>
     );
 }

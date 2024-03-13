@@ -5,7 +5,7 @@ const useFetchData = (endpoint) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        const validEndpoints = ['/events/', '/venues/'];
+        const validEndpoints = ['/events/', '/venues/', '/users/', '/tracks/', '/artists/'];
 
         if (!validEndpoints.includes(endpoint)) {
             console.error('Invalid endpoint:', endpoint);

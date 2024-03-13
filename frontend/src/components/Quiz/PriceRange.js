@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import '../../global.css';
 import Slider from 'react-slider';
 

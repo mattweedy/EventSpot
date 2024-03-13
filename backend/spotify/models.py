@@ -1,4 +1,3 @@
-from django.apps import apps
 from django.db import models
 from backend import utils
 from backend.spotify.spotify_auth import get_artist_genres
@@ -56,12 +55,18 @@ class Track(models.Model):
         try:
             # check if track exists in the database
             track_obj = cls.objects.get(spotify_id=spotify_id)
+            updated = False
             for key, value in defaults.items():
                 # update the track if any of the fields have changed
                 if getattr(track_obj, key) != value:
                     setattr(track_obj, key, value)
-            track_obj.save()
-            print("An existing track was updated.")
+                    updated = True
+            if updated:
+                track_obj.save()
+                print("An existing track was updated.")
+            else:
+                # print("An existing track was found.")
+                pass
         except cls.DoesNotExist:
             # create a new track if it doesn't exist
             track_obj = cls.objects.create(spotify_id=spotify_id, **defaults)
@@ -110,8 +115,11 @@ class Artist(models.Model):
         if 'spotify' not in artist['external_urls']:
             raise ValueError("'spotify' key not found in 'external_urls' dictionary")
 
-        artist_obj, created = cls.objects.filter(spotify_id=artist['id']).first(), True
-        if not artist_obj:
+        artist_obj = cls.objects.filter(spotify_id=artist['id']).first()
+        if artist_obj:
+            # print("An existing artist was found.")
+            pass
+        else:
             artist_obj = cls(
                 spotify_id=artist['id'], 
                 name=artist['name'], 
@@ -120,6 +128,7 @@ class Artist(models.Model):
                 popularity=artist['popularity'] or 0
             )
             artist_obj.save()
+            print("A new artist was created.")
 
         if utils.get_access_token():
             if user not in artist_obj.users:

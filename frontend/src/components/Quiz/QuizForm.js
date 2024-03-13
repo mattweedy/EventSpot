@@ -5,8 +5,10 @@ import VenueCheckbox from "./VenueCheckbox";
 import GenreCheckbox from "./GenreCheckbox";
 import useFetchData from "../Data/useFetchData";
 
-// ! Only allow 3-5 venues to be selected
-// TODO: handle genres
+// ! This component is not complete
+
+// TODO: change alerts to something more user-friendly (e.g. a message on the page)
+
 // TODO: handle queerPreference
 // TODO: handle howSoon
 // TODO: handle cities
@@ -131,7 +133,6 @@ export default function QuizForm({ username }) {
                         venue={venue}
                         handleFormChange={handleFormChange}
                         formData={formData}
-                        setFormData={setFormData}
                     />
                 ))}
             </div>
@@ -142,6 +143,7 @@ export default function QuizForm({ username }) {
                         key={genre}
                         genre={genre}
                         handleFormChange={handleFormChange}
+                        formData={formData}
                     />
                 ))}
             </div>

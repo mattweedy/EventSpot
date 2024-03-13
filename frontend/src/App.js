@@ -149,10 +149,12 @@ function App() {
                         <DisplayEventVenueData />
                         {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
                         <br />
-                        <QuizForm
-                            username={userProfile.display_name}
-                        />
                         <Logout />
+                        <div style={{ textAlign: 'center' }} className='app-body'>
+                            <QuizForm
+                                username={userProfile.display_name}
+                            />
+                        </div>
                     </div>
                 </div>
             );

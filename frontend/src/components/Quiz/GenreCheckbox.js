@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 
-export default function VenueCheckbox({ venue, handleFormChange }) {
+export default function GenreCheckbox({ genre, handleFormChange }) {
     const [isSelected, setIsSelected] = useState(false);
 
     const handleClick = () => {
         setIsSelected(!isSelected);
-        handleFormChange(venue.name, !isSelected);
+        handleFormChange('selectedGenres', genre, !isSelected);
     };
 
     return (
         <button 
-            key={venue.id} 
-            className={`venueCheckbox ${isSelected ? 'selected' : ''}`} 
+            key={genre} 
+            className={`genreCheckbox ${isSelected ? 'selected' : ''}`} 
             onClick={handleClick}
         >
-            {venue.name}
+            {genre}
         </button>
     );
 }

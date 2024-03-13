@@ -50,11 +50,28 @@ span {
 
 .box {
     width: 100%;
-    max-width: 420px;
     padding: 36px 32px;
     background: #4b4b4b;
     border-radius: 10px;
     color: #fff;
+    text-align: left;
+}
+
+#priceRange {
+    max-width: 420px;
+}
+
+#venues {
+    max-width: 840px;
+    display: inline-block;
+    /* text-align: center; */
+    text-align: left;
+}
+
+#genres {
+    max-width: 840px;
+    display: inline-block;
+    /* text-align: center; */
     text-align: left;
 }
 
@@ -66,7 +83,7 @@ span {
 }
 
 h3 {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
     margin: 0 0 10px 0;
 }
@@ -83,9 +100,30 @@ small {
     color: #cecece;
 }
 
-/* .venueCheckbox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-} */
+.venueCheckbox {
+    display:inline-block;
+    margin: 5px;
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 0;
+}
+
+.venueCheckbox.selected {
+    background-color: #28ff68;
+    color: #fff;
+}
+
+.genreCheckbox {
+    display:inline-block;
+    margin: 5px;
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 0;
+}
+
+.genreCheckbox.selected {
+    background-color: #28ff68;
+    color: #fff;
+}

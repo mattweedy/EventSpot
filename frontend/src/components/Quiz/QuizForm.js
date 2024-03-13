@@ -35,26 +35,11 @@ export default function QuizForm({ username }) {
         }));
     }, [username]);
 
+
     useEffect(() => {
         setVenues(venueData);
     }, [venueData]);
 
-    // const handleFormChange = (venueName, isSelected) => {
-    //     setFormData(prev => {
-    //         if (isSelected) {
-    //             // if the button is selected, add the venue to the array
-    //             if (prev.selectedVenues.length < 5) {
-    //                 return { ...prev, selectedVenues: [...prev.selectedVenues, venueName] };
-    //             } else {
-    //                 alert('You can only select up to 5 venues.');
-    //                 return prev;
-    //             }
-    //         } else {
-    //             // if the button is deselected, remove the venue from the array
-    //             return { ...prev, selectedVenues: prev.selectedVenues.filter(venue => venue !== venueName) };
-    //         }
-    //     });
-    // };
 
     const handleFormChange = (name, value, isSelected) => {
         setFormData(prev => {
@@ -91,12 +76,14 @@ export default function QuizForm({ username }) {
         });
     };
 
+
     const handlePriceRangeChange = (values) => {
         setFormData(prev => ({
             ...prev,
             priceRange: values
         }));
     }
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();

@@ -28,73 +28,17 @@ artist_data = pd.read_sql("""
     AND genres IS NOT NULL AND genres != ''
 """, engine, params=('%' + username + '%',))
 
-print(song_data.head())
-print(artist_data.head())
+# get the user's data
+user_data = pd.read_sql("""
+    SELECT * FROM backend_user
+    WHERE username = %s
+""", engine, params=(username,))
 
-# print(song_data['genres'][0][0]) # prints the first genre of the first song
-
-song_data.info()
-artist_data.info()
-
-# show theres no missing data
-song_data.dropna(inplace=True)
-song_data.isnull().sum().plot.bar()
-plt.show()
-
-artist_data.dropna(inplace=True)
-artist_data.isnull().sum().plot.bar()
-plt.show()
-
-# load remaining data into pandas DataFrames
+# get all events
 event_data = pd.read_sql('SELECT * FROM backend_event', engine)
+
+# get all venues
 venue_data = pd.read_sql('SELECT * FROM backend_venue', engine)
-
-print(event_data.head())
-print(venue_data.head())
-print(event_data['tags'].head())
-
-
-# ------------------------ MAYBE NOT RELEVANT ------------------------
-# combines all the data into a single list
-# create a list of all genres
-genres = []
-for i in range(len(song_data)):
-    for j in range(len(song_data['genres'][i])):
-        if song_data['genres'][i] not in genres:
-            genres.append(song_data['genres'][i])
-
-# create a list of all artists
-artists = []
-for i in range(len(artist_data)):
-    artists.append(artist_data['name'][i])
-
-# create a list of all venues
-venues = []
-for i in range(len(venue_data)):
-    venues.append(venue_data['name'][i])
-
-# create a list of all events
-events = []
-for i in range(len(event_data)):
-    events.append(event_data['name'][i])
-
-# create a list of all tags
-tags = []
-for i in range(len(event_data)):
-    tags.append(event_data['tags'][i])
-
-# create a list of all songs
-songs = []
-for i in range(len(song_data)):
-    songs.append(song_data['name'][i])
-
-print(f"{songs = }")
-print(f"{artists = }")
-print(f"{events = }")
-print(f"{venues = }")
-print(f"{tags = }")
-print(f"{genres = }")
-# ------------------------ MAYBE NOT RELEVANT ------------------------
 
 # begin basic recommendation system
 # Step 1 : DATA PREPARATION ---------------------------------------------------------------
@@ -108,9 +52,29 @@ artist_data['genres'] = artist_data['genres'].apply(ast.literal_eval)
 song_data['genres'] = song_data['genres'].apply(','.join)
 artist_data['genres'] = artist_data['genres'].apply(','.join)
 
-print(song_data['genres'].head())
-print(artist_data['genres'].head())
-print(event_data['tags'].head())
+# now split user data into quiz preferences
+user_quiz_venues = user_data['venue_preferences']
+user_quiz_genres = user_data['genre_preferences']
+user_quiz_pricerange = user_data['price_range']
+
+# convert pricerange from Series to list
+user_quiz_pricerange_list = user_quiz_pricerange.tolist()
+# convert list of strings to list of integers
+price_range = ast.literal_eval(user_quiz_pricerange_list[0])
+min_price, max_price = price_range
+
+# convert event_data and venue_data Dataframe to list of dictionaries
+events = event_data.to_dict('records')
+venues = venue_data.to_dict('records')
+
+# attach venue names to events
+for event in events:
+    for venue in venues:
+        if event['venue_id'] == venue['id']:
+            event['venue_name'] = venue['name']
+            break
+
+print(events[0])
 
 # Step 2 : FEATURE EXTRACTION -----------------------------------------------------------
 # create a TfidfVectorizer object
@@ -123,30 +87,66 @@ vectorizer.fit(artist_data['genres'].tolist() + event_data['tags'].tolist())
 # transform the song genres and event tags
 song_genres_tfidf = vectorizer.transform(song_data['genres'])
 artist_genres_tfidf = vectorizer.transform(artist_data['genres'])
-event_tags_tfidf = vectorizer.transform(event_data['tags'])
+# event_tags_tfidf = vectorizer.transform(event_data['tags'])
+event_tfidf = vectorizer.transform([event['tags'] for event in events])
+
+similarity_scores = cosine_similarity(song_genres_tfidf, event_tfidf)
+
+for i, event in enumerate(events):
+    event['similarity'] = similarity_scores[0][i]
+
+# create a user profile
+user_profile = vectorizer.transform(user_quiz_venues + user_quiz_genres)
+
+
+# print(f"{event_tags_tfidf = }")
+
+
+# ____________________________ MAYBE NOT RELEVANT ____________________________
+
+def adjust_similarity_scores_venues_genres(user_quiz_venues, user_quiz_genres, min_price, max_price, events):
+    for event in events:
+        # initialize the adjusted_similarity score to the original similarity score
+        event['adjusted_similarity'] = event['similarity']
+
+        # check if event venue is in user's preferences
+        if event['venue_name'].lower() in [venue.lower() for venue in user_quiz_venues]:
+            event['adjusted_similarity'] += 0.5
+
+        # check if event genre is in user's preferences
+        if any(tag.lower() in [genre.lower() for genre in user_quiz_genres] for tag in event['tags']):
+            event['adjusted_similarity'] += 0.5
+
+        # check if event price is within user's preferred range
+        if float(min_price) <= event['price'] <= float(max_price):
+            event['adjusted_similarity'] += 0.5
+
+    return events
+
+# ____________________________ MAYBE NOT RELEVANT ____________________________
+
 
 # Step 3 : COSINE SIMILARITY -------------------------------------------------------------
 # calculate the cosine similarity
 
+# cosine sim between user profile and events
+# user_event_similarity = cosine_similarity(user_profile, event_tags_tfidf)
+user_event_similarity = cosine_similarity(user_profile, event_tfidf)
+
 # songs - events
-song_event_similarity = cosine_similarity(song_genres_tfidf, event_tags_tfidf)
+# song_event_similarity = cosine_similarity(song_genres_tfidf, event_tags_tfidf)
+song_event_similarity = cosine_similarity(song_genres_tfidf, event_tfidf)
 
 # artists - events
-artist_event_similarity = cosine_similarity(artist_genres_tfidf, event_tags_tfidf)
+# artist_event_similarity = cosine_similarity(artist_genres_tfidf, event_tags_tfidf)
+artist_event_similarity = cosine_similarity(artist_genres_tfidf, event_tfidf)
+
+adjusted_events = adjust_similarity_scores_venues_genres(user_quiz_venues, user_quiz_genres, min_price, max_price, events)
 
 print(song_event_similarity)
 print(artist_event_similarity)
+print("USER-EVENT SIM", user_event_similarity)
 
-# create a heatmap from the cosine similarity matrix
-plt.figure(figsize=(5, 4))
-sns.heatmap(song_event_similarity, cmap='coolwarm')
-plt.title('Cosine Similarity Between Songs and Events')
-plt.show()
-
-plt.figure(figsize=(5, 4))
-sns.heatmap(artist_event_similarity, cmap='coolwarm')
-plt.title('Cosine Similarity Between Artists and Events')
-plt.show()
 
 # Step 4 : RECOMMENDATION ----------------------------------------------------------------
 
@@ -165,9 +165,10 @@ artist_event_similarity_padded[:artist_event_similarity.shape[0], :artist_event_
 average_similarity = np.mean([song_event_similarity_padded, artist_event_similarity_padded], axis=0)
 
 # get the indices of the events sorted by similarity
-average_indices = average_similarity.argsort()[:, ::-1]
+# average_indices = average_similarity.argsort()[:, ::-1]
+average_indices = np.argsort([event['adjusted_similarity'] for event in adjusted_events])[::-1]
 
 # get the top 10 most similar events
-top_10_events = event_data.iloc[average_indices[0][:10]]
+top_10_events = event_data.iloc[average_indices[:10]]
 
 print(top_10_events)

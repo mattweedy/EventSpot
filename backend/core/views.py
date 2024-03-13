@@ -32,8 +32,11 @@ def apply_user_preferences(request):
         user.queer_events = data['queerPreference']
         user.how_soon = data['howSoon']
         user.city = data['city']
-        user.save()
+        try:
+            user.save()
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'error': str(e)})
 
-        return JsonResponse({'status': 'success'})
+        return JsonResponse({'status': 'success : User preferences updated'})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})

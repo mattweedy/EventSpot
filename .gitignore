@@ -1,4 +1,3 @@
-*.pyc
 backend/spotevent/__pycache__
 backend/core/scraper.py
 backend/core/__pycache__
@@ -8,3 +7,4 @@ backend/spotevent/.env
 backend/spotevent/data/var/tmp/django_cache
 *.djcache
 venv/
+*.pyc

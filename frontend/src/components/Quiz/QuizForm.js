@@ -37,19 +37,54 @@ export default function QuizForm({ username }) {
         setVenues(venueData);
     }, [venueData]);
 
-    const handleFormChange = (venueName, isSelected) => {
+    // const handleFormChange = (venueName, isSelected) => {
+    //     setFormData(prev => {
+    //         if (isSelected) {
+    //             // if the button is selected, add the venue to the array
+    //             if (prev.selectedVenues.length < 5) {
+    //                 return { ...prev, selectedVenues: [...prev.selectedVenues, venueName] };
+    //             } else {
+    //                 alert('You can only select up to 5 venues.');
+    //                 return prev;
+    //             }
+    //         } else {
+    //             // if the button is deselected, remove the venue from the array
+    //             return { ...prev, selectedVenues: prev.selectedVenues.filter(venue => venue !== venueName) };
+    //         }
+    //     });
+    // };
+
+    const handleFormChange = (name, value, isSelected) => {
         setFormData(prev => {
-            if (isSelected) {
-                // if the button is selected, add the venue to the array
-                if (prev.selectedVenues.length < 5) {
-                    return { ...prev, selectedVenues: [...prev.selectedVenues, venueName] };
+            if (name === "selectedVenues") {
+                if (isSelected) {
+                    // If the checkbox is selected and the limit is not reached, add the venue to the array
+                    if (prev[name].length < 5) {
+                        return { ...prev, [name]: [...prev[name], value] };
+                    } else {
+                        // If the limit is reached, do not add the venue
+                        return prev;
+                    }
                 } else {
-                    alert('You can only select up to 5 venues.');
-                    return prev;
+                    // If the checkbox is deselected, remove the venue from the array
+                    return { ...prev, [name]: prev[name].filter(item => item !== value) };
+                }
+            } else if (name === "selectedGenres") {
+                if (isSelected) {
+                    // If the checkbox is selected and the limit is not reached, add the genre to the array
+                    if (prev[name].length < 5) {
+                        return { ...prev, [name]: [...prev[name], value] };
+                    } else {
+                        // If the limit is reached, do not add the genre
+                        return prev;
+                    }
+                } else {
+                    // If the checkbox is deselected, remove the genre from the array
+                    return { ...prev, [name]: prev[name].filter(item => item !== value) };
                 }
             } else {
-                // if the button is deselected, remove the venue from the array
-                return { ...prev, selectedVenues: prev.selectedVenues.filter(venue => venue !== venueName) };
+                // For other form fields, just update the value
+                return { ...prev, [name]: value };
             }
         });
     };
@@ -63,11 +98,6 @@ export default function QuizForm({ username }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        if (formData.selectedVenues.length < 3) {
-            alert('You must select at least 3 venues.');
-            return;
-        }
 
         // console.log(formData);
         const data = {
@@ -94,11 +124,14 @@ export default function QuizForm({ username }) {
         <form onSubmit={handleSubmit}>
             <div className="box" id="venues">
                 <h3>Choose 3-5 of your favourite Venues</h3>
+                <h4>Previous choices: {formData.selectedGenres}</h4>
                 {venues && venues.map(venue => (
                     <VenueCheckbox
                         key={venue.id}
                         venue={venue}
                         handleFormChange={handleFormChange}
+                        formData={formData}
+                        setFormData={setFormData}
                     />
                 ))}
             </div>

@@ -9,7 +9,8 @@ export default function GenreCheckbox({ genre, handleFormChange }) {
     };
 
     return (
-        <button 
+        <button
+            type="button"
             key={genre} 
             className={`genreCheckbox ${isSelected ? 'selected' : ''}`} 
             onClick={handleClick}

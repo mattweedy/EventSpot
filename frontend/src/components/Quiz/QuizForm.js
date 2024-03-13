@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import PriceRange from "./PriceRange";
-// import useFetchData from "../Data/useFetchData";
 import axios from "axios";
+import PriceRange from "./PriceRange";
+import VenueCheckbox from "./VenueCheckbox";
+import useFetchData from "../Data/useFetchData";
+
+// TODO: generate venues selection buttons (venue names) from database (use useFetchData)
+// TODO: handle cities
+
 
 export default function QuizForm({ username }) {
     const [formData, setFormData] = useState({
@@ -13,6 +18,8 @@ export default function QuizForm({ username }) {
         howSoon: '', // this is a date field(?)
         city: '', // maybe use a dropdown
     });
+    const venueData = useFetchData('/venues/');
+    const [venues, setVenues] = useState([]);
 
     useEffect(() => {
         setFormData(prev => ({
@@ -21,12 +28,27 @@ export default function QuizForm({ username }) {
         }));
     }, [username]);
 
+    useEffect(() => {
+        setVenues(venueData);
+    }, [venueData]);
+
     const handleFormChange = (e) => {
-        setFormData(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }));
-    }
+        const { name, value, checked } = e.target;
+
+        setFormData(prev => {
+            if (name === "selectedVenues") {
+                if (checked) {
+                    // If the checkbox is checked, add the venue to the array
+                    return { ...prev, [name]: [...prev[name], value] };
+                } else {
+                    // If the checkbox is unchecked, remove the venue from the array
+                    return { ...prev, [name]: prev[name].filter(venue => venue !== value) };
+                }
+            } else {
+                return { ...prev, [name]: value };
+            }
+        });
+    };
 
     const handlePriceRangeChange = (values) => {
         setFormData(prev => ({
@@ -59,14 +81,15 @@ export default function QuizForm({ username }) {
     }
 
 
-    // TODO: handle cities
     return (
         <form onSubmit={handleSubmit}>
-            <input className="venueCheckbox"
-                type="checkbox"
-                onChange={handleFormChange}
-                name="selectedVenues"
+            {venues && venues.map(venue => (
+            <VenueCheckbox
+                key={venue.id}
+                venue={venue}
+                handleFormChange={handleFormChange}
             />
+            ))}
             <input className="genreCheckbox"
                 type="checkbox"
                 onChange={handleFormChange}

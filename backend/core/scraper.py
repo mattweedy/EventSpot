@@ -65,7 +65,8 @@ async def event_data_get():
     """
     # script_dir = os.path.dirname(__file__)
     # file = os.path.join(script_dir, 'backend\\spotevent\\data/test-data/eventbrite-ids-04-03-24.txt')
-    file = 'backend/spotevent/data/test-data/eventbrite-ids-04-03-24.txt'
+    # file = 'backend/spotevent/data/test-data/eventbrite-ids-04-03-24.txt'
+    file = 'backend/spotevent/data/test-data/input-more.txt'
 
     with open(file, 'r') as f:
         event_ids = f.read()

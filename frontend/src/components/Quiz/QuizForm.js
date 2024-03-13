@@ -27,6 +27,7 @@ export default function QuizForm({ username }) {
     });
     const venueData = useFetchData('/venues/');
     const [venues, setVenues] = useState([]);
+    const [numVenuesToShow, setNumVenuesToShow] = useState(25);
 
     useEffect(() => {
         setFormData(prev => ({
@@ -109,12 +110,17 @@ export default function QuizForm({ username }) {
     }
 
 
+    const handleDisplayMore = () => {
+        setNumVenuesToShow(venues.length);
+    };
+
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="box" id="venues">
-                <h3>Choose 3-5 of your favourite Venues</h3>
+                <h3>Choose <span>3-5</span> of your favourite Venues</h3>
                 <h4>Previous choices: {formData.selectedGenres}</h4>
-                {venues && venues.map(venue => (
+                {venues && venues.slice(0, numVenuesToShow).map(venue => (
                     <VenueCheckbox
                         key={venue.id}
                         venue={venue}
@@ -122,9 +128,12 @@ export default function QuizForm({ username }) {
                         formData={formData}
                     />
                 ))}
+                {venues && numVenuesToShow < venues.length && (
+                    <button onClick={handleDisplayMore} className="displayMore">Display All</button>
+                )}
             </div>
             <div className="box" id="genres">
-                <h3>Choose up to 5 of your favourite Genres</h3>
+                <h3>Choose up to <span>5</span> of your favourite Genres</h3>
                 {genres.map(genre => (
                     <GenreCheckbox
                         key={genre}

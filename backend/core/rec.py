@@ -7,6 +7,13 @@ from matplotlib import pyplot as plt
 from sqlalchemy import create_engine
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from sqlalchemy import create_engine
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# TODO : test adjust_similarity_scores_venues_genres properly
+# ! it is not working as expected : changing += 0.5 to -= 0.5 and vice versa does not change the output
+# TODO: after 10 recommendations, check the date of the event to current date and filter out events that have already happened
 
 username = 'm.tweedy' # have this passed in from the frontend
 
@@ -74,8 +81,6 @@ for event in events:
             event['venue_name'] = venue['name']
             break
 
-print(events[0])
-
 # Step 2 : FEATURE EXTRACTION -----------------------------------------------------------
 # create a TfidfVectorizer object
 vectorizer = TfidfVectorizer()
@@ -98,34 +103,6 @@ for i, event in enumerate(events):
 # create a user profile
 user_profile = vectorizer.transform(user_quiz_venues + user_quiz_genres)
 
-
-# print(f"{event_tags_tfidf = }")
-
-
-# ____________________________ MAYBE NOT RELEVANT ____________________________
-
-def adjust_similarity_scores_venues_genres(user_quiz_venues, user_quiz_genres, min_price, max_price, events):
-    for event in events:
-        # initialize the adjusted_similarity score to the original similarity score
-        event['adjusted_similarity'] = event['similarity']
-
-        # check if event venue is in user's preferences
-        if event['venue_name'].lower() in [venue.lower() for venue in user_quiz_venues]:
-            event['adjusted_similarity'] += 0.5
-
-        # check if event genre is in user's preferences
-        if any(tag.lower() in [genre.lower() for genre in user_quiz_genres] for tag in event['tags']):
-            event['adjusted_similarity'] += 0.5
-
-        # check if event price is within user's preferred range
-        if float(min_price) <= event['price'] <= float(max_price):
-            event['adjusted_similarity'] += 0.5
-
-    return events
-
-# ____________________________ MAYBE NOT RELEVANT ____________________________
-
-
 # Step 3 : COSINE SIMILARITY -------------------------------------------------------------
 # calculate the cosine similarity
 
@@ -140,8 +117,6 @@ song_event_similarity = cosine_similarity(song_genres_tfidf, event_tfidf)
 # artists - events
 # artist_event_similarity = cosine_similarity(artist_genres_tfidf, event_tags_tfidf)
 artist_event_similarity = cosine_similarity(artist_genres_tfidf, event_tfidf)
-
-adjusted_events = adjust_similarity_scores_venues_genres(user_quiz_venues, user_quiz_genres, min_price, max_price, events)
 
 print(song_event_similarity)
 print(artist_event_similarity)
@@ -161,14 +136,45 @@ artist_event_similarity_padded = np.zeros(max_shape)
 song_event_similarity_padded[:song_event_similarity.shape[0], :song_event_similarity.shape[1]] = song_event_similarity
 artist_event_similarity_padded[:artist_event_similarity.shape[0], :artist_event_similarity.shape[1]] = artist_event_similarity
 
-# calculate the average similarity between songs and events and artists and events
-average_similarity = np.mean([song_event_similarity_padded, artist_event_similarity_padded], axis=0)
+# ____________________________ MAYBE NOT RELEVANT ____________________________
+
+def adjust_similarity_scores_venues_genres(user_quiz_venues, user_quiz_genres, min_price, max_price, events):
+    for event in events:
+        # calculate the average similarity between songs and events and artists and events
+        average_similarity = np.mean([song_event_similarity_padded, artist_event_similarity_padded], axis=0)
+
+        # calculate the average similarity between the user's Spotify data and the user's event preferences
+        weighted_similarity = (2 * average_similarity + user_event_similarity) / 3
+
+        # initialize the adjusted_similarity score to the weighted similarity score
+        event['adjusted_similarity'] = weighted_similarity
+
+        # check if event venue is in user's preferences
+        if event['venue_name'].lower() in [venue.lower() for venue in user_quiz_venues]:
+            event['adjusted_similarity'] += 0.3
+
+        # check if event genre is in user's preferences
+        if any(tag.lower() in [genre.lower() for genre in user_quiz_genres] for tag in event['tags']):
+            event['adjusted_similarity'] += 0.5
+
+        # check if event price is within user's preferred range
+        if min_price <= event['price'] <= max_price:
+            event['adjusted_similarity'] += 0.075
+
+    return events
+
+# ____________________________ MAYBE NOT RELEVANT ____________________________
+
+# get the indices of the events sorted by similarity
+adjusted_events = adjust_similarity_scores_venues_genres(user_quiz_venues, user_quiz_genres, min_price, max_price, events)
 
 # get the indices of the events sorted by similarity
 # average_indices = average_similarity.argsort()[:, ::-1]
-average_indices = np.argsort([event['adjusted_similarity'] for event in adjusted_events])[::-1]
+adjusted_indices = np.argsort([event['adjusted_similarity'] for event in adjusted_events])[::-1]
+
+adjusted_indices = adjusted_indices.flatten()
 
 # get the top 10 most similar events
-top_10_events = event_data.iloc[average_indices[:10]]
+top_10_events = event_data.iloc[adjusted_indices[:10]]
 
 print(top_10_events)

@@ -12,24 +12,19 @@ function RecommendedEvents({ recommendedEventIds }) {
         setVenues(venueData);
     }, [venueData]);
 
-
     useEffect(() => {
         const fetchEvents = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/events');
-                const events = response.data;
-                const filteredEvents = [];
-                const recommendedEventIdsAsNumbers = Object.keys(recommendedEventIds).map(Number);
+                const allEvents = response.data;
 
-                for (let i = 0; i < recommendedEventIdsAsNumbers.length && filteredEvents.length < 10; i++) {
-                    const event = events.find(e => e.id === recommendedEventIdsAsNumbers[i]);
-                    if (event) {
-                        filteredEvents.push(event);
-                    }
-                }
+                let events = allEvents.filter(e => recommendedEventIds.includes(e.event_id));
 
-                console.log("filtered events : ", filteredEvents);
-                setRecommendedEvents(filteredEvents);
+                // Sort events based on the order of recommendedEventIds
+                events.sort((a, b) => recommendedEventIds.indexOf(a.event_id) - recommendedEventIds.indexOf(b.event_id));
+
+                console.log("Recommended Event Ids: ", recommendedEventIds); // print recommended event ids
+                setRecommendedEvents(events);
             } catch (error) {
                 console.error('Failed to fetch events:', error);
             }
@@ -41,7 +36,7 @@ function RecommendedEvents({ recommendedEventIds }) {
     console.log("rec events : ", recommendedEvents);
 
     return (
-        <div>
+        <div className="events-container">
             {recommendedEvents.map(event => (
                 <EventDisplay key={event.id} event={event} venues={venues}/>
             ))}

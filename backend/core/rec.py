@@ -141,15 +141,15 @@ def adjust_similarity_scores_venues_genres(song_event_similarity_padded, artist_
 
         # check if event venue is in user's preferences
         if event['venue_name'].lower() in [venue.lower() for venue in user_quiz_venues]:
-            event['adjusted_similarity'] += 0
+            event['adjusted_similarity'] += 0.5
 
         # check if event genre is in user's preferences
         if any(tag.lower() in [genre.lower() for genre in user_quiz_genres] for tag in event['tags']):
-            event['adjusted_similarity'] += 0
+            event['adjusted_similarity'] += 0.5
 
         # check if event price is within user's preferred range
         if min_price <= event['price'] <= max_price:
-            event['adjusted_similarity'] += 0
+            event['adjusted_similarity'] += 0.2
 
     return events
 

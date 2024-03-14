@@ -181,7 +181,7 @@ small {
 }
 
 .event-id {
-    display: none;
+    /* display: none; */
 }
 
 .event-price {

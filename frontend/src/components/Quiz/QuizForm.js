@@ -14,7 +14,7 @@ import useFetchData from "../Data/useFetchData";
 // TODO: handle cities
 
 
-export default function QuizForm({ username, recommendedEventIds, setRecommendedEventIds, isFormSubmitted, setIsFormSubmitted,}) {
+export default function QuizForm({ username, setRecommendedEventIds, setIsFormSubmitted,}) {
     const genres = ['techno', 'rave', 'house', 'trance', 'dubstep', 'drum and bass', 'gabber', 'hardgroove', 'hardstyle', 'psytrance', 'synthpop', 'trap', 'hip hop', 'hiphop', 'rap', 'pop', 'dance', 'rock', 'metal', 'hard rock', 'country', 'bluegrass', 'jazz', 'blues', 'classical', 'orchestral', 'electronic', 'edm', 'indie', 'alternative', 'folk', 'acoustic', 'r&b', 'soul', 'reggae', 'ska', 'punk', 'emo', 'latin', 'salsa', 'gospel', 'spiritual', 'funk', 'disco', 'world', 'international', 'new age', 'ambient', 'soundtrack', 'score', 'comedy', 'parody', 'spoken word', 'audiobook', 'children\'s', 'kids', 'holiday', 'christmas', 'easy listening', 'mood', 'brazilian', 'samba', 'fado', 'portuguese', 'tango', 'grunge', 'street', 'argentinian'];
     const [formData, setFormData] = useState({
         username: username,
@@ -122,6 +122,26 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
     const handleDisplayMore = () => {
         setNumVenuesToShow(venues.length);
     };
+
+
+    // const genreCheckboxes = genres.map(genre => (
+    //     <GenreCheckbox
+    //         key={genre}
+    //         genre={genre}
+    //         isSelected={formData.selectedGenres.includes(genre)}
+    //         onGenreClick={() => handleGenreClick(genre)}
+    //     />
+    // ));
+
+    // const venueCheckboxes = venues.slice(0, numVenuesToShow).map(venue => (
+    //     <VenueCheckbox
+    //         key={venue.id}
+    //         venue={venue}
+    //         handleFormChange={handleFormChange}
+    //         onClick={() => handleVenueClick(venue)}
+    //         // formData={formData}
+    //     />
+    // ));
 
 
     return (

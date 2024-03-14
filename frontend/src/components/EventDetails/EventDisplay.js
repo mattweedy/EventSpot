@@ -3,6 +3,11 @@ import VenueDisplay from './VenueDisplay';
 
 function EventDisplay({ event, venues }) {
     const [showVenue, setShowVenue] = useState(false);
+
+    if (!event) {
+        return null;
+    }
+
     const venue = venues.find(venue => venue.venue_id === event.venue_id);
 
     return (
@@ -15,7 +20,6 @@ function EventDisplay({ event, venues }) {
             <p className="event-price">€{event.price}</p>
             <p className="event-date">{event.date}</p>
             <a href={event.tickets_url} className="event-ticket-link">buy tickets</a>
-            <br />
             <div>
                 <button onClick={() => setShowVenue(!showVenue)}>
                     {showVenue ? 'Hide Venue Details' : 'Show Venue Details'}

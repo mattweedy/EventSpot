@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib import admin
-from backend.core.views import EventView, VenueView, UserView, apply_user_preferences
+from backend.core.views import EventView, VenueView, UserView, apply_user_preferences, get_recommendations
 from backend.spotify.spotify_auth import *
 from backend.spotify.views import TrackView, ArtistView
 from backend.spotify.views import check_logged_in, logout_view, user_profile, top_tracks, top_artists
@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/tracks/', TrackView.as_view({'get':'list'}), name='tracks'),
     path('api/artists/', ArtistView.as_view({'get':'list'}), name='artists'),
     path('api/preferences', apply_user_preferences, name='apply_user_preferences'),
+    path('api/recommendations', get_recommendations, name='get_recommendations'),
     path('spotify/login', start_auth, name='start_auth'),
     path('spotify/logout', logout_view, name='logout'),
     path('spotify/callback', spotify_callback, name='spotify_callback'),

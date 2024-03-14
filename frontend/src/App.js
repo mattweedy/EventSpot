@@ -1,11 +1,12 @@
 import './global.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Login from './components/Login/Login';
 import Header from './components/Header';
-import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
+import Login from './components/Login/Login';
 import Logout from './components/Login/Logout';
 import QuizForm from './components/Quiz/QuizForm';
+import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
+import RecommendedEvents from './components/EventDetails/RecommendedEvents';
 
 // TODO: display recommendations
 // TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
@@ -18,6 +19,8 @@ function App() {
     const [userProfile, setUserProfile] = useState(null);
     const [isFetchingTopItems, setIsFetchingTopItems] = useState({ tracks: false, artists: false });
     const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
+    const [recommendedEventIds, setRecommendedEventIds] = useState([]);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     useEffect(() => {
         window.onbeforeunload = function () {
@@ -127,6 +130,12 @@ function App() {
         }
     }, [userProfile, fetchTopItems]);
 
+    // use effect to log to console recommendedEventIds
+    useEffect(() => {
+        console.log("Is Form Submitted: ", isFormSubmitted);
+        console.log("Recommended Event Ids: ", recommendedEventIds);
+    }, [isFormSubmitted ,recommendedEventIds]);
+
 
     // if user is logged in, display the user's name
     if (isLoggedIn) {
@@ -153,8 +162,12 @@ function App() {
                         <div style={{ textAlign: 'center' }} className='app-body'>
                             <QuizForm
                                 username={userProfile.display_name}
+                                recommendedEventIds={recommendedEventIds}
+                                setRecommendedEventIds={setRecommendedEventIds}
+                                setIsFormSubmitted={setIsFormSubmitted}
                             />
                         </div>
+                        {isFormSubmitted ? <RecommendedEvents recommendedEventIds={recommendedEventIds} /> : null}
                     </div>
                 </div>
             );

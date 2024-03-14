@@ -69,14 +69,12 @@ span {
 #venues {
     max-width: 840px;
     display: inline-block;
-    /* text-align: center; */
     text-align: left;
 }
 
 #genres {
     max-width: 840px;
     display: inline-block;
-    /* text-align: center; */
     text-align: left;
 }
 
@@ -111,7 +109,7 @@ small {
     font-size: 16px;
     padding: 6px 12px;
     border-radius: 20px;
-    border: 0;
+    border: 2px solid rgba(53, 125, 37, 0.442);
 }
 
 .venueCheckbox.selected {
@@ -162,6 +160,7 @@ small {
     color: #fff;
     text-align: left;
     line-height: 1;
+    height: 506px;
 }
 
 .event-display > * {
@@ -204,4 +203,5 @@ small {
     padding: 6px 12px;
     border-radius: 20px;
     border: 0;
+    width: 100%;
 }

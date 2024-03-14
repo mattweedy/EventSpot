@@ -5,7 +5,7 @@ from . models import Venue, User
 from rest_framework import viewsets
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist
+from . rec import main as get_recommendations_from_rec
 
 class EventView(viewsets.ModelViewSet):
     queryset = Event.objects.all()
@@ -38,5 +38,20 @@ def apply_user_preferences(request):
             return JsonResponse({'status': 'error', 'error': str(e)})
 
         return JsonResponse({'status': 'success : User preferences updated'})
+    else:
+        return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
+
+
+def get_recommendations(request):
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.get(username=username)
+        user_data = UserSerializer(user).data
+
+        # call the main function from rec.py to get the recommended event ids
+        recommended_event_ids = get_recommendations_from_rec(username)
+        print("returning...")
+
+        return JsonResponse({'status': 'success', 'data': user_data, 'recommendations': recommended_event_ids})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})

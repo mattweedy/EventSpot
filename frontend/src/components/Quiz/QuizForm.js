@@ -16,6 +16,7 @@ import useFetchData from "../Data/useFetchData";
 
 
 export default function QuizForm({ username, setRecommendedEventIds, setIsFormSubmitted,}) {
+    const initialNumVenuesToShow = 25;
     const genres = ['techno', 'rave', 'house', 'trance', 'dubstep', 'drum and bass', 'gabber', 'hardgroove', 'hardstyle', 'psytrance', 'synthpop', 'trap', 'hip hop', 'hiphop', 'rap', 'pop', 'dance', 'rock', 'metal', 'hard rock', 'country', 'bluegrass', 'jazz', 'blues', 'classical', 'orchestral', 'electronic', 'edm', 'indie', 'alternative', 'folk', 'acoustic', 'r&b', 'soul', 'reggae', 'ska', 'punk', 'emo', 'latin', 'salsa', 'gospel', 'spiritual', 'funk', 'disco', 'world', 'international', 'new age', 'ambient', 'soundtrack', 'score', 'comedy', 'parody', 'spoken word', 'audiobook', 'children\'s', 'kids', 'holiday', 'christmas', 'easy listening', 'mood', 'brazilian', 'samba', 'fado', 'portuguese', 'tango', 'grunge', 'street', 'argentinian'];
     const [formData, setFormData] = useState({
         username: username,
@@ -28,12 +29,14 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
     });
     const venueData = useFetchData('/venues/');
     const [venues, setVenues] = useState([]);
-    const [numVenuesToShow, setNumVenuesToShow] = useState(25);
+    const [numVenuesToShow, setNumVenuesToShow] = useState(initialNumVenuesToShow);
     const [venueSearchTerm, setVenueSearchTerm] = useState('');
     const [genreSearchTerm, setGenreSearchTerm] = useState('');
+    const [previousPreferences, setPreviousPreferences] = useState(false);
 
     const filteredVenues = venues ? venues.filter(venue => venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())) : [];
     const filteredGenres = genres ? genres.filter(genre => genre.toLowerCase().includes(genreSearchTerm.toLowerCase())) : [];
+
 
     useEffect(() => {
         setFormData(prev => ({
@@ -124,9 +127,32 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setIsFormSubmitted(true);
     }
 
+    const handleSkip = () => {
+        // if no options have been selected, and user has previous prefences, do not overwrite them
+        if (formData.selectedVenues.length === 0 && formData.selectedGenres.length === 0 && previousPreferences) {
+            // do not overwrite the previous preferences
+            setIsFormSubmitted(true);
+        } else {
+            // if options have been selected or the user has no preferences, submit the form
+            handleSubmit();
+        }
+    }
+
+    const resetFormData = () => {
+        setFormData({
+            username: username,
+            selectedVenues: [],
+            selectedGenres: [],
+            priceRange: [0, 100],
+            queerPreference: '',
+            howSoon: '',
+            city: '',
+        });
+    }
+
 
     const handleDisplayMore = () => {
-        setNumVenuesToShow(venues.length);
+        setNumVenuesToShow(prevNum => prevNum === initialNumVenuesToShow ? venues.length : initialNumVenuesToShow);
     };
 
     // ! further implement this - check copilot
@@ -151,7 +177,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="preferencesForm">
             <div className="box" id="venues">
                 <h3>Select up to <span>5</span> of your favourite Venues</h3>
                 <SearchBar searchTerm={venueSearchTerm} setSearchTerm={setVenueSearchTerm} />
@@ -164,15 +190,18 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                             formData={formData}
                         />
                     ))}
-                    {filteredVenues.length > numVenuesToShow && (
+                    {/* {filteredVenues.length > numVenuesToShow && (
                         <button onClick={handleDisplayMore} className="displayMore">Display All</button>
-                    )}
+                    )} */}
+                    <button onClick={handleDisplayMore} className="displayMore">
+                        {numVenuesToShow === initialNumVenuesToShow ? 'Display All' : 'Show Less'}
+                    </button>
                 </div>
             </div>
             <div className="box" id="genres">
                 <h3>Choose <span>5</span> of your favourite Genres</h3>
                 <SearchBar searchTerm={genreSearchTerm} setSearchTerm={setGenreSearchTerm} />
-                <div>
+                <div className="innerBox">
                     {filteredGenres.map(genre => (
                         <GenreCheckbox
                             key={genre}
@@ -204,6 +233,11 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 onChange={handleFormChange}
                 name="city"
             />
+            <br></br>
+            <button type="button" onClick={handleSkip}>Skip</button>
+            <br></br>
+            <button type="button" onClick={resetFormData}>Clear Preferences</button>
+            <br></br>
             <button type="submit">Submit</button>
         </form>
     );

@@ -1,23 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #ff9d3b;
+    background-color: #2b2b2b;
     /* background-color: #28ff68; */
     min-height: 100vh;
 }
-/* 
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #ff9d3b;
-    background-color: #28ff68;
-    min-height: 100vh;
-} */
-
-/* div {
-    background-color: #ffffff;
-    color: black;
-} */
 
 span {
     color: #28ff68;
@@ -57,6 +44,7 @@ span {
     border-radius: 10px;
     color: #fff;
     text-align: left;
+    margin: 10px;
 }
 
 .box h3 span {
@@ -65,9 +53,24 @@ span {
 }
 
 .innerBox {
-    width: auto;
+    width: 840px;
+    height: 346px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #28ff68;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #39b960; 
+}
 
 #priceRange {
     max-width: 840px;
@@ -228,25 +231,15 @@ small {
 }
 
 @media screen and (min-width: 1808px) {
-    #venues {
-        max-width: 1040px;
-        display:inline-block;
-    }
-
-    #genres {
+    .box {
         max-width: 1040px;
         display:inline-block;
     }
 }
 
 @media screen and (min-width: 2008px) {
-    #venues {
-        max-width: 1440px;
-        display:inline-block;
-    }
-
-    #genres {
-        max-width: 1440px;
+    .box {
+        max-width: 1040px;
         display:inline-block;
     }
 }

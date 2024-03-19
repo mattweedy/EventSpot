@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SearchBar from "./SearchBar";
 import PriceRange from "./PriceRange";
 import VenueCheckbox from "./VenueCheckbox";
 import GenreCheckbox from "./GenreCheckbox";
@@ -28,6 +29,11 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
     const venueData = useFetchData('/venues/');
     const [venues, setVenues] = useState([]);
     const [numVenuesToShow, setNumVenuesToShow] = useState(25);
+    const [venueSearchTerm, setVenueSearchTerm] = useState('');
+    const [genreSearchTerm, setGenreSearchTerm] = useState('');
+
+    const filteredVenues = venues ? venues.filter(venue => venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())) : [];
+    const filteredGenres = genres ? genres.filter(genre => genre.toLowerCase().includes(genreSearchTerm.toLowerCase())) : [];
 
     useEffect(() => {
         setFormData(prev => ({
@@ -123,7 +129,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setNumVenuesToShow(venues.length);
     };
 
-
+    // ! further implement this - check copilot
     // const genreCheckboxes = genres.map(genre => (
     //     <GenreCheckbox
     //         key={genre}
@@ -147,30 +153,35 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
     return (
         <form onSubmit={handleSubmit}>
             <div className="box" id="venues">
-                <h3>Choose <span>3-5</span> of your favourite Venues</h3>
-                <h4>Previous choices: {formData.selectedGenres}</h4>
-                {venues && venues.slice(0, numVenuesToShow).map(venue => (
-                    <VenueCheckbox
-                        key={venue.id}
-                        venue={venue}
-                        handleFormChange={handleFormChange}
-                        formData={formData}
-                    />
-                ))}
-                {venues && numVenuesToShow < venues.length && (
-                    <button onClick={handleDisplayMore} className="displayMore">Display All</button>
-                )}
+                <h3>Select up to <span>5</span> of your favourite Venues</h3>
+                <SearchBar searchTerm={venueSearchTerm} setSearchTerm={setVenueSearchTerm} />
+                <div className="innerBox">
+                    {filteredVenues.slice(0, numVenuesToShow).map(venue => (
+                        <VenueCheckbox
+                            key={venue.id}
+                            venue={venue}
+                            handleFormChange={handleFormChange}
+                            formData={formData}
+                        />
+                    ))}
+                    {filteredVenues.length > numVenuesToShow && (
+                        <button onClick={handleDisplayMore} className="displayMore">Display All</button>
+                    )}
+                </div>
             </div>
             <div className="box" id="genres">
-                <h3>Choose up to <span>5</span> of your favourite Genres</h3>
-                {genres.map(genre => (
-                    <GenreCheckbox
-                        key={genre}
-                        genre={genre}
-                        handleFormChange={handleFormChange}
-                        formData={formData}
-                    />
-                ))}
+                <h3>Choose <span>5</span> of your favourite Genres</h3>
+                <SearchBar searchTerm={genreSearchTerm} setSearchTerm={setGenreSearchTerm} />
+                <div>
+                    {filteredGenres.map(genre => (
+                        <GenreCheckbox
+                            key={genre}
+                            genre={genre}
+                            handleFormChange={handleFormChange}
+                            formData={formData}
+                        />
+                    ))}
+                </div>
             </div>
             <PriceRange
                 values={formData.priceRange}

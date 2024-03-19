@@ -5,12 +5,12 @@ export default function VenueCheckbox({ venue, handleFormChange, formData }) {
 
     const handleClick = () => {
         if (formData.selectedVenues.length < 5 || isSelected) {
-            // Change the state
+            // change the state
             setIsSelected(!isSelected);
-            // Update the formData
+            // update the formData
             handleFormChange("selectedVenues", venue.name, !isSelected);
         } else {
-            // If the limit is reached, do not add the venue
+            // if the limit is reached, do not add the venue
             alert('You can only select up to 5 venues.');
         }
     };

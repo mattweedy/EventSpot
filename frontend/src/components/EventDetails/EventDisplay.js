@@ -12,7 +12,7 @@ function EventDisplay({ event, venues }) {
 
     return (
         <div className="event-display">
-            <img src={event.image} className="event-image" alt=''></img>
+            <a href={event.tickets_url}><img src={event.image} className="event-image" alt=''></img></a>
             <h2 className="event-name">{event.name}</h2>
             {/* TODO: REMOVE ID - DEBUG  */}
             <p className="event-id">{event.event_id}</p>

@@ -50,6 +50,20 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setVenues(venueData);
     }, [venueData]);
 
+    useEffect(() => {
+        // get the user's previous preferences
+        axios.get(`http://localhost:8000/api/get_preferences?username=${username}`)
+            .then(response => {
+                // if user had previous preferences, set previousPreferences to true
+                if (response.data.data) {
+                    setPreviousPreferences(true);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, [username]);
+
 
     const handleFormChange = (name, value, isSelected) => {
         setFormData(prev => {
@@ -109,7 +123,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             city: formData.city,
         };
 
-        axios.post('http://localhost:8000/api/preferences', data)
+        axios.post('http://localhost:8000/api/set_preferences', data)
         .then(response => {
             console.log(response);
 
@@ -125,6 +139,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         });
 
         setIsFormSubmitted(true);
+        
     }
 
     const handleSkip = () => {
@@ -155,33 +170,18 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setNumVenuesToShow(prevNum => prevNum === initialNumVenuesToShow ? venues.length : initialNumVenuesToShow);
     };
 
-    // ! further implement this - check copilot
-    // const genreCheckboxes = genres.map(genre => (
-    //     <GenreCheckbox
-    //         key={genre}
-    //         genre={genre}
-    //         isSelected={formData.selectedGenres.includes(genre)}
-    //         onGenreClick={() => handleGenreClick(genre)}
-    //     />
-    // ));
-
-    // const venueCheckboxes = venues.slice(0, numVenuesToShow).map(venue => (
-    //     <VenueCheckbox
-    //         key={venue.id}
-    //         venue={venue}
-    //         handleFormChange={handleFormChange}
-    //         onClick={() => handleVenueClick(venue)}
-    //         // formData={formData}
-    //     />
-    // ));
-
-
     return (
         <form onSubmit={handleSubmit} className="preferencesForm">
+            <button type="submit" onClick={handleSkip}>Skip</button>
+            <br></br>
+            <button type="button" onClick={resetFormData}>Clear Preferences</button>
+            <br></br>
+
             <div className="box" id="venues">
                 <h3>Select up to <span>5</span> of your favourite Venues</h3>
                 <SearchBar searchTerm={venueSearchTerm} setSearchTerm={setVenueSearchTerm} />
                 <div className="innerBox">
+                    {filteredVenues.length === 0 ? <h4>Specified venue not found.</h4> : null}
                     {filteredVenues.slice(0, numVenuesToShow).map(venue => (
                         <VenueCheckbox
                             key={venue.id}
@@ -190,9 +190,6 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                             formData={formData}
                         />
                     ))}
-                    {/* {filteredVenues.length > numVenuesToShow && (
-                        <button onClick={handleDisplayMore} className="displayMore">Display All</button>
-                    )} */}
                     <button onClick={handleDisplayMore} className="displayMore">
                         {numVenuesToShow === initialNumVenuesToShow ? 'Display All' : 'Show Less'}
                     </button>
@@ -202,6 +199,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 <h3>Choose <span>5</span> of your favourite Genres</h3>
                 <SearchBar searchTerm={genreSearchTerm} setSearchTerm={setGenreSearchTerm} />
                 <div className="innerBox">
+                    {filteredGenres.length === 0 ? <h4>Specified genre not found.</h4> : null}
                     {filteredGenres.map(genre => (
                         <GenreCheckbox
                             key={genre}
@@ -233,10 +231,6 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 onChange={handleFormChange}
                 name="city"
             />
-            <br></br>
-            <button type="button" onClick={handleSkip}>Skip</button>
-            <br></br>
-            <button type="button" onClick={resetFormData}>Clear Preferences</button>
             <br></br>
             <button type="submit">Submit</button>
         </form>

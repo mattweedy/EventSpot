@@ -21,6 +21,7 @@ function App() {
     const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
     const [recommendedEventIds, setRecommendedEventIds] = useState([]);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+    const [isFormShown, setIsFormShown] = useState(true);
 
     useEffect(() => {
         window.onbeforeunload = function () {
@@ -160,12 +161,20 @@ function App() {
                         <br />
                         <Logout />
                         <div style={{ textAlign: 'center' }} className='app-body'>
-                            <QuizForm
-                                username={userProfile.display_name}
-                                recommendedEventIds={recommendedEventIds}
-                                setRecommendedEventIds={setRecommendedEventIds}
-                                setIsFormSubmitted={setIsFormSubmitted}
-                            />
+                            {isFormShown ? (
+                                <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
+                            ) : (
+                                <button onClick={() => setIsFormShown(true)}>Edit Preferences</button>
+                            )}
+                            {isFormShown && (
+                                <QuizForm
+                                    username={userProfile.display_name}
+                                    recommendedEventIds={recommendedEventIds}
+                                    setRecommendedEventIds={setRecommendedEventIds}
+                                    setIsFormSubmitted={setIsFormSubmitted}
+                                    isFormShown={isFormShown}
+                                />
+                            )}
                         </div>
                         {isFormSubmitted ? <RecommendedEvents recommendedEventIds={recommendedEventIds} /> : null}
                     </div>

@@ -35,16 +35,17 @@ span {
     top: -12px;
 }
 
+
 .box {
     /* width: 100%; */
-    max-width: 840px;
-    min-width: 240px;
+    width: 840px;
     padding: 36px 32px;
     background: #4b4b4b;
     border-radius: 10px;
     color: #fff;
     text-align: left;
     margin: 10px;
+    box-shadow: #080808 0px 0px 10px 0px;
 }
 
 .box h3 span {
@@ -52,8 +53,11 @@ span {
     font-weight: 700;
 }
 
+/* fix resize on typing in search */
+
 .innerBox {
-    width: 840px;
+    /* min-width: 100%; */
+    width: 100%;
     height: 346px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -174,6 +178,7 @@ small {
     text-align: left;
     line-height: 1;
     height: 506px;
+    box-shadow: #080808 0px 0px 10px 0px;
 }
 
 .event-display > * {
@@ -227,7 +232,14 @@ small {
     justify-content: center;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: #c7c7c7;
     font-size: 16px;
+}
+
+@media screen and (max-width: 940px) {
+    .box {
+        width: auto;
+    }
 }
 
 @media screen and (min-width: 1808px) {

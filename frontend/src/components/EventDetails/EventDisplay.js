@@ -8,7 +8,7 @@ function EventDisplay({ event, venues }) {
         return null;
     }
 
-    const venue = venues.find(venue => venue.venue_id === event.venue_id);
+    const venue = venues ? venues.find(venue => venue.venue_id === event.venue_id) : null;
 
     return (
         <div className="event-display">

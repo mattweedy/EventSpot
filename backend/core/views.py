@@ -40,6 +40,22 @@ def apply_user_preferences(request):
         return JsonResponse({'status': 'success : User preferences updated'})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
+    
+def get_user_preferences(request):
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        user = User.objects.get(username=username)
+        user_data = {
+            'venue_preferences': user.venue_preferences,
+            'genre_preferences': user.genre_preferences,
+            'price_range': user.price_range,
+            'queer_events': user.queer_events,
+            'how_soon': user.how_soon,
+            'city': user.city
+        }
+        return JsonResponse({'status': 'success', 'data': user_data})
+    else:
+        return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
 
 
 def get_recommendations(request):

@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function VenueCheckbox({ venue, handleFormChange, formData }) {
     const [isSelected, setIsSelected] = useState(false);
+
+    useEffect(() => {
+        // check if venue is in selectedVenues array when formData changes
+        setIsSelected(formData.selectedVenues.includes(venue.name));
+    }, [formData, venue.name])
 
     const handleClick = () => {
         if (formData.selectedVenues.length < 5 || isSelected) {

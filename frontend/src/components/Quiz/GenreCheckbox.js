@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function GenreCheckbox({ genre, handleFormChange, formData }) {
     const [isSelected, setIsSelected] = useState(false);
+
+    useEffect(() => {
+        // Check if genre is in selectedGenres array when formData changes
+        setIsSelected(formData.selectedGenres.includes(genre));
+    }, [formData, genre]);
 
     const handleClick = () => {
         if (formData.selectedGenres.length < 5 || isSelected) {

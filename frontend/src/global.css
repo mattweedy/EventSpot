@@ -11,6 +11,10 @@ span {
     /* color: #ff9d3b; */
 }
 
+button {
+    user-select: none;
+}
+
 .priceRange {
     display: flex;
     justify-content: center;
@@ -33,6 +37,14 @@ span {
     border-radius: 50%;
     border: 2px solid #28ff68;
     top: -12px;
+}
+
+.slider .thumb.active {
+    cursor: grabbing;
+}
+
+.slider .thumb:hover {
+    background: #7affa0;
 }
 
 .box {
@@ -125,12 +137,18 @@ small {
     font-size: 16px;
     padding: 6px 12px;
     border-radius: 20px;
-    border: 2px solid rgba(53, 125, 37, 0.442);
+    border: 1px solid rgba(53, 125, 37, 0.442);
+    user-select: none;
+}
+
+.venueCheckbox:hover {
+    background-color: #7affa0;
 }
 
 .venueCheckbox.selected {
     background-color: #28ff68;
     color: #fff;
+    user-select: none;
 }
 
 .genreCheckbox {
@@ -139,12 +157,18 @@ small {
     font-size: 16px;
     padding: 6px 12px;
     border-radius: 20px;
-    border: 0;
+    border: 1px solid rgba(53, 125, 37, 0.442);
+    user-select: none;
+}
+
+.genreCheckbox:hover {
+    background-color: #7affa0;
 }
 
 .genreCheckbox.selected {
     background-color: #28ff68;
     color: #fff;
+    user-select: none;
 }
 
 .displayMore {
@@ -178,6 +202,11 @@ small {
     line-height: 1;
     height: 506px;
     box-shadow: #080808 0px 0px 10px 0px;
+}
+
+.event-display:hover {
+    background: #383838;
+    box-shadow: #095a21 0px 0px 10px 0px;
 }
 
 .event-display > * {
@@ -233,6 +262,10 @@ small {
     border: 1px solid #ccc;
     background-color: #c7c7c7;
     font-size: 16px;
+}
+
+.expandDetails:hover {
+    background-color: #7affa0;
 }
 
 @media screen and (max-width: 940px) {

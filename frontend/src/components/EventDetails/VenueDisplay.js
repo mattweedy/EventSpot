@@ -1,6 +1,7 @@
 import React from 'react';
 
 function VenueDisplay({ venue }) {
+    console.log("VenueDisplay: venue", venue)
     return (
         <div className="venue-display">
             <h2 className="venue-name">{venue.name}</h2>

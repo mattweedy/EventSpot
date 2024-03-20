@@ -1,4 +1,3 @@
-import '../global.css'
 import React, { useState, useEffect } from 'react';
 
 function Header({ userProfile, isLoggedIn }) {

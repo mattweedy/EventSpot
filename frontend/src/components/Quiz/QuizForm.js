@@ -50,6 +50,8 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setVenues(venueData);
     }, [venueData]);
 
+
+    // get the user's previous preferences (try minimise the number times preferences called)
     useEffect(() => {
         // get the user's previous preferences
         axios.get(`http://localhost:8000/api/get_preferences?username=${username}`)
@@ -57,12 +59,36 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 // if user had previous preferences, set previousPreferences to true
                 if (response.data.data) {
                     setPreviousPreferences(true);
+                    // update formData with the user's previous preferences
+                    console.log("response.data.data.venuePreferences: ", response.data.data.venuePreferences);
+                    setFormData({
+                        username: username,
+                        selectedVenues: response.data.data.venue_preferences || [],
+                        selectedGenres: response.data.data.genre_preferences || [],
+                        priceRange: response.data.data.price_range || [0, 100],
+                        queerPreference: response.data.data.queer_events || '',
+                        howSoon: response.data.data.how_soon || '',
+                        city: response.data.data.city || '',
+                    });
+                    console.log("Previous preferences: ", response.data.data);
+                    console.log("FormData: ", formData);
+                } else {
+                    // if user had no previous preferences, set formData to default values
+                    setFormData({
+                        username: username,
+                        selectedVenues: [],
+                        selectedGenres: [],
+                        priceRange: [0, 100],
+                        queerPreference: '',
+                        howSoon: '',
+                        city: '',
+                    });
                 }
             })
             .catch(error => {
                 console.error(error);
             });
-    }, [username]);
+    }, []); // empty dependency array means this useEffect will only run once, when the component first mounts
 
 
     const handleFormChange = (name, value, isSelected) => {
@@ -112,7 +138,6 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // console.log(formData);
         const data = {
             username: formData.username,
             venuePreferences: formData.selectedVenues,
@@ -123,35 +148,62 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             city: formData.city,
         };
 
-        axios.post('http://localhost:8000/api/set_preferences', data)
-        .then(response => {
-            console.log(response);
+        // check if any preferences have been changed
+        if (data.venuePreferences.length > 0 || data.genrePreferences.length > 0 || data.priceRange.length > 0 || data.queerPreference !== null || data.howSoon !== null || data.city !== null) {
+            // if any preferences have been changed, set the new preferences
+            axios.post('http://localhost:8000/api/set_preferences', data)
+                .then(response => {
+                    console.log(response);
 
-            // call the get_recommendations endpoint
-            return axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`);
-        })
-        .then(response => {
-            // update the state with the recommended event ids
-            setRecommendedEventIds(response.data.recommendations);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
+                    // call the get_recommendations endpoint
+                    return axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`);
+                })
+                .then(response => {
+                    // update the state with the recommended event ids
+                    setRecommendedEventIds(response.data.recommendations);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            // if no preferences have been changed, just get the recommendations
+            axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`)
+                .then(response => {
+                    // update the state with the recommended event ids
+                    setRecommendedEventIds(response.data.recommendations);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
         setIsFormSubmitted(true);
-        
     }
+
 
     const handleSkip = () => {
-        // if no options have been selected, and user has previous prefences, do not overwrite them
-        if (formData.selectedVenues.length === 0 && formData.selectedGenres.length === 0 && previousPreferences) {
-            // do not overwrite the previous preferences
-            setIsFormSubmitted(true);
+        if (!previousPreferences) {
+            // if the user doesn't have previous preferences, submit the form with no preferences
+            axios.post('http://localhost:8000/api/submit_form', formData)
+                .then(response => {
+                    setRecommendedEventIds(response.data.data);
+                    setIsFormSubmitted(true);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         } else {
-            // if options have been selected or the user has no preferences, submit the form
-            handleSubmit();
+            // if the user has previous preferences, just fetch the recommended events
+            axios.get(`http://localhost:8000/api/get_recommended_events?username=${username}`)
+                .then(response => {
+                    setRecommendedEventIds(response.data.data);
+                    setIsFormSubmitted(true);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
-    }
+    };
+
 
     const resetFormData = () => {
         setFormData({
@@ -170,8 +222,9 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setNumVenuesToShow(prevNum => prevNum === initialNumVenuesToShow ? venues.length : initialNumVenuesToShow);
     };
 
+    
     return (
-        <form onSubmit={handleSubmit} className="preferencesForm">
+        <form onSubmit={handleSubmit} className="preferencesForm" id="preferencesForm">
             <button type="submit" onClick={handleSkip}>Skip</button>
             <br></br>
             <button type="button" onClick={resetFormData}>Clear Preferences</button>
@@ -211,7 +264,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 </div>
             </div>
             <PriceRange
-                values={formData.priceRange}
+                formData={formData}
                 setValues={handlePriceRangeChange}
             />
             <input

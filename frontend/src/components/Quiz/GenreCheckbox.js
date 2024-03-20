@@ -4,7 +4,7 @@ export default function GenreCheckbox({ genre, handleFormChange, formData }) {
     const [isSelected, setIsSelected] = useState(false);
 
     useEffect(() => {
-        // Check if genre is in selectedGenres array when formData changes
+        // check if genre is in selectedGenres array when formData changes
         setIsSelected(formData.selectedGenres.includes(genre));
     }, [formData, genre]);
 

@@ -35,10 +35,9 @@ span {
     top: -12px;
 }
 
-
 .box {
     /* width: 100%; */
-    width: 840px;
+    width: 640px;
     padding: 36px 32px;
     background: #4b4b4b;
     border-radius: 10px;
@@ -242,16 +241,15 @@ small {
     }
 }
 
-@media screen and (min-width: 1808px) {
+/* @media screen and (min-width: 1840px) {
     .box {
-        max-width: 1040px;
-        display:inline-block;
+        width: 1040px;
     }
-}
+} */
 
 @media screen and (min-width: 2008px) {
     .box {
-        max-width: 1040px;
+        width: 1040px;
         display:inline-block;
     }
 }

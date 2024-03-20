@@ -1,7 +1,7 @@
 import './global.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Header from './components/Header';
+import Header from './components/General/Header';
 import Login from './components/Login/Login';
 import Logout from './components/Login/Logout';
 import QuizForm from './components/Quiz/QuizForm';

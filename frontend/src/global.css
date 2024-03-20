@@ -380,6 +380,9 @@ small {
     .box {
         width: auto;
     }
+    .modal-display {
+        flex-direction: column;
+    }
 }
 
 @media screen and (min-width: 2008px) {

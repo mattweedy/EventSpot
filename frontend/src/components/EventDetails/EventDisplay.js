@@ -1,36 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-// import VenueDisplay from './VenueDisplay';
+import EventVenueModelDisplay from './EventVenueModalDisplay';
 
 Modal.setAppElement('#root');
 
 function EventDisplay({ event, venues }) {
-    // const [showVenue, setShowVenue] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    // prevent background scrolling when modal is open
+    useEffect(() => {
+        if (modalIsOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+
+        // cleanup function
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [modalIsOpen]);
+
+    // if there is no event, return null
     if (!event) {
         return null;
     }
 
+    // find the venue for the event or set it to null
     const venue = venues ? venues.find(venue => venue.id === event.venue_id) : null;
 
     return (
         <div className="event-display">
+            <div className="eventDetails">
             <a href={event.tickets_url}><img src={event.image} className="event-image" alt=''></img></a>
             <h2 className="event-name">{event.name}</h2>
+            <h4 className="event-venue-name"><span>{venue.name}</span></h4>
             {/* TODO: REMOVE ID - DEBUG  */}
             <p className="event-id">{event.event_id}</p>
+            <p className="event-date">
+                {new Date(event.date).toLocaleDateString('en-IE', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                })}    
+            </p>
             <p className="event-summary">{event.summary}</p>
-            <p className="event-price">€{event.price}</p>
-            <p className="event-date">{event.date}</p>
-            <a href={event.tickets_url} className="event-ticket-link">buy tickets</a>
-            <hr></hr>
-            <div>
-                <button className="expandDetails" onClick={() => { //setShowVenue(!showVenue);
+            </div>
+            <div className="showFullDetails">
+                <p className="event-price">€{event.price}</p>
+                <a href={event.tickets_url} className="event-ticket-link"><button>Get Tickets</button></a>
+                <button className="expandDetails" onClick={() => {
                     console.log("showing venue", venue);
                     setModalIsOpen(true);
                     }}>
-                    {/* {showVenue ? 'Hide Details' : 'Show Full Details'} */}
                     Show Full Details
                 </button>
             </div>
@@ -42,20 +64,24 @@ function EventDisplay({ event, venues }) {
                     overlay: {
                         backgroundColor: 'rgba(0, 0, 0, 0.75)',
                         zIndex: '1000',
-                        backdropFilter: 'blur(3px)',
+                        backdropFilter: 'blur(2px)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     },
                     content: {
-                        color: 'lightsteelblue',
+                        color: '#fff',
+                        backgroundColor: '#494949',
+                        border: 'none',
+                        width: '85%',
+                        height: '85%',
+                        // position: 'relative',
+                        margin: 'auto',
                     },
                 }}
             >
-                {/* <h2>{event.name}</h2>
-                <p>{event.summary}</p>
-                <p>€{event.price}</p>
-                <p>{event.date}</p> */}
-                
-                {/* {venue && <VenueDisplay venue={venue} />} */}
-                <button onClick={() => setModalIsOpen(false)}>Close</button>
+                <EventVenueModelDisplay event={event} venue={venue} />
+                <button className="modal-close-button" onClick={() => setModalIsOpen(false)}>Close</button>
             </Modal>
         </div>
     );

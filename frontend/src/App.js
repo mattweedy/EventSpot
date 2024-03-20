@@ -8,7 +8,6 @@ import QuizForm from './components/Quiz/QuizForm';
 import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
 import RecommendedEvents from './components/EventDetails/RecommendedEvents';
 
-// TODO: display recommendations
 // TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
 // TODO: Implement a loading spinner for when the app is fetching data from the backend
 
@@ -21,7 +20,7 @@ function App() {
     const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
     const [recommendedEventIds, setRecommendedEventIds] = useState([]);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-    const [isFormShown, setIsFormShown] = useState(true);
+    const [isFormShown, setIsFormShown] = useState(false);
 
     useEffect(() => {
         window.onbeforeunload = function () {

@@ -12,7 +12,7 @@ export default function EventVenueModelDisplay({ event, venue }) {
         <div className="modal-display">
             <div id="modal-event">
                 <div id="modal-image">
-                <a href={event.tickets_url}><img src={event.image}/></a>
+                <a href={event.tickets_url}><img src={event.image} alt={event.name} /></a>
                 </div>
                 <div id="modal-event-details">
                     <h2>{event.name}</h2>

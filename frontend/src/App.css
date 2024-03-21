@@ -1,8 +1,18 @@
+:root {
+  --dynamic-height: 90vh;
+}
+
 .App {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 body {
@@ -10,9 +20,10 @@ body {
   padding: 0;
   background-color: #202020;
   /* background-color: #494949; */
-  min-height: 100vh;
+  /* min-height: 100vh; */
   /* text-align: center; */
   color: #fff;
+  min-height: 100vh;
 }
 
 span {
@@ -25,7 +36,7 @@ button {
 }
 
 .loading {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,12 +51,17 @@ button {
 .papp {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .app-content {
   display: flex;
-  height: 90vh;
+  /* overflow: auto; */
+  min-height: var(--dynamic-height);
+  /* height: 100%; */
+  flex: 1;
+  flex-direction: row;
 }
 
 .app-main {
@@ -53,10 +69,15 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  overflow: auto;
 }
 
 .app-body {
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .login-container {
@@ -120,10 +141,14 @@ button {
 }
 
 .sidebar {
-  /* height: 90vh; */
-  /* height: 100%; */
+  display: flex;
+  /* flex: 0 0 250px; */
+  flex-direction: column;
   width: 250px;
-  background-color: #111111;;
+  height: var(--dynamic-height);
+  top: 0;
+  position: sticky;
+  background-color: #111111;
 }
 
 .sidebar-list {
@@ -172,7 +197,11 @@ button {
 }
 
 .ev-con-con {
-  height: 10px;
+  /* flex: 1; */
+  min-width: 0;
+  overflow-y: auto;
+  margin: 24px;
+  /* height: 10px; */
 }
 
 .events-container {
@@ -193,7 +222,9 @@ button {
   color: #fff;
   text-align: left;
   line-height: 0.9;
-  height: 600px;
+  height: auto;
+  max-height: 600px;
+  overflow: hidden;
   box-shadow: #080808 0px 0px 10px 0px;
 }
 

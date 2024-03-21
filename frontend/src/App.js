@@ -2,12 +2,13 @@ import './App.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Login from './components/Login/Login';
-// import Logout from './components/Login/Logout';
 import Header from './components/General/Header';
 import QuizForm from './components/Quiz/QuizForm';
 import Sidebar from './components/Sidebar/Sidebar';
 import RecommendedEvents from './components/EventDetails/RecommendedEvents';
 import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
+// eslint-disable-next-line
+// import Logout from './components/Login/Logout';
 
 // TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
 // TODO: Implement a loading spinner for when the app is fetching data from the backend
@@ -133,6 +134,13 @@ function App() {
         }
     }, [userProfile, fetchTopItems]);
 
+
+    useEffect(() => {
+        const newHeight = isEventsVisible ? '100vh' : '90vh';
+        document.documentElement.style.setProperty('--dynamic-height', newHeight);
+    }, [isEventsVisible]);
+
+
     // use effect to log to console recommendedEventIds
     useEffect(() => {
         console.log("Is Form Submitted: ", isFormSubmitted);
@@ -157,13 +165,15 @@ function App() {
                         userProfile={userProfile}
                         isLoggedIn={isLoggedIn}
                     />
+                    {/* <div className="app-content" style={{ minHeight: isEventsVisible ? '100vh' : '90vh' }}> */}
                     <div className="app-content">
+                        {/* <Sidebar style={{ height: isEventsVisible ? '100vh' : '90vh' }}/> */}
                         <Sidebar />
-                        <button onClick={() => setIsEventsVisible(!isEventsVisible)}>
-                            {isEventsVisible ? 'Hide Events and Venues' : 'Show Events and Venues'}
-                        </button>
                         <main className="app-main">
                             <div className="app-body">
+                                <button onClick={() => setIsEventsVisible(!isEventsVisible)}>
+                                    {isEventsVisible ? 'Hide Events and Venues' : 'Show Events and Venues'}
+                                </button>
                                 {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
                                 <br></br>
                                 <DisplayEventVenueData isEventsVisible={isEventsVisible} />

@@ -71,7 +71,7 @@ function EventDisplay({ event, venues }) {
                     },
                     content: {
                         color: '#fff',
-                        backgroundColor: '#494949',
+                        backgroundColor: '#202020',
                         border: 'none',
                         width: '85%',
                         height: '85%',

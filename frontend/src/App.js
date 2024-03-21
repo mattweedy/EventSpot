@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Login from './components/Login/Login';
-import Logout from './components/Login/Logout';
+// import Logout from './components/Login/Logout';
 import Header from './components/General/Header';
 import QuizForm from './components/Quiz/QuizForm';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -22,6 +22,8 @@ function App() {
     const [recommendedEventIds, setRecommendedEventIds] = useState([]);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     const [isFormShown, setIsFormShown] = useState(false);
+    const [isEventsVisible, setIsEventsVisible] = useState(false);
+
 
     useEffect(() => {
         window.onbeforeunload = function () {
@@ -135,7 +137,7 @@ function App() {
     useEffect(() => {
         console.log("Is Form Submitted: ", isFormSubmitted);
         console.log("Recommended Event Ids: ", recommendedEventIds);
-    }, [isFormSubmitted ,recommendedEventIds]);
+    }, [isFormSubmitted, recommendedEventIds]);
 
 
     // if user is logged in, display the user's name
@@ -150,19 +152,22 @@ function App() {
         }
         if (accessToken && userProfile && !isLoading) {
             return (
-                <div className="app">
+                <div className="papp">
                     <Header
                         userProfile={userProfile}
                         isLoggedIn={isLoggedIn}
                     />
                     <div className="app-content">
                         <Sidebar />
+                        <button onClick={() => setIsEventsVisible(!isEventsVisible)}>
+                            {isEventsVisible ? 'Hide Events and Venues' : 'Show Events and Venues'}
+                        </button>
                         <main className="app-main">
-                            <DisplayEventVenueData />
-                            {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
-                            <br />
-                            <Logout />
                             <div className="app-body">
+                                {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
+                                <br></br>
+                                <DisplayEventVenueData isEventsVisible={isEventsVisible} />
+                                <br></br>
                                 {isFormShown ? (
                                     <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
                                 ) : (
@@ -182,62 +187,19 @@ function App() {
                 </div>
             );
         }
+    } else {
+        // TODO: improve login page styling
+        return (
+            <div className="app">
+                <Header isLoggedIn={isLoggedIn} />
+                <div className="app-content">
+                    <main className="app-main">
+                        <Login />
+                    </main>
+                </div>
+            </div>
+        );
     }
-    // if (isLoggedIn) {
-    //     if (isLoading) {
-    //         return (
-    //             <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
-    //                 <h1 style={{ fontSize: '75px', color: 'red' }}>Loading...</h1>
-    //                 {console.log("Loading...")}
-    //             </div>
-    //         );
-    //     }
-    //     if (accessToken && userProfile && !isLoading) {
-    //         return (
-    //             <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-    //                 <Header
-    //                     userProfile={userProfile}
-    //                     isLoggedIn={isLoggedIn}
-    //                 />
-    //                 <div style={{ display: 'flex', height: 'calc(100vh - headerHeight)' }}>
-    //                     <Sidebar />
-    //                     <main style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    //                         <DisplayEventVenueData />
-    //                         {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
-    //                         <br />
-    //                         <Logout />
-    //                         <div style={{ textAlign: 'center' }} className='app-body'>
-    //                             {isFormShown ? (
-    //                                 <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
-    //                             ) : (
-    //                                 <button onClick={() => setIsFormShown(true)}>Edit Preferences</button>
-    //                             )}
-    //                             {isFormShown && (
-    //                                 <QuizForm
-    //                                     username={userProfile.display_name}
-    //                                     recommendedEventIds={recommendedEventIds}
-    //                                     setRecommendedEventIds={setRecommendedEventIds}
-    //                                     setIsFormSubmitted={setIsFormSubmitted}
-    //                                     isFormShown={isFormShown}
-    //                                 />
-    //                             )}
-    //                         </div>
-    //                         {isFormSubmitted ? <RecommendedEvents recommendedEventIds={recommendedEventIds} /> : null}
-    //                     </main>
-    //                 </div>
-    //             </div>
-    //         );
-    //     }
-    // } else {
-    //     return (
-    //         <div style={{ backgroundColor: '#202020', color: '#fff' }}>
-    //             <div style={{ textAlign: 'center' }}>
-    //                 <Header isLoggedIn={isLoggedIn} />
-    //                 <Login />
-    //             </div>
-    //         </div>
-    //     );
-    // }
 }
 
 export default App;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SidebarData } from './SidebarData';
+import Logout from '../Login/Logout';
 
 function Sidebar() {
     return (
@@ -19,6 +20,9 @@ function Sidebar() {
                         </li>
                     )
                 })}
+                <li className="row">
+                    <Logout />
+                </li>
             </ul>
         </div>
     )

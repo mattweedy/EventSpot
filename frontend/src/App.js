@@ -1,12 +1,13 @@
-import './global.css';
+import './App.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Header from './components/General/Header';
 import Login from './components/Login/Login';
 import Logout from './components/Login/Logout';
+import Header from './components/General/Header';
 import QuizForm from './components/Quiz/QuizForm';
-import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
+import Sidebar from './components/Sidebar/Sidebar';
 import RecommendedEvents from './components/EventDetails/RecommendedEvents';
+import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
 
 // TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
 // TODO: Implement a loading spinner for when the app is fetching data from the backend
@@ -141,41 +142,89 @@ function App() {
     if (isLoggedIn) {
         if (isLoading) {
             return (
-                <div style={{ backgroundColor: '#202020', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
-                    <h1 style={{ fontSize: '150px', color: 'red' }}>Loading...</h1>
+                <div className="loading">
+                    <h1 className="loading-text">Loading...</h1>
                     {console.log("Loading...")}
                 </div>
             );
         }
         if (accessToken && userProfile && !isLoading) {
             return (
-                <div style={{ backgroundColor: '#202020', color: '#fff' }}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Header
-                            userProfile={userProfile}
-                            isLoggedIn={isLoggedIn}
-                        />
-                        <DisplayEventVenueData />
-                        {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
-                        <br />
-                        <Logout />
-                        <div style={{ textAlign: 'center' }} className='app-body'>
-                            {isFormShown ? (
-                                <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
-                            ) : (
-                                <button onClick={() => setIsFormShown(true)}>Edit Preferences</button>
-                            )}
-                            {isFormShown && (
-                                <QuizForm
-                                    username={userProfile.display_name}
-                                    recommendedEventIds={recommendedEventIds}
-                                    setRecommendedEventIds={setRecommendedEventIds}
-                                    setIsFormSubmitted={setIsFormSubmitted}
-                                    isFormShown={isFormShown}
-                                />
-                            )}
-                        </div>
-                        {isFormSubmitted ? <RecommendedEvents recommendedEventIds={recommendedEventIds} /> : null}
+                // <div>hello</div>
+                <div className="app">
+                    <Header
+                        userProfile={userProfile}
+                        isLoggedIn={isLoggedIn}
+                    />
+                    <div className="app-content">
+                        <Sidebar />
+                        <main className="app-main">
+                            <DisplayEventVenueData />
+                            {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
+                            <br />
+                            <Logout />
+                            <div className="app-body">
+                                {isFormShown ? (
+                                    <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
+                                ) : (
+                                    <button onClick={() => setIsFormShown(true)}>Edit Preferences</button>
+                                )}
+                                {isFormShown && (
+                                    <QuizForm
+                                        username={userProfile.display_name}
+                                        recommendedEventIds={recommendedEventIds}
+                                        setRecommendedEventIds={setRecommendedEventIds}
+                                        setIsFormSubmitted={setIsFormSubmitted}
+                                    />
+                                )}
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            );
+        }
+    }
+    if (isLoggedIn) {
+        if (isLoading) {
+            return (
+                <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
+                    <h1 style={{ fontSize: '75px', color: 'red' }}>Loading...</h1>
+                    {console.log("Loading...")}
+                </div>
+            );
+        }
+        if (accessToken && userProfile && !isLoading) {
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+                    <Header
+                        userProfile={userProfile}
+                        isLoggedIn={isLoggedIn}
+                    />
+                    <div style={{ display: 'flex', height: 'calc(100vh - headerHeight)' }}>
+                        <Sidebar />
+                        <main style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <DisplayEventVenueData />
+                            {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
+                            <br />
+                            <Logout />
+                            <div style={{ textAlign: 'center' }} className='app-body'>
+                                {isFormShown ? (
+                                    <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
+                                ) : (
+                                    <button onClick={() => setIsFormShown(true)}>Edit Preferences</button>
+                                )}
+                                {isFormShown && (
+                                    <QuizForm
+                                        username={userProfile.display_name}
+                                        recommendedEventIds={recommendedEventIds}
+                                        setRecommendedEventIds={setRecommendedEventIds}
+                                        setIsFormSubmitted={setIsFormSubmitted}
+                                        isFormShown={isFormShown}
+                                    />
+                                )}
+                            </div>
+                            {isFormSubmitted ? <RecommendedEvents recommendedEventIds={recommendedEventIds} /> : null}
+                        </main>
                     </div>
                 </div>
             );

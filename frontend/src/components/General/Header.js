@@ -11,37 +11,25 @@ function Header({ userProfile, isLoggedIn }) {
 
     if (!isLoggedIn) {
         return (
-            <header>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <p style={{ display: 'flex', alignItems: 'center', position: 'absolute', top: '0', right: '0', marginRight: '5px' }}>logged out</p>
-
-                    <h1 style={{ alignItems: 'center', marginTop: '10px', marginBottom: '0px' }}>
-                        Spot<span>Event</span>
-                    </h1>
-
-                    <h2 style={{ marginTop: '0px' }}>
-                        Music Event Discovery
-                    </h2>                    
+            <header className="header">
+                <div className="header-content">
+                    <p id="logged-out-status">logged out</p>
+                    <h1 className="header-title">Spot<span>Event</span></h1>
+                    <h2 className="header-subtitle">Music Event Discovery</h2>
                 </div>
             </header>
         );
     } else if (isLoggedIn) {
         return (
-            <header style={{ margin: '0'}}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="user-profile" style={{ display: 'flex', alignItems: 'center', position: 'absolute', top: '0', right: '0' }}>
-                        {windowWidth > 768 && <span style={{ marginRight: '0.3em' }}>{userProfile.display_name}</span>}
+            <header className="header">
+                <div className="header-content">
+                    <div className="user-profile">
+                        {windowWidth > 768 && <span>{userProfile.display_name}</span>}
                         {windowWidth > 768 && <p>logged in</p>}
-                        <img src={userProfile.images[0].url} alt="user profile" style={{ borderRadius: '50%', border: '3px solid black', scale: '65%', marginRight: '0px' }}/>
+                        <img src={userProfile.images[0].url} alt="user profile" />
                     </div>
-
-                    <h1 style={{ alignItems: 'center', marginTop: '10px', marginBottom: '0px' }}>
-                        Spot<span>Event</span>
-                    </h1>
-
-                    <h2 style={{ marginTop: '0px' }}>
-                        Music Event Discovery
-                    </h2>
+                    <h1 className="header-title">Spot<span>Event</span></h1>
+                    <h2 className="header-subtitle">Music Event Discovery</h2>
                 </div>
             </header>
         );

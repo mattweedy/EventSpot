@@ -88,6 +88,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             .catch(error => {
                 console.error(error);
             });
+    // eslint-disable-next-line
     }, []); // empty dependency array means this useEffect will only run once, when the component first mounts
 
 

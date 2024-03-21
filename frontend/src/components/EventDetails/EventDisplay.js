@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import EventVenueModelDisplay from './EventVenueModalDisplay';
+import { FaTimes } from 'react-icons/fa';
 
 Modal.setAppElement('#root');
 
@@ -74,14 +75,17 @@ function EventDisplay({ event, venues }) {
                         backgroundColor: '#202020',
                         border: 'none',
                         width: '85%',
-                        height: '85%',
-                        // position: 'relative',
+                        maxWidth: '1050px',
+                        // height: '85%',
+                        height: 'fit-content',
+                        maxHeight: '900px',
                         margin: 'auto',
+                        borderRadius: '15px',
                     },
                 }}
             >
+                <button className="modal-close-button" onClick={() => setModalIsOpen(false)}><FaTimes /></button>
                 <EventVenueModelDisplay event={event} venue={venue} />
-                <button className="modal-close-button" onClick={() => setModalIsOpen(false)}>Close</button>
             </Modal>
         </div>
     );

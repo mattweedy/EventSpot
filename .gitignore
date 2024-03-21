@@ -8,3 +8,5 @@ backend/spotevent/data/var/tmp/django_cache
 *.djcache
 venv/
 *.pyc
+frontend/node_modules/
+frontend/.env

@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "../Sidebar/Sidebar";
-import Login from "../Login/Login";
+import LoginPage from "../../pages/LoginPage";
 import { Suspense } from "react";
 
-export default function Layout({ userProfile, isLoggedIn, accessToken, isLoading}) {
+
+export default function Layout({ userProfile, isLoggedIn, accessToken }) {
     return (
         <div className="papp">
             <Header userProfile={userProfile} isLoggedIn={isLoggedIn} />
@@ -14,7 +15,9 @@ export default function Layout({ userProfile, isLoggedIn, accessToken, isLoading
                 <main className="app-main">
                     <div className="app-body">
                         <Suspense fallback={<div>Loading...</div>}>
-                            <Outlet context={{ isLoggedIn, userProfile, accessToken }} />
+                            {/* Conditionally render the Outlet or Login based on isLoggedIn */}
+                            {isLoggedIn ? <Outlet context={{ isLoggedIn, userProfile, accessToken }} /> : <LoginPage />}
+                            {/* <Outlet context={{ isLoggedIn, userProfile, accessToken }} /> */}
                         </Suspense>
                     </div>
                 </main>
@@ -22,7 +25,7 @@ export default function Layout({ userProfile, isLoggedIn, accessToken, isLoading
         </div>
     );
 
-    // console.log({ isLoggedIn, accessToken, userProfile, isLoading });
+    // console.log({ isLoggedIn, accessToken, userProfile  });
 
     // if (isLoggedIn) {
     //     if (accessToken && userProfile && !isLoading) {

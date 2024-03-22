@@ -1,9 +1,7 @@
 import React from 'react';
 import { SidebarData } from './SidebarData';
 import Logout from '../Login/Logout';
-import { Link } from 'react-router-dom';
-import PathConstants from '../../routes/pathConstants';
-
+import { NavLink } from 'react-router-dom';
 
 function Sidebar() {
     return (
@@ -11,18 +9,15 @@ function Sidebar() {
             <ul className="sidebar-list">
                 {SidebarData.map((val, key) => {
                     return (
-                        <Link to={val.link}>
-                            <li key={key}
-                                className="row"
-                                // id={window.location.pathname === val.link ? "active" : ""}
-                                // onClick={() => {
-                                    // window.location.pathname = val.link;
-                                // }}
-                            >
-                                    <div id="icon">{val.icon}</div>
-                                    <div id="title">{val.title}</div>
+                        <NavLink to={val.link}
+                            activeClassName="active"
+                            key={key}
+                        >
+                            <li className="row">
+                                <div id="icon">{val.icon}</div>
+                                <div id="title">{val.title}</div>
                             </li>
-                        </Link>
+                        </NavLink>
                     )
                 })}
                 <li className="row">

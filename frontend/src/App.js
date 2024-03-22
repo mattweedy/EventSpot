@@ -2,17 +2,10 @@ import './App.css';
 import React, { useState, useEffect, useCallback } from "react";
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import axios from 'axios';
-import Home from "./pages/Home";
-import Events from "./pages/Events";
 import Page404 from './pages/Page404';
-import TopTracks from './pages/TopTracks';
-import Preferences from './pages/Preferences';
-import Recommendations from './pages/Recommendations';
 import routes from './routes';
 import Layout from './components/General/Layout';
 import Login from './components/Login/Login';
-import RequireAuth from './components/General/RequireAuth';
-import { AuthProvider } from './context/AuthContext';
 
 
 function App() {
@@ -39,14 +32,6 @@ function App() {
             errorElement: <Page404 />,
             // child routes
             children: [
-                // {
-                //     path: "/",
-                //     element: (
-                //         <RequireAuth isLoggedIn={isLoggedIn}>
-                //             <Home />
-                //         </RequireAuth>
-                //     ),
-                // },
                 ...routes
             ],
         },
@@ -179,9 +164,7 @@ function App() {
 
 
     return (
-        <AuthProvider>
-            <RouterProvider router={router} />
-        </AuthProvider>
+        <RouterProvider router={router} />
     )
 }
 

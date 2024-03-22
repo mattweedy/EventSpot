@@ -9,10 +9,7 @@ function Sidebar() {
             <ul className="sidebar-list">
                 {SidebarData.map((val, key) => {
                     return (
-                        <NavLink to={val.link}
-                            activeClassName="active"
-                            key={key}
-                        >
+                        <NavLink to={val.link} key={key} className={({ isActive }) => isActive ? 'active' : ''}>
                             <li className="row">
                                 <div id="icon">{val.icon}</div>
                                 <div id="title">{val.title}</div>

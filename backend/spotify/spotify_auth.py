@@ -128,9 +128,6 @@ def spotify_callback(request):
             print(f"profile_data: {profile_data}")
 
 
-        # # log the user in
-        # login(request, user)
-
         return redirect('http://localhost:3000')
     except RequestException as e:
         print(f"An error occurred during the spotify_callback process: {e}")

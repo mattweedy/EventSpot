@@ -1,6 +1,6 @@
 import React from 'react';
-import useFetchData from './useFetchData'; // Assuming you have this custom hook
-import EventDisplay from '../EventDetails/EventDisplay'; // Import the EventDisplay component
+import useFetchData from './useFetchData';
+import EventDisplay from '../EventDetails/EventDisplay';
 
 const DisplayEventVenueData = ({ isEventsVisible}) => {
     const events = useFetchData('/events/');

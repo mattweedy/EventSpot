@@ -7,6 +7,7 @@ Modal.setAppElement('#root');
 
 function EventDisplay({ event, venues }) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    
 
     // prevent background scrolling when modal is open
     useEffect(() => {

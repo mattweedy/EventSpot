@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import SearchBar from "./SearchBar";
+import SearchBar from "../General/SearchBar";
 import PriceRange from "./PriceRange";
 import VenueCheckbox from "./VenueCheckbox";
 import GenreCheckbox from "./GenreCheckbox";

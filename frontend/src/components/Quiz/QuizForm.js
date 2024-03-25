@@ -10,13 +10,12 @@ import { toast } from 'react-hot-toast';
 
 // ! This component is not complete
 
-// TODO: change alerts to something more user-friendly (e.g. a message on the page)
-
+// TODO: do clear preferences toast asking for confirmation
 // TODO: handle cities
 
 
-export default function QuizForm({ username, recommendedEventIds, setRecommendedEventIds}) {
-    const initialNumVenuesToShow = 25;
+export default function QuizForm({ username, recommendedEventIds, setRecommendedEventIds }) {
+    const initialNumVenuesToShow = 35;
     const genres = ['techno', 'rave', 'house', 'trance', 'dubstep', 'drum and bass', 'gabber', 'hardgroove', 'hardstyle', 'psytrance', 'synthpop', 'trap', 'hip hop', 'hiphop', 'rap', 'pop', 'dance', 'rock', 'metal', 'hard rock', 'country', 'bluegrass', 'jazz', 'blues', 'classical', 'orchestral', 'electronic', 'edm', 'indie', 'alternative', 'folk', 'acoustic', 'r&b', 'soul', 'reggae', 'ska', 'punk', 'emo', 'latin', 'salsa', 'gospel', 'spiritual', 'funk', 'disco', 'world', 'international', 'new age', 'ambient', 'soundtrack', 'score', 'comedy', 'parody', 'spoken word', 'audiobook', 'children\'s', 'kids', 'holiday', 'christmas', 'easy listening', 'mood', 'brazilian', 'samba', 'fado', 'portuguese', 'tango', 'grunge', 'street', 'argentinian'];
     const [formData, setFormData] = useState({
         username: username,
@@ -36,8 +35,18 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
 
     const filteredVenues = venues ? venues.filter(venue => venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())) : [];
     const filteredGenres = genres ? genres.filter(genre => genre.toLowerCase().includes(genreSearchTerm.toLowerCase())) : [];
+    const toastOptions = {
+        style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        duration: 6000,
+    };
     const navigate = useNavigate();
-    
+
 
     useEffect(() => {
         setFormData(prev => ({
@@ -88,7 +97,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
             .catch(error => {
                 console.error(error);
             });
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, []); // empty dependency array means this useEffect will only run once, when the component first mounts
 
 
@@ -134,7 +143,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
             priceRange: values
         }));
     }
-    
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -191,19 +200,38 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
 
 
     const showToast = (message, type) => {
-        const toastOptions = {
-            style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-            },
-        };
-
         if (type === 'success') {
             toast.success(message, toastOptions);
         } else if (type === 'error') {
             toast.error(message, toastOptions);
         }
+    }
+
+
+    const showUndoToast = () => {
+        toast((t) => (
+            <div>
+                Undo changes?
+                <button onClick={() => (
+                    axios.get(`http://localhost:8000/api/get_preferences?username=${username}`)
+                        .then(response => {
+                            setFormData({
+                                username: username,
+                                selectedVenues: response.data.data.venue_preferences || [],
+                                selectedGenres: response.data.data.genre_preferences || [],
+                                priceRange: response.data.data.price_range || [0, 100],
+                                queerPreference: response.data.data.queer_events || '',
+                                howSoon: response.data.data.how_soon || '',
+                                city: response.data.data.city || '',
+                            })
+                        })
+                )} className="preferences-form-button" style={{margin: '0px 5px 0px 10px', height: '30px'}}>Undo</button>
+                <button onClick={() => {
+                    toast.dismiss(t.id);
+                    toast.success("Preferences cleared!", toastOptions);
+                }} className="preferences-form-button" style={{margin: '0px 0px 0px 5px', height: '30px'}}>Dismiss</button>
+            </div>
+        ), toastOptions)
     }
 
 
@@ -220,9 +248,9 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
                 .finally(() => {
                     navigate('/recommended-events');
                 });
-            } else {
-                // if the user has previous preferences, just fetch the recommended events
-                axios.get(`http://localhost:8000/api/recommendations?username=${username}`)
+        } else {
+            // if the user has previous preferences, just fetch the recommended events
+            axios.get(`http://localhost:8000/api/recommendations?username=${username}`)
                 .then(response => {
                     setRecommendedEventIds(response.data.data);
                 })
@@ -254,11 +282,34 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
         setNumVenuesToShow(prevNum => prevNum === initialNumVenuesToShow ? venues.length : initialNumVenuesToShow);
     };
 
-    
+
+    const [showConfirmation, setShowConfirmation] = useState(false);
+
+    const handleClearPreferences = () => {
+        setShowConfirmation(true);
+    };
+
+    const handleConfirmationYes = () => {
+        resetFormData();
+        setShowConfirmation(false);
+        showUndoToast();
+    };
+
+    const handleConfirmationNo = () => {
+        setShowConfirmation(false);
+    };
+
     return (
         <form onSubmit={handleSubmit} className="preferences-form">
-            <button type="submit" onClick={handleSkip} id="preferences-form-button">Skip</button>
-            <button type="button" onClick={resetFormData} id="preferences-form-button">Clear Preferences</button>
+            <button type="submit" onClick={handleSkip} className="preferences-form-button">Skip</button>
+            <button type="button" onClick={handleClearPreferences} className="preferences-form-button">Clear Preferences</button>
+            {showConfirmation && (
+                <div className="confirmation">
+                    <p>Are you sure you want to clear your preferences?</p>
+                    <button onClick={handleConfirmationYes} className="preferences-form-button">Yes</button>
+                    <button onClick={handleConfirmationNo} className="preferences-form-button">No</button>
+                </div>
+            )}
             <br></br>
 
             <div className="box" id="venues">
@@ -274,7 +325,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
                             formData={formData}
                         />
                     ))}
-                    <button type="button" onClick={handleDisplayMore} className="displayMore">
+                    <button type="button" onClick={handleDisplayMore} className="preferences-form-button" id="displayMore">
                         {numVenuesToShow === initialNumVenuesToShow ? 'Display All' : 'Show Less'}
                     </button>
                 </div>
@@ -318,7 +369,9 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
                 name="howSoon"
             /> */}
             <br></br>
-            <button type="submit" id="preferences-form-button">Save</button>
+            <button type="submit" className="preferences-form-button">Save</button>
+
+
         </form>
     );
 }

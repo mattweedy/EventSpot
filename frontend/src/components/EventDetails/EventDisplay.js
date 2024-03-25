@@ -37,7 +37,6 @@ function EventDisplay({ event, venues }) {
             <a href={event.tickets_url}><img src={event.image} className="event-image" alt=''></img></a>
             <h2 className="event-name">{event.name}</h2>
             <h4 className="event-venue-name"><span>{venue.name}</span></h4>
-            {/* TODO: REMOVE ID - DEBUG  */}
             <p className="event-id">{event.event_id}</p>
             <p className="event-date">
                 {new Date(event.date).toLocaleDateString('en-IE', {

@@ -494,7 +494,7 @@ small {
   color: #cecece;
 }
 
-#preferences-form-button {
+.preferences-form-button {
   display:flexbox;
   width: auto;
   height: 40px;
@@ -507,7 +507,7 @@ small {
   margin: 0px 10px 10px;
 }
 
-#preferences-form-button:hover {
+.preferences-form-button:hover {
   cursor: pointer;
   background-color: #1bad47;
 }
@@ -552,9 +552,10 @@ small {
   user-select: none;
 }
 
-.displayMore {
+#displayMore {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: auto;
   font-size: 16px;
   padding: 6px 12px;

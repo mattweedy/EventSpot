@@ -9,16 +9,12 @@ import Login from './components/Login/Login';
 
 
 function App() {
-    // const [isLoading, setIsLoading] = useState(true);
     const [accessToken, setAccessToken] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
     const [isFetchingTopItems, setIsFetchingTopItems] = useState({ tracks: false, artists: false });
     const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
     const [recommendedEventIds, setRecommendedEventIds] = useState([]);
-    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-    // const [isFormShown, setIsFormShown] = useState(false);
-    // const [isEventsVisible, setIsEventsVisible] = useState(false);
 
     // initialize a browser router
     const router = createBrowserRouter([
@@ -150,12 +146,7 @@ function App() {
             // fetchArtistGenres();
         }
     }, [userProfile, fetchTopItems]);
-
-    // use effect to log to console recommendedEventIds
-    // useEffect(() => {
-    //     console.log("Is Form Submitted: ", isFormSubmitted);
-    //     console.log("Recommended Event Ids: ", recommendedEventIds);
-    // }, [isFormSubmitted, recommendedEventIds]);
+    
 
     return (
         <RouterProvider router={router} />

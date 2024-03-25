@@ -9,6 +9,8 @@ from . spotify_auth import get_user_profile, get_user_top_items
 from backend.spotify.models import Track, Artist
 from . serializer import TrackSerializer, ArtistSerializer
 
+# TODO: ensure GET profile doesnt get spammed when you refresh the page and user is logged in
+
 
 class TrackView(viewsets.ModelViewSet):
     queryset = Track.objects.all()
@@ -113,7 +115,12 @@ def check_logged_in(request):
     Check if the user is logged in.
     """
     try:
+        # if 'user_profile' in request.session:
+        #     return JsonResponse({"isLoggedIn": True})
+
+        # print("User is logged in")
         access_token = utils.get_access_token()
+        
     except Exception as e:
         print(f"An error occurred during the get_access_token process: {e}")
         return JsonResponse({"isLoggedIn": False})

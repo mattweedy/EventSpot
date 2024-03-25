@@ -93,12 +93,14 @@ button {
   background-color: #0c0c0c;
   height: 10vh;
   margin: 0;
+  padding: 0;
 }
 
 .header-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 .header-content #logged-out-status {
@@ -123,10 +125,17 @@ button {
 .user-profile {
   display: flex;
   align-items: center;
+  background-color: #030303;
+  border-radius: 9999px;
+  min-width: 200px;
+  max-width: auto;
+  font-size: 11px;
+  height: auto;
   position: absolute;
   top: 0;
-  right: 0;
-  font-size: 14px;
+  left: 0;
+  margin: 6px;
+  margin-top: 2vh;
 }
 
 .user-profile span {
@@ -137,6 +146,7 @@ button {
   border-radius: 50%;
   border: 3px solid black;
   scale: 55%;
+  margin: 0;
   margin-right: 0px;
 }
 
@@ -149,6 +159,7 @@ button {
   top: 0;
   position: sticky;
   background-color: #111111;
+  /* justify-content: space-evenly; */
 }
 
 .sidebar-list {
@@ -203,19 +214,50 @@ a {
   flex: 70%;
 }
 
+.logout-container {
+  width: auto;
+  justify-content: right;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  margin-top: 3vh;
+}
+
 .logout-button {
-  width: 100%;
-  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 45px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 700;
   background-color: #28ff68;
   border: none;
+  border-radius: 20px;
+  padding: 0px 10px;
+}
+
+.logout-button:hover {
+  cursor: pointer;
+  background-color: #1bad47;
+}
+
+#logout-button-text {
+  display: inline-block;
+  margin-left: 10px;
 }
 
 .login-button {
-  width: 150px;
-  height: 60px;
+  width: 324px;
+  height: 48px;
   background-color: #28ff68;
   border: none;
-  border-radius: 15px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .login-button:hover {
@@ -589,6 +631,11 @@ small {
   background-color: #1bad47;
 }
 
+#login-page-dialog {
+  width: 60%;
+  margin: auto;
+}
+
 .skeleton-loader {
   width: 100%;
   height: 400px;
@@ -653,6 +700,18 @@ small {
 
   .ev-con-con { 
     padding: 0px 0px;
+  }
+
+  .logout-button {
+    border-radius: 14px;
+  }
+
+  #logout-button-text {
+    display: none;
+  }
+
+  .user-profile {
+    min-width: auto;
   }
 }
 

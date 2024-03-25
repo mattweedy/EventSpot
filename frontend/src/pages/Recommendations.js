@@ -1,5 +1,7 @@
 import React from 'react';
 
+// TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
+
 const Recommendations = () => {
     return (
         <div>

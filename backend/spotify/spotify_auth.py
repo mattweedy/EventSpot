@@ -75,6 +75,9 @@ def fetch_user_profile(request):
     """
     Fetch the user's profile information and return it as a dictionary.
     """
+    if 'user_profile' in request.session:
+        return request.session['user_profile']
+
     access_token = utils.get_access_token()
 
     if not access_token:
@@ -84,14 +87,13 @@ def fetch_user_profile(request):
         'Authorization': f'Bearer {access_token}'
     }
 
-    # print(f"[{datetime.now()}] GET : Requesting User Profile")
-    # current format : [2024-03-06 18:12:30.934581]
     print(f"[{datetime.now().strftime('%d/%b/%Y %H:%M:%S')}] GET : Requesting User Profile")
-    # target format  : [06/Mar/2024 18:12:31]
     response = requests.get('https://api.spotify.com/v1/me', headers=headers)
 
     if response.status_code == 200:
-        return response.json()
+        request.session['user_profile'] = response.json()
+        return request.session['user_profile']
+        # return response.json()
     else:
         print("ERROR : Fetching user profile : ", response.text)
         return {"error": "Fetching user profile : " + response.text}
@@ -170,6 +172,9 @@ def get_user_profile(request):
     """
     Get the user's profile information.
     """
+    if 'user_profile' in request.session:
+        return request.session['user_profile']
+
     profile_data = fetch_user_profile(request)
     return JsonResponse(profile_data, safe=False)
     
@@ -237,5 +242,3 @@ def get_artist_genres(artist_id):
     else:
         print("ERROR : Fetching artist genres : ", response.text)
         return JsonResponse({"error": "Fetching artist genres : " + response.text}, status=response.status_code)
-
-# TODO: make code_verifier not global, per user

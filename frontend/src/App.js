@@ -7,6 +7,7 @@ import routes from './routes';
 import Layout from './components/General/Layout';
 import Login from './components/Login/Login';
 
+
 function App() {
     // const [isLoading, setIsLoading] = useState(true);
     const [accessToken, setAccessToken] = useState('');
@@ -16,7 +17,7 @@ function App() {
     const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
     const [recommendedEventIds, setRecommendedEventIds] = useState([]);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-    const [isFormShown, setIsFormShown] = useState(false);
+    // const [isFormShown, setIsFormShown] = useState(false);
     // const [isEventsVisible, setIsEventsVisible] = useState(false);
 
     // initialize a browser router

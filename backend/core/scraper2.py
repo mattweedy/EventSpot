@@ -122,10 +122,6 @@ async def get_all_event_ids():
     return event_ids
 
 
-
-
-
-# TODO: save to Postgres
 # TODO: decide whether to do this in the scraper or in other backend file
 async def event_data_get(event_ids):
     """

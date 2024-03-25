@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SidebarData } from './SidebarData';
-import Logout from '../Login/Logout';
 import { NavLink } from 'react-router-dom';
 
-function Sidebar() {
+function Sidebar({ userProfile }) {
     return (
         <div className="sidebar">
             <ul className="sidebar-list">
@@ -17,9 +17,6 @@ function Sidebar() {
                         </NavLink>
                     )
                 })}
-                <li className="row">
-                    <Logout />
-                </li>
             </ul>
         </div>
     )

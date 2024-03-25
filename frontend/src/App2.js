@@ -8,8 +8,6 @@ import Sidebar from './components/Sidebar/Sidebar';
 import RecommendedEvents from './components/EventDetails/RecommendedEvents';
 import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
 
-// TODO: allow for regenerating recommendations(?) - give next 10 recommendations instead
-// TODO: Implement a loading spinner for when the app is fetching data from the backend
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -171,7 +169,6 @@ function App() {
                                 <button onClick={() => setIsEventsVisible(!isEventsVisible)}>
                                     {isEventsVisible ? 'Hide Events and Venues' : 'Show Events and Venues'}
                                 </button>
-                                {/* TODO: Implement showing users 10 fav tracks/artists on their profile component or main page */}
                                 <br></br>
                                 <DisplayEventVenueData isEventsVisible={isEventsVisible} />
                                 <br></br>
@@ -195,7 +192,6 @@ function App() {
             );
         }
     } else {
-        // TODO: improve login page styling
         return (
             <div className="app">
                 <Header isLoggedIn={isLoggedIn} />

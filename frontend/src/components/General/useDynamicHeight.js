@@ -7,6 +7,5 @@ export function useDynamicHeight() {
     useEffect(() => {
         const newHeight = location.pathname === '/events' || location.pathname === '/preferences' ? '100vh' : '90vh';
         document.documentElement.style.setProperty('--dynamic-height', newHeight);
-        console.log("Dynamic height set to:", newHeight);
     }, [location.pathname]);
 }

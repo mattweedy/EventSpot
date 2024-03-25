@@ -10,8 +10,6 @@ import useFetchData from "../Data/useFetchData";
 
 // TODO: change alerts to something more user-friendly (e.g. a message on the page)
 
-// TODO: handle queerPreference
-// TODO: handle howSoon
 // TODO: handle cities
 
 
@@ -268,6 +266,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 formData={formData}
                 setValues={handlePriceRangeChange}
             />
+            {/* TODO ! : queerEvents probably irrelevant */}
             <input
                 type="radio"
                 onChange={handleFormChange}

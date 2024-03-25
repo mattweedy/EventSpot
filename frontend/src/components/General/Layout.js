@@ -16,7 +16,6 @@ export default function Layout({ userProfile, isLoggedIn, accessToken, recommend
                     <div className="app-body">
                         <Suspense fallback={<div>Loading...</div>}>
                             {/* Conditionally render the Outlet or Login based on isLoggedIn */}
-                            {/* {isLoggedIn ? <Outlet context={{ recommendedEventIds, setRecommendedEventIds, }} /> : <LoginPage />} */}
                             {isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
                         </Suspense>
                     </div>

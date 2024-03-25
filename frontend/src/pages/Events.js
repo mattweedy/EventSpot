@@ -31,6 +31,7 @@ const Events = () => {
 
     return (
         <div className="ev-con-con">
+            <h1>Browse and Search All Events</h1>
             {loadEvents && <SearchBar searchTerm={eventSearchTerm} setSearchTerm={setEventSearchTerm} />}
             <div className="events-container">
                 {filteredEvents && filteredEvents.length === 0 ? <h4>Specified event not found.</h4> : null}

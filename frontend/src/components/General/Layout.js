@@ -17,7 +17,7 @@ export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, s
                 {isLoggedIn && <Sidebar userProfile={userProfile}/>}
                 <main className="app-main">
                     <div className="app-body">
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<h2>Loading...</h2>}>
                             {/* Conditionally render the Outlet or Login based on isLoggedIn */}
                             {isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
                         </Suspense>

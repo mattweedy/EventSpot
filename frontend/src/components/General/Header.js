@@ -14,9 +14,10 @@ function Header({ userProfile, isLoggedIn }) {
         return (
             <header className="header">
                 <div className="header-content">
-                    <p id="logged-out-status">logged out</p>
-                    <h1 className="header-title">Spot<span>Event</span></h1>
-                    <h2 className="header-subtitle">Music Event Discovery</h2>
+                    <div className="header-title-container">
+                        <h1 className="header-title">Spot<span>Event</span></h1>
+                        <h2 className="header-subtitle">Music Event Discovery</h2>
+                    </div>
                 </div>
             </header>
         );

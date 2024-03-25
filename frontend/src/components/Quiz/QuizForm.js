@@ -13,7 +13,7 @@ import useFetchData from "../Data/useFetchData";
 // TODO: handle cities
 
 
-export default function QuizForm({ username, setRecommendedEventIds, setIsFormSubmitted,}) {
+export default function QuizForm({ username, setRecommendedEventIds}) {
     const initialNumVenuesToShow = 25;
     const genres = ['techno', 'rave', 'house', 'trance', 'dubstep', 'drum and bass', 'gabber', 'hardgroove', 'hardstyle', 'psytrance', 'synthpop', 'trap', 'hip hop', 'hiphop', 'rap', 'pop', 'dance', 'rock', 'metal', 'hard rock', 'country', 'bluegrass', 'jazz', 'blues', 'classical', 'orchestral', 'electronic', 'edm', 'indie', 'alternative', 'folk', 'acoustic', 'r&b', 'soul', 'reggae', 'ska', 'punk', 'emo', 'latin', 'salsa', 'gospel', 'spiritual', 'funk', 'disco', 'world', 'international', 'new age', 'ambient', 'soundtrack', 'score', 'comedy', 'parody', 'spoken word', 'audiobook', 'children\'s', 'kids', 'holiday', 'christmas', 'easy listening', 'mood', 'brazilian', 'samba', 'fado', 'portuguese', 'tango', 'grunge', 'street', 'argentinian'];
     const [formData, setFormData] = useState({
@@ -94,32 +94,32 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
         setFormData(prev => {
             if (name === "selectedVenues") {
                 if (isSelected) {
-                    // If the checkbox is selected and the limit is not reached, add the venue to the array
+                    // if the checkbox is selected and the limit is not reached, add the venue to the array
                     if (prev[name].length < 5) {
                         return { ...prev, [name]: [...prev[name], value] };
                     } else {
-                        // If the limit is reached, do not add the venue
+                        // if the limit is reached, do not add the venue
                         return prev;
                     }
                 } else {
-                    // If the checkbox is deselected, remove the venue from the array
+                    // if the checkbox is deselected, remove the venue from the array
                     return { ...prev, [name]: prev[name].filter(item => item !== value) };
                 }
             } else if (name === "selectedGenres") {
                 if (isSelected) {
-                    // If the checkbox is selected and the limit is not reached, add the genre to the array
+                    // if the checkbox is selected and the limit is not reached, add the genre to the array
                     if (prev[name].length < 5) {
                         return { ...prev, [name]: [...prev[name], value] };
                     } else {
-                        // If the limit is reached, do not add the genre
+                        // if the limit is reached, do not add the genre
                         return prev;
                     }
                 } else {
-                    // If the checkbox is deselected, remove the genre from the array
+                    // if the checkbox is deselected, remove the genre from the array
                     return { ...prev, [name]: prev[name].filter(item => item !== value) };
                 }
             } else {
-                // For other form fields, just update the value
+                // for other form fields, just update the value
                 return { ...prev, [name]: value };
             }
         });
@@ -175,7 +175,6 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                     console.error(error);
                 });
         }
-        // setIsFormSubmitted(true);
     }
 
 
@@ -185,7 +184,6 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             axios.post('http://localhost:8000/api/submit_form', formData)
                 .then(response => {
                     setRecommendedEventIds(response.data.data);
-                    // setIsFormSubmitted(true);
                 })
                 .catch(error => {
                     console.error(error);
@@ -195,7 +193,6 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             axios.get(`http://localhost:8000/api/get_recommended_events?username=${username}`)
                 .then(response => {
                     setRecommendedEventIds(response.data.data);
-                    // setIsFormSubmitted(true);
                 })
                 .catch(error => {
                     console.error(error);
@@ -223,10 +220,9 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
 
     
     return (
-        <form onSubmit={handleSubmit} className="preferencesForm" id="preferencesForm">
-            <button type="submit" onClick={handleSkip}>Skip</button>
-            <br></br>
-            <button type="button" onClick={resetFormData}>Clear Preferences</button>
+        <form onSubmit={handleSubmit} className="preferences-form">
+            <button type="submit" onClick={handleSkip} id="preferences-form-button">Skip</button>
+            <button type="button" onClick={resetFormData} id="preferences-form-button">Clear Preferences</button>
             <br></br>
 
             <div className="box" id="venues">
@@ -242,7 +238,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                             formData={formData}
                         />
                     ))}
-                    <button onClick={handleDisplayMore} className="displayMore">
+                    <button type="button" onClick={handleDisplayMore} className="displayMore">
                         {numVenuesToShow === initialNumVenuesToShow ? 'Display All' : 'Show Less'}
                     </button>
                 </div>
@@ -262,31 +258,31 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                     ))}
                 </div>
             </div>
+            <br></br>
+            {/* TODO: figure out how to handle cities... do i take the text input and do eventbrite requests? if so only 2/3 */}
+            <input
+                type="radio"
+                onChange={handleFormChange}
+                name="city"
+            />
             <PriceRange
                 formData={formData}
                 setValues={handlePriceRangeChange}
             />
             {/* TODO ! : queerEvents probably irrelevant */}
-            <input
+            {/* <input
                 type="radio"
                 onChange={handleFormChange}
                 name="queerPreference"
-            />
+            /> */}
             {/* TODO ! : howSoon probably irrelevant */}
             {/* <input
                 type="date"
                 onChange={handleFormChange}
                 name="howSoon"
             /> */}
-            {/* TODO: figure out how to handle cities... do i take the text input and do eventbrite requests? if so only 2/3 */}
-            {/*  */}
-            <input
-                type="radio"
-                onChange={handleFormChange}
-                name="city"
-            />
             <br></br>
-            <button type="submit">Submit</button>
+            <button type="submit" id="preferences-form-button">Submit</button>
         </form>
     );
 }

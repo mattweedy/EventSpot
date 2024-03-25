@@ -98,15 +98,11 @@ button {
 
 .header-content {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   flex-direction: row;
   align-items: center;
   height: 100%;
   /* justify-content: center; */
-}
-
-.header-title-container {
-  margin-left: 40px;
 }
 
 .header-content #logged-out-status {
@@ -116,6 +112,10 @@ button {
   top: 0;
   right: 0;
   margin-right: 0.3em;
+}
+
+.header-title-container {
+  margin-left: 40px;
 }
 
 .header-title {
@@ -130,6 +130,7 @@ button {
 
 .user-profile {
   display: flex;
+  font-weight: 500;
   align-items: center;
   background-color: #030303;
   border-radius: 9999px;
@@ -137,11 +138,8 @@ button {
   max-width: auto;
   font-size: 11px;
   height: auto;
-  /* position: absolute;
-  top: 0;
-  left: 0; */
   margin: 6px;
-  margin-top: 2.5vh;
+  margin-top: 1vh;
 }
 
 .user-profile span {
@@ -256,7 +254,12 @@ a {
   margin-left: 10px;
 }
 .login-page {
-  /* margin: ; */
+  margin: auto;
+  margin-top: 20vh;
+}
+
+.login-page-container {
+  margin-bottom: 25px;
 }
 
 .login-button {
@@ -372,17 +375,20 @@ a {
 }
 
 .priceRange {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   align-items: center;
-  min-height: 18vh;
+  min-height: 14vh;
+  /* width: 50%; */
+  /* width: 250px; */
 }
 
 .slider {
   width: 100%;
   height: 2px;
   background-color: #28ff694d;
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .slider .thumb {
@@ -404,9 +410,9 @@ a {
 }
 
 .box {
-  /* width: 100%; */
-  width: 640px;
-  padding: 36px 32px;
+  width: 660px;
+  /* width: 460px; */
+  padding: 20px 32px;
   background: #4b4b4b;
   border-radius: 10px;
   color: #fff;
@@ -426,6 +432,7 @@ a {
   /* min-width: 100%; */
   width: 100%;
   height: 346px;
+  /* height: 350px; */
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -444,19 +451,19 @@ a {
 }
 
 #priceRange {
-  max-width: 840px;
+  max-width: 420px;
   min-width: 240px;
 }
 
 #venues {
-  max-width: 840px;
+  max-width: 940px;
   min-width: 240px;
   display: inline-block;
   text-align: left;
 }
 
 #genres {
-  max-width: 840px;
+  max-width: 940px;
   min-width: 240px;
   display: inline-block;
   text-align: left;
@@ -485,6 +492,24 @@ small {
   margin-top: 8px;
   display: block;
   color: #cecece;
+}
+
+#preferences-form-button {
+  display:flexbox;
+  width: auto;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: #28ff68;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 10px;
+  margin: 0px 10px 10px;
+}
+
+#preferences-form-button:hover {
+  cursor: pointer;
+  background-color: #1bad47;
 }
 
 .venueCheckbox {

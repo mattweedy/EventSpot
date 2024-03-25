@@ -7,7 +7,7 @@ const LoginPage = () => {
             <div className="login-page-container">
                 <h1>Welcome to Spot<span>Event</span></h1>
                 <div id="login-page-dialog">
-                    <h2>This application allows you to explore and discover upcoming events that
+                    <h2>Explore and discover upcoming music events that
                         closely match your music taste and preferences.
                     </h2>
                 </div>

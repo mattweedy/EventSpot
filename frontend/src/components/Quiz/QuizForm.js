@@ -212,7 +212,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
         toast((t) => (
             <div>
                 Undo changes?
-                <button onClick={() => (
+                <button onClick={() => {
                     axios.get(`http://localhost:8000/api/get_preferences?username=${username}`)
                         .then(response => {
                             setFormData({
@@ -224,8 +224,9 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
                                 howSoon: response.data.data.how_soon || '',
                                 city: response.data.data.city || '',
                             })
-                        })
-                )} className="preferences-form-button" style={{margin: '0px 5px 0px 10px', height: '30px'}}>Undo</button>
+                        });
+                    toast.success("Preferences restored successfully", toastOptions);
+                }} className="preferences-form-button" style={{margin: '0px 5px 0px 10px', height: '30px'}}>Undo</button>
                 <button onClick={() => {
                     toast.dismiss(t.id);
                     toast.success("Preferences cleared!", toastOptions);

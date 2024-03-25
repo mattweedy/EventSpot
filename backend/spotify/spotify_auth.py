@@ -59,11 +59,11 @@ def start_auth(request):
         )
 
         # store the state and code_verifier in the session and cache to protect against CSRF
-        # request.session['oauth_state'] = state
-        # request.session['code_verifier'] = code_verifier
+        request.session['oauth_state'] = state
+        request.session['code_verifier'] = code_verifier
        
-        cache.set('oauth_state', state, 60*5)
-        cache.set('code_verifier', code_verifier, 60*5)
+        # cache.set('oauth_state', state, 60*5)
+        # cache.set('code_verifier', code_verifier, 60*5)
 
         return redirect(authorization_url)
     except Exception as e:
@@ -102,8 +102,12 @@ def spotify_callback(request):
     Callback for Spotify's authorization page.
     """
     try:
+        # check if the states match
+        if request.GET.get('state') != request.session.get('oauth_state'):
+            print("State values do not match, potential CSRF attack.")
+            return HttpResponse(status=403)
+
         # call get_spotify_access_token to get the access token
-        
         get_spotify_access_token(request)
 
         # get user profile
@@ -140,14 +144,16 @@ def spotify_callback(request):
 def get_spotify_access_token(request):
     try:
         spotify = OAuth2Session(client_id, redirect_uri=redirect_uri)
-        print(f"Code verifier in spotify_callback: {cache.get('code_verifier')}")
+        # print(f"Code verifier in spotify_callback: {cache.get('code_verifier')}")
+        print(f"Code verifier in spotify_callback: {request.session.get('code_verifier')}")
 
         # use fetch_token from OUath2Session to exchange auth code for access token
         token = spotify.fetch_token(
             'https://accounts.spotify.com/api/token',
             authorization_response=request.build_absolute_uri(),
             code=request.GET.get('code'),
-            code_verifier=cache.get('code_verifier'),
+            # code_verifier=cache.get('code_verifier'),
+            code_verifier=request.session.get('code_verifier'),
             client_secret=client_secret
         )
 

@@ -8,7 +8,7 @@ import Layout from './components/General/Layout';
 import Login from './components/Login/Login';
 
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const [accessToken, setAccessToken] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userProfile, setUserProfile] = useState(null);
@@ -55,7 +55,7 @@ function App() {
     const fetchUserProfile = useCallback(async () => {
         if (accessToken && !isFetchingUserProfile) {
             setIsFetchingUserProfile(true);
-            setIsLoading(true);
+            // setIsLoading(true);
             console.log("USER PROFILE : sending backend request to spotify/profile...");
             axios.get('http://localhost:8000/spotify/profile', {
                 headers: {
@@ -72,7 +72,7 @@ function App() {
                     setIsLoggedIn(false);
                 })
                 .finally(() => {
-                    setIsLoading(false);
+                    // setIsLoading(false);
                 });
         }
     }, [accessToken, isFetchingUserProfile]);
@@ -84,7 +84,7 @@ function App() {
 
     useEffect(() => {
         // fetch access token from backend when component mounts
-        setIsLoading(true);
+        // setIsLoading(true);
         console.log("LOGGING IN : sending backend request to spotify/logged_in...");
         axios.get('http://localhost:8000/spotify/logged_in')
             .then(response => {
@@ -102,7 +102,7 @@ function App() {
                 }
             })
             .finally(() => {
-                setIsLoading(false);
+                // setIsLoading(false);
             });
     }, []);
 

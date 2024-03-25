@@ -131,8 +131,8 @@ def logout_view(request):
     logout(request)
     cache.delete('spotify_access_token')
     cache.delete('spotify_refresh_token')
-    cache.delete('oauth_state')
-    cache.delete('code_verifier')
+    # cache.delete('oauth_state')
+    # cache.delete('code_verifier')
     return redirect('http://localhost:3000')
 # END LOGIN AND LOGOUT VIEWS ----------------------------------------------------
 

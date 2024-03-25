@@ -1,15 +1,8 @@
-import React, { useEffect, } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useDynamicHeight } from '../components/General/useDynamicHeight';
 
 function Home() {
-    // TODO: apply this relevantly to pages that need certain heights
-    const location = useLocation();
-
-    useEffect(() => {
-        const newHeight = location.pathname === '/events' ? '100vh' : '90vh';
-        document.documentElement.style.setProperty('--dynamic-height', newHeight);
-        console.log("Dynamic height set to:", newHeight);
-    }, [location.pathname]);
+    useDynamicHeight();
 
     return (
         <div>

@@ -1,10 +1,17 @@
 import React from 'react';
+import QuizForm from '../components/Quiz/QuizForm';
+import { useOutletContext } from 'react-router-dom';
 
 function Preferences() {
+    const { userProfile, recommendedEventIds, setRecommendedEventIds, isFormSubmitted, setIsFormSubmitted } = useOutletContext();
+
     return (
         <div>
-            <h1>Preferences</h1>
-            {/* Add your preferences components here */}
+            <QuizForm
+                username={userProfile.display_name}
+                recommendedEventIds={recommendedEventIds}
+                setRecommendedEventIds={setRecommendedEventIds}
+                setIsFormSubmitted={setIsFormSubmitted} />
         </div>
     );
 }

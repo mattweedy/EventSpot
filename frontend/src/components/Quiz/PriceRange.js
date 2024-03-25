@@ -5,6 +5,8 @@ import Slider from 'react-slider';
 const MIN = 0;
 const MAX = 100;
 
+// TODO: fix element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object.
+
 export default function PriceRange({ formData, setValues}) {
     const [priceRange, setPriceRange] = useState([MIN, MAX]);
 

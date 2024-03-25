@@ -1,6 +1,8 @@
 import React from 'react';
 import EventDisplay from '../EventDetails/EventDisplay';
 
+// ! Delete this file along with App2.js, Sidebar2.js
+
 const DisplayEventVenueData = ({ events, venues }) => {
     return (
         <div className="ev-con-con">

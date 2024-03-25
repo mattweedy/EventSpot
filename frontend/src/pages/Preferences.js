@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import QuizForm from '../components/Quiz/QuizForm';
 import { useOutletContext } from 'react-router-dom';
 import { useDynamicHeight } from '../components/General/useDynamicHeight';
 
 function Preferences() {
     const { userProfile, recommendedEventIds, setRecommendedEventIds, } = useOutletContext();
+
     useDynamicHeight();
 
     return (

@@ -28,6 +28,8 @@ function App() {
             element: <Layout
                 userProfile={userProfile}
                 isLoggedIn={isLoggedIn}
+                recommendedEventIds={recommendedEventIds}
+                setRecommendedEventIds={setRecommendedEventIds}
             />,
             errorElement: <Page404 />,
             // child routes
@@ -150,10 +152,10 @@ function App() {
     }, [userProfile, fetchTopItems]);
 
     // use effect to log to console recommendedEventIds
-    useEffect(() => {
-        console.log("Is Form Submitted: ", isFormSubmitted);
-        console.log("Recommended Event Ids: ", recommendedEventIds);
-    }, [isFormSubmitted, recommendedEventIds]);
+    // useEffect(() => {
+    //     console.log("Is Form Submitted: ", isFormSubmitted);
+    //     console.log("Recommended Event Ids: ", recommendedEventIds);
+    // }, [isFormSubmitted, recommendedEventIds]);
 
     return (
         <RouterProvider router={router} />

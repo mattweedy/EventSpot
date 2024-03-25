@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 export default function GenreCheckbox({ genre, handleFormChange, formData }) {
     const [isSelected, setIsSelected] = useState(false);
@@ -10,15 +11,27 @@ export default function GenreCheckbox({ genre, handleFormChange, formData }) {
 
     const handleClick = () => {
         if (formData.selectedGenres.length < 5 || isSelected) {
-            // Change the state
+            // change the state
             setIsSelected(!isSelected);
-            // Update the formData
+            // update the formData
             handleFormChange("selectedGenres", genre, !isSelected);
         } else {
-            // If the limit is reached, do not add the genre
-            alert('You can only select up to 5 genres.');
+            // if the limit is reached, do not add the genre
+            showToast('You can only select up to 5 genres.');
         }
     }
+
+
+    const showToast = (message) => {
+        toast.error(message, {
+            style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+            },
+        });
+    }
+
 
     return (
         <button

@@ -2,7 +2,8 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "../Sidebar/Sidebar";
 import LoginPage from "../../pages/LoginPage";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 
 
 export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, setRecommendedEventIds, isFormSubmitted, setIsFormSubmitted }) {
@@ -20,6 +21,7 @@ export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, s
                         <Suspense fallback={<h2>Loading...</h2>}>
                             {/* Conditionally render the Outlet or Login based on isLoggedIn */}
                             {isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
+                            <Toaster position="bottom-right" containerStyle={{ color: '#fff'}}/>
                         </Suspense>
                     </div>
                 </main>

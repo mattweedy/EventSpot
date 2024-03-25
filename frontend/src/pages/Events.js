@@ -23,7 +23,6 @@ const Events = () => {
     const venues = useFetchData('/venues/');
     const filteredEvents = events ? events.filter(event => {
         const eventVenue = venues ? venues.find(venue => venue.id === event.venue_id) : null;
-        console.log("Event Venue:", eventVenue);
         const eventName = event.name.toLowerCase();
         const venueName = eventVenue ? eventVenue.name.toLowerCase() : '';
         return eventName.includes(eventSearchTerm.toLowerCase()) || venueName.includes(eventSearchTerm.toLowerCase());

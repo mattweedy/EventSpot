@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import SearchBar from "../General/SearchBar";
 import PriceRange from "./PriceRange";
 import VenueCheckbox from "./VenueCheckbox";
 import GenreCheckbox from "./GenreCheckbox";
+import SearchBar from "../General/SearchBar";
 import useFetchData from "../Data/useFetchData";
+import { toast } from 'react-hot-toast';
 
 // ! This component is not complete
 
@@ -13,7 +15,7 @@ import useFetchData from "../Data/useFetchData";
 // TODO: handle cities
 
 
-export default function QuizForm({ username, setRecommendedEventIds}) {
+export default function QuizForm({ username, recommendedEventIds, setRecommendedEventIds}) {
     const initialNumVenuesToShow = 25;
     const genres = ['techno', 'rave', 'house', 'trance', 'dubstep', 'drum and bass', 'gabber', 'hardgroove', 'hardstyle', 'psytrance', 'synthpop', 'trap', 'hip hop', 'hiphop', 'rap', 'pop', 'dance', 'rock', 'metal', 'hard rock', 'country', 'bluegrass', 'jazz', 'blues', 'classical', 'orchestral', 'electronic', 'edm', 'indie', 'alternative', 'folk', 'acoustic', 'r&b', 'soul', 'reggae', 'ska', 'punk', 'emo', 'latin', 'salsa', 'gospel', 'spiritual', 'funk', 'disco', 'world', 'international', 'new age', 'ambient', 'soundtrack', 'score', 'comedy', 'parody', 'spoken word', 'audiobook', 'children\'s', 'kids', 'holiday', 'christmas', 'easy listening', 'mood', 'brazilian', 'samba', 'fado', 'portuguese', 'tango', 'grunge', 'street', 'argentinian'];
     const [formData, setFormData] = useState({
@@ -34,7 +36,8 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
 
     const filteredVenues = venues ? venues.filter(venue => venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())) : [];
     const filteredGenres = genres ? genres.filter(genre => genre.toLowerCase().includes(genreSearchTerm.toLowerCase())) : [];
-
+    const navigate = useNavigate();
+    
 
     useEffect(() => {
         setFormData(prev => ({
@@ -58,7 +61,7 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
                 if (response.data.data) {
                     setPreviousPreferences(true);
                     // update formData with the user's previous preferences
-                    console.log("response.data.data.venuePreferences: ", response.data.data.venuePreferences);
+                    console.log("Previous preferences: ", response.data.data);
                     setFormData({
                         username: username,
                         selectedVenues: response.data.data.venue_preferences || [],
@@ -68,7 +71,6 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
                         howSoon: response.data.data.how_soon || '',
                         city: response.data.data.city || '',
                     });
-                    console.log("Previous preferences: ", response.data.data);
                     console.log("FormData: ", formData);
                 } else {
                     // if user had no previous preferences, set formData to default values
@@ -163,6 +165,11 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
                 })
                 .catch(error => {
                     console.error(error);
+                    showToast('An error occurred. Please try again.', 'error');
+                })
+                .finally(() => {
+                    // show toast notification
+                    showToast('Preferences saved!', 'success');
                 });
         } else {
             // if no preferences have been changed, just get the recommendations
@@ -173,7 +180,29 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
                 })
                 .catch(error => {
                     console.error(error);
+                    showToast('An error occurred. Please try again.', 'error');
+                })
+                .finally(() => {
+                    // show toast notification
+                    showToast('Preferences saved!', 'success');
                 });
+        }
+    }
+
+
+    const showToast = (message, type) => {
+        const toastOptions = {
+            style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+            },
+        };
+
+        if (type === 'success') {
+            toast.success(message, toastOptions);
+        } else if (type === 'error') {
+            toast.error(message, toastOptions);
         }
     }
 
@@ -187,21 +216,28 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
                 })
                 .catch(error => {
                     console.error(error);
+                })
+                .finally(() => {
+                    navigate('/recommended-events');
                 });
-        } else {
-            // if the user has previous preferences, just fetch the recommended events
-            axios.get(`http://localhost:8000/api/get_recommended_events?username=${username}`)
+            } else {
+                // if the user has previous preferences, just fetch the recommended events
+                axios.get(`http://localhost:8000/api/recommendations?username=${username}`)
                 .then(response => {
                     setRecommendedEventIds(response.data.data);
                 })
                 .catch(error => {
                     console.error(error);
+                })
+                .finally(() => {
+                    navigate('/recommended-events');
                 });
         }
     };
 
 
     const resetFormData = () => {
+        // showToast
         setFormData({
             username: username,
             selectedVenues: [],
@@ -282,7 +318,7 @@ export default function QuizForm({ username, setRecommendedEventIds}) {
                 name="howSoon"
             /> */}
             <br></br>
-            <button type="submit" id="preferences-form-button">Submit</button>
+            <button type="submit" id="preferences-form-button">Save</button>
         </form>
     );
 }

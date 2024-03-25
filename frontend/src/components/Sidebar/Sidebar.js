@@ -1,9 +1,9 @@
 // import React from 'react';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SidebarData } from './SidebarData';
 import { NavLink } from 'react-router-dom';
 
-function Sidebar({ userProfile }) {
+function Sidebar() {
     return (
         <div className="sidebar">
             <ul className="sidebar-list">

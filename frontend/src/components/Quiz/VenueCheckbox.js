@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 export default function VenueCheckbox({ venue, handleFormChange, formData }) {
     const [isSelected, setIsSelected] = useState(false);
@@ -16,9 +17,22 @@ export default function VenueCheckbox({ venue, handleFormChange, formData }) {
             handleFormChange("selectedVenues", venue.name, !isSelected);
         } else {
             // if the limit is reached, do not add the venue
-            alert('You can only select up to 5 venues.');
+            // alert('You can only select up to 5 venues.');
+            showToast('You can only select up to 5 venues.');
         }
     };
+
+
+    const showToast = (message) => {
+        toast.error(message, {
+            style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+            },
+        });
+    }
+
 
     return (
         <button

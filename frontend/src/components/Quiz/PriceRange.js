@@ -10,7 +10,16 @@ export default function PriceRange({ formData, setValues}) {
 
     useEffect(() => {
         try {
-            const parsedPriceRange = JSON.parse(formData.priceRange);
+            let parsedPriceRange;
+
+            // check if formData.priceRange is a string
+            if (typeof formData.priceRange === 'string') {
+                // if it's a string, try to parse it as JSON
+                parsedPriceRange = JSON.parse(formData.priceRange);
+            } else {
+                // if it's not a string, assume it's already an array
+                parsedPriceRange = formData.priceRange;
+            }
             setPriceRange(parsedPriceRange);
         } catch (error) {
             console.error('Failed to parse formData.priceRange:', error);

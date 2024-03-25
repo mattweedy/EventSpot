@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDynamicHeight } from '../components/General/useDynamicHeight';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const navigate= useNavigate();
     useDynamicHeight();
 
     // TODO: add code to route user to edit preferences page
@@ -14,7 +16,7 @@ function Home() {
             <h2 className="home-page-text">If you're new here, it is best to setup your <span>preferences</span>.</h2>
             <p className="home-page-text">Don't worry, you can change these at any time.</p>
 
-            <button className="edit-preferences-button" id="preferences-form-button" onClick={() => { /* code to route user to edit preferences page */ }}>
+            <button className="edit-preferences-button" id="preferences-form-button" onClick={() => navigate('/preferences')}>
                 Edit Preferences
             </button>
         </div>

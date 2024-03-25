@@ -29,11 +29,13 @@ function Header({ userProfile, isLoggedIn }) {
                             {windowWidth > 940 && <span>{userProfile.display_name}</span>}
                             {windowWidth > 940 && <p>logged in</p>}
                     </div>
+                    <div className="header-title-container">
+                        <h1 className="header-title">Spot<span>Event</span></h1>
+                        <h2 className="header-subtitle">Music Event Discovery</h2>
+                    </div>
                     <div className="logout-container">
                         <Logout />
                     </div>
-                    <h1 className="header-title">Spot<span>Event</span></h1>
-                    <h2 className="header-subtitle">Music Event Discovery</h2>
                 </div>
             </header>
         );

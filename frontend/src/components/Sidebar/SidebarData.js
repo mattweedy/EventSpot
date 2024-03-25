@@ -9,9 +9,9 @@ export const SidebarData = [
         link: PathConstants.HOME,
     },
     {
-        title: "Recommended Events",
-        icon: <FaStar />,
-        link: PathConstants.RECOMMENDED_EVENTS,
+        title: "Browse All Events",
+        icon: <FaCalendarAlt />,
+        link: PathConstants.EVENTS,
     },
     {
         title: "Edit Preferences",
@@ -19,9 +19,9 @@ export const SidebarData = [
         link: PathConstants.PREFERENCES,
     },
     {
-        title: "Browse All Events",
-        icon: <FaCalendarAlt />,
-        link: PathConstants.EVENTS,
+        title: "Recommended Events",
+        icon: <FaStar />,
+        link: PathConstants.RECOMMENDED_EVENTS,
     },
     {
         title: "Top Tracks",

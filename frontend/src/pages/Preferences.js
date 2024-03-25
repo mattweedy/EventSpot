@@ -9,6 +9,7 @@ function Preferences() {
 
     return (
         <div>
+            <h1>Edit Preferences</h1>
             <QuizForm
                 username={userProfile.display_name}
                 recommendedEventIds={recommendedEventIds}

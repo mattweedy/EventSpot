@@ -177,7 +177,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                     console.error(error);
                 });
         }
-        setIsFormSubmitted(true);
+        // setIsFormSubmitted(true);
     }
 
 
@@ -187,7 +187,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             axios.post('http://localhost:8000/api/submit_form', formData)
                 .then(response => {
                     setRecommendedEventIds(response.data.data);
-                    setIsFormSubmitted(true);
+                    // setIsFormSubmitted(true);
                 })
                 .catch(error => {
                     console.error(error);
@@ -197,7 +197,7 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
             axios.get(`http://localhost:8000/api/get_recommended_events?username=${username}`)
                 .then(response => {
                     setRecommendedEventIds(response.data.data);
-                    setIsFormSubmitted(true);
+                    // setIsFormSubmitted(true);
                 })
                 .catch(error => {
                     console.error(error);
@@ -273,11 +273,12 @@ export default function QuizForm({ username, setRecommendedEventIds, setIsFormSu
                 onChange={handleFormChange}
                 name="queerPreference"
             />
-            <input
+            {/* TODO ! : howSoon probably irrelevant */}
+            {/* <input
                 type="date"
                 onChange={handleFormChange}
                 name="howSoon"
-            />
+            /> */}
             {/* TODO: figure out how to handle cities... do i take the text input and do eventbrite requests? if so only 2/3 */}
             {/*  */}
             <input

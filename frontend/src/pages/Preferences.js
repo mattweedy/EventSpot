@@ -1,17 +1,18 @@
 import React from 'react';
 import QuizForm from '../components/Quiz/QuizForm';
 import { useOutletContext } from 'react-router-dom';
+import { useDynamicHeight } from '../components/General/useDynamicHeight';
 
 function Preferences() {
-    const { userProfile, recommendedEventIds, setRecommendedEventIds, isFormSubmitted, setIsFormSubmitted } = useOutletContext();
+    const { userProfile, recommendedEventIds, setRecommendedEventIds, } = useOutletContext();
+    useDynamicHeight();
 
     return (
         <div>
             <QuizForm
                 username={userProfile.display_name}
                 recommendedEventIds={recommendedEventIds}
-                setRecommendedEventIds={setRecommendedEventIds}
-                setIsFormSubmitted={setIsFormSubmitted} />
+                setRecommendedEventIds={setRecommendedEventIds} />
         </div>
     );
 }

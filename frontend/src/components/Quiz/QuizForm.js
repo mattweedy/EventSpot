@@ -10,7 +10,6 @@ import { toast } from 'react-hot-toast';
 
 // ! This component is not complete
 
-// TODO: do clear preferences toast asking for confirmation
 // TODO: handle cities
 
 
@@ -46,7 +45,6 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
         duration: 6000,
     };
     const navigate = useNavigate();
-
 
     useEffect(() => {
         setFormData(prev => ({
@@ -163,7 +161,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
             // if any preferences have been changed, set the new preferences
             axios.post('http://localhost:8000/api/set_preferences', data)
                 .then(response => {
-                    console.log(response);
+                    console.log("response:", response);
 
                     // call the get_recommendations endpoint
                     return axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`);
@@ -179,6 +177,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
                 .finally(() => {
                     // show toast notification
                     showToast('Preferences saved!', 'success');
+                    navigate('/recommended-events');
                 });
         } else {
             // if no preferences have been changed, just get the recommendations
@@ -194,6 +193,7 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
                 .finally(() => {
                     // show toast notification
                     showToast('Preferences saved!', 'success');
+                    navigate('/recommended-events');
                 });
         }
     }
@@ -371,8 +371,6 @@ export default function QuizForm({ username, recommendedEventIds, setRecommended
             /> */}
             <br></br>
             <button type="submit" className="preferences-form-button">Save</button>
-
-
         </form>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import EventVenueModelDisplay from './EventVenueModalDisplay';
+import EventVenueModalDisplay from './EventVenueModalDisplay';
 import { FaTimes } from 'react-icons/fa';
 
 Modal.setAppElement('#root');
@@ -36,7 +36,8 @@ function EventDisplay({ event, venues }) {
             <div className="eventDetails">
             <a href={event.tickets_url}><img src={event.image} className="event-image" alt=''></img></a>
             <h2 className="event-name">{event.name}</h2>
-            <h4 className="event-venue-name"><span>{venue.name}</span></h4>
+            {/* <h4 className="event-venue-name"><span>{venue.name}</span></h4> */}
+            <h4 className="event-venue-name"><span>{venue ? venue.name : 'Venue not found'}</span></h4>
             <p className="event-id">{event.event_id}</p>
             <p className="event-date">
                 {new Date(event.date).toLocaleDateString('en-IE', {
@@ -85,7 +86,7 @@ function EventDisplay({ event, venues }) {
                 }}
             >
                 <button className="modal-close-button" onClick={() => setModalIsOpen(false)}><FaTimes /></button>
-                <EventVenueModelDisplay event={event} venue={venue} />
+                <EventVenueModalDisplay event={event} venue={venue} />
             </Modal>
         </div>
     );

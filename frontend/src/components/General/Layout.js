@@ -7,8 +7,6 @@ import { Toaster } from "react-hot-toast";
 
 
 export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, setRecommendedEventIds, isFormSubmitted, setIsFormSubmitted }) {
-
-
     return (
         <div className="papp">
             <Header userProfile={userProfile} isLoggedIn={isLoggedIn} />

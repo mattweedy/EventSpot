@@ -16,7 +16,7 @@ function Home() {
             <h2 className="home-page-text">If you're new here, it is best to setup your <span>preferences</span>.</h2>
             <p className="home-page-text">Don't worry, you can change these at any time.</p>
 
-            <button className="edit-preferences-button" className="preferences-form-button" onClick={() => navigate('/preferences')}>
+            <button className="preferences-form-button" onClick={() => navigate('/preferences')}>
                 Edit Preferences
             </button>
         </div>

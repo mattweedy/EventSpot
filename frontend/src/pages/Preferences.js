@@ -11,6 +11,7 @@ function Preferences() {
     return (
         <div>
             <h1>Edit Preferences</h1>
+            <p>Hitting <span>save</span> will redirect you to the recommended events page</p>
             <QuizForm
                 username={userProfile.display_name}
                 recommendedEventIds={recommendedEventIds}

@@ -29,7 +29,7 @@ export default function PriceRange({ formData, setValues}) {
     return (
         <div className="priceRange">
             <div className="box" id="priceRange">
-                <h3>Price <span>Range</span></h3>
+                <h3><span>Preferred</span> Price Range</h3>
                 <div className={"values"}>€{priceRange[0]} - €{priceRange[1]}</div>
                 <small>
                     Current range: €{priceRange[1] - priceRange[0]}

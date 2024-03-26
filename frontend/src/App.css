@@ -417,6 +417,11 @@ a {
   width: 100%;
 }
 
+.event-display button:hover {
+  cursor: pointer;
+  background-color: #7affa0;
+}
+
 .event-ticket-link button:hover {
   background-color: #7affa0;
 }

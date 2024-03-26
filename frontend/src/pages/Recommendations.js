@@ -61,7 +61,7 @@ export default function Recommendation() {
                 {recommendedEvents && recommendedEvents.length > 0 && filteredEvents && filteredEvents.length === 0 ? <h4>No events found for this search.</h4> : null}
                 {recommendedEvents && venues ? (
                     filteredEvents.map(event => (
-                        <EventDisplay key={event.id} event={event} venues={venues} />
+                        <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={true}/>
                     ))
                 ) : (
                     <div className="skeleton-loader" id="events-skeleton" />

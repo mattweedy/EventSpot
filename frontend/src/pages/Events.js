@@ -36,7 +36,7 @@ const Events = () => {
                 {filteredEvents && filteredEvents.length === 0 ? <h4>Specified event not found.</h4> : null}
                 {events && venues && filteredEvents.map(event => (
                     loadEvents ? (
-                        <EventDisplay key={event.id} event={event} venues={venues} />
+                        <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={false}/>
                     ) : (
                         <div className="skeleton-loader" id="events-skeleton" />
                     )

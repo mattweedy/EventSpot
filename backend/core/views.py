@@ -21,6 +21,9 @@ class UserView(viewsets.ModelViewSet):
 
 @csrf_exempt
 def apply_user_preferences(request):
+    """
+    Apply user preferences to the user object.
+    """
     if request.method == 'POST':
         data = json.loads(request.body)
         user = User.objects.get(username=data['username'])
@@ -42,6 +45,9 @@ def apply_user_preferences(request):
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
     
 def get_user_preferences(request):
+    """
+    Get the user's preferences.
+    """
     if request.method == 'GET':
         username = request.GET.get('username')
         user = User.objects.get(username=username)
@@ -59,6 +65,9 @@ def get_user_preferences(request):
 
 
 def get_recommendations(request):
+    """
+    Get the user's preferences and return the recommended events.
+    """
     if request.method == 'GET':
         username = request.GET.get('username')
         user = User.objects.get(username=username)
@@ -71,3 +80,28 @@ def get_recommendations(request):
         return JsonResponse({'status': 'success', 'data': user_data, 'recommendations': recommended_event_ids})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
+    
+@csrf_exempt
+def save_recommendation(request):
+    """
+    Save or remove an event from the user's recommendations.
+    """
+    if request.method == 'POST':
+        username = request.POST['username']
+        event_id = request.POST['event_id']
+        user = User.objects.get(username=username)
+
+        if event_id in user.recommended_events.all():
+            user.recommended_events.remove(event_id)
+            message = 'Event removed from recommendations.'
+            is_saved = False
+        else:
+            user.recommended_events.add(event_id)
+            message = 'Event saved to recommendations.'
+            is_saved = True
+
+        user.save()
+        return JsonResponse({"message": message, "is_saved": is_saved})
+
+    else:
+        return JsonResponse({"error": "Invalid request method."})

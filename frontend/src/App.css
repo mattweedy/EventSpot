@@ -358,6 +358,10 @@ a {
   box-shadow: #080808 0px 0px 10px 0px;
 }
 
+.event-display.recommendation {
+  max-height: 700px;
+}
+
 .event-display:hover {
   background: #383838;
   box-shadow: #095a21 0px 0px 10px 0px;
@@ -409,7 +413,7 @@ a {
 }
 
 .event-display button {
-  margin: 5px;
+  margin: 5px auto;
   font-size: 16px;
   padding: 6px 12px;
   border-radius: 20px;

@@ -3,11 +3,14 @@ import Modal from 'react-modal';
 import EventVenueModalDisplay from './EventVenueModalDisplay';
 import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
+// TODO: pass userprofile to here
+// TODO: ensure recommended_events in User model is an array of event_ids
 
 Modal.setAppElement('#root');
 
-function EventDisplay({ event, venues, isRecommendation = false }) {
+function EventDisplay({ event, venues, isRecommendation = false, userProfile }) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const toastOptions = {
@@ -43,20 +46,32 @@ function EventDisplay({ event, venues, isRecommendation = false }) {
     // find the venue for the event or set it to null
     const venue = venues ? venues.find(venue => venue.id === event.venue_id) : null;
 
-    const handleSave = () => {
-        // send request to backend to save the event
-        
+    const handleSave = async (event_id) => {
+        // send request to backend to save/remove the event
+        try {
+            const response = await axios.post('http://localhost:8000/api/save_remove_recommendation', {
+                username: userProfile.username,
+                event_id: event_id,
+            });
+
+            setIsSaved(response.data.is_saved);
+            toast.success(response.data.message, toastOptions);
+        } catch (error) {
+            console.error('Failed to save/remove recommendation:', error);
+            toast.error('An error occurred while saving/removing the recommendation.', toastOptions);
+        }
+
         // for now just update the state and display a toast message
-        setIsSaved(!isSaved);
-        toast.success(isSaved ? 'Event removed from recommendations' : 'Event saved to recommendations', toastOptions);
+        // setIsSaved(!isSaved);
+        // toast.success(isSaved ? 'Event <span>removed</span> from recommendations' : 'Event <span>saved</span> to recommendations', toastOptions);
     }
 
     return (
-        <div className="event-display">
+        // <div className="event-display">
+        <div className={`event-display ${isRecommendation ? 'recommendation' : ''}`}>
             <div className="eventDetails">
                 <a href={event.tickets_url}><img src={event.image} className="event-image" alt=''></img></a>
                 <h2 className="event-name">{event.name}</h2>
-                {/* <h4 className="event-venue-name"><span>{venue.name}</span></h4> */}
                 <h4 className="event-venue-name"><span>{venue ? venue.name : 'Venue not found'}</span></h4>
                 <p className="event-id">{event.event_id}</p>
                 <p className="event-date">
@@ -72,13 +87,13 @@ function EventDisplay({ event, venues, isRecommendation = false }) {
                 <p className="event-price">€{event.price}</p>
                 <a href={event.tickets_url} className="event-ticket-link"><button>Get Tickets</button></a>
                 <button className="expandDetails" onClick={() => {
-                    console.log("showing venue", venue);
+                    console.log("showing venue modal", venue);
                     setModalIsOpen(true);
                 }}>
                     Show Full Details
                 </button>
                 {isRecommendation && (
-                    <button onClick={handleSave}>
+                    <button onClick={handleSave(event.event_id)}>
                         {isSaved ? 'Remove Recommendation' : 'Save Recommendation'}
                     </button>
                 )}
@@ -102,7 +117,6 @@ function EventDisplay({ event, venues, isRecommendation = false }) {
                         border: 'none',
                         width: '85%',
                         maxWidth: '1050px',
-                        // height: '85%',
                         height: 'fit-content',
                         maxHeight: '900px',
                         margin: 'auto',

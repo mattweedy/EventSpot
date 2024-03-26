@@ -67,10 +67,14 @@ button {
 .app-main {
   flex: 1;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   overflow: auto;
+  overflow-x: hidden;
+  text-align: center;
+  /* max-height: 100%; */
+  /* flex-wrap: wrap; */
+  /* align-items: flex-start; */
 }
 
 .app-body {
@@ -78,6 +82,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  max-height: 100%;
 }
 
 .login-container {
@@ -253,6 +258,7 @@ a {
   display: inline-block;
   margin-left: 10px;
 }
+
 .login-page {
   margin: auto;
   margin-top: 20vh;
@@ -277,7 +283,47 @@ a {
   background-color: #1bad47;
 }
 
+.home-page {
+  background-color: #1a1a1a;
+  margin: auto 10%;
+  padding: 60px;
+  /* padding-top: 0; */
+  border-radius: 200px;
+  max-width: 85%;
+}
+
+.home-page-title {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.home-page-text {
+  font-size: 18px;
+  margin: 16px 0px;
+}
+
+#home-page-button {
+  width: 200px;
+  margin-bottom: 0;
+}
+
+.home-page h4 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.home-page h4 span {
+  font-weight: 700;
+  color: #28ff68;
+}
+
+.home-page h4 span:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .ev-con-con {
+  /* min-height: auto; */
   min-width: 200px;
   overflow-y: auto;
   margin: 24px;

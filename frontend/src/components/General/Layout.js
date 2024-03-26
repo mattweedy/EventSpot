@@ -5,8 +5,9 @@ import LoginPage from "../../pages/LoginPage";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 
+// ? this isLoading part is making the sidebar disappear too for some reason
 
-export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, setRecommendedEventIds, isFormSubmitted, setIsFormSubmitted }) {
+export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, setRecommendedEventIds, isLoading }) {
     return (
         <div className="papp">
             <Header userProfile={userProfile} isLoggedIn={isLoggedIn} />
@@ -18,7 +19,7 @@ export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, s
                     {/* <div className="app-body"> */}
                         <Suspense fallback={<h2>Loading...</h2>}>
                             {/* Conditionally render the Outlet or Login based on isLoggedIn */}
-                            {isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
+                            {isLoading ? <h2>Loading...</h2> : isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
                             <Toaster position="bottom-right" containerStyle={{ color: '#fff'}}/>
                         </Suspense>
                     {/* </div> */}

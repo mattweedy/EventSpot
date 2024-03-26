@@ -183,6 +183,13 @@ def get_user_top_items(request, type, limit, offset):
     """
     Get the user's top 20 tracks or artists.
     """
+    # ? TODO: maybe this doesn't solve the issue
+    # TODO: ensure one the first time user logs in (NOT EVER, just when they log in) the full api request is sent (some tracks may need updating) and then stored,
+    # TODO: -->  otherwise pull it from storage
+    # check if user's top items are already in the session
+    if f'user_top_{type}' in request.session:
+        return request.session[f'user_top_{type}']
+
     access_token = utils.get_access_token()
 
     if not access_token:
@@ -196,7 +203,9 @@ def get_user_top_items(request, type, limit, offset):
     response = requests.get(f'https://api.spotify.com/v1/me/top/{type}?limit={limit}&offset={offset}', headers=headers)
 
     if response.status_code == 200:
-        return json.loads(response.text)
+        # store user's top items in the session
+        request.session[f'user_top_{type}'] = response.json()
+        return request.session[f'user_top_{type}']
     else:
         print(f"ERROR : Fetching user top {limit} {type} with offset {offset} : ", response.text)
         return JsonResponse({"error": f"Fetching user top {limit} {type} with offset {offset} : " + response.text}, status=response.status_code)

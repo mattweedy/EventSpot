@@ -6,8 +6,6 @@ function Home() {
     const navigate= useNavigate();
     useDynamicHeight();
 
-    // TODO: pretty up the home page and the buttons (maybe div with different colors, etc.)
-
     return (
         <div className="home-page">
             <h1 className="home-page-title">Welcome to Spot<span>Event</span></h1>

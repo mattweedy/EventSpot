@@ -88,7 +88,7 @@ class Venue(models.Model):
         address = venue["address"]
         
         # extract information from event
-        name = venue["name"]
+        name = venue["name"].replace("'", "")
         venue_id = event['primary_venue_id']
         localised_addr = address["localized_address_display"]
         city = address["region"]

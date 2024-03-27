@@ -430,6 +430,22 @@ a {
   background-color: #7affa0;
 }
 
+#save {
+  background-color: #28ff68;
+}
+
+#save:hover {
+  background-color: #1bad47;
+}
+
+#remove {
+  background-color: #ff3b3b;
+}
+
+#remove:hover {
+  background-color: #aa2626;
+}
+
 .priceRange {
   display: inline-block;
   justify-content: center;

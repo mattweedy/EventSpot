@@ -23,7 +23,7 @@ function EventDisplay({ event, venues, isRecommendation = false, username }) {
         },
         duration: 6000,
     };
-    
+
 
     // prevent background scrolling when modal is open
     useEffect(() => {
@@ -54,47 +54,34 @@ function EventDisplay({ event, venues, isRecommendation = false, username }) {
                 username: username,
                 event_id: event_id,
             };
-            
+
             let isJson = true;
-            
+
+            // check if the data is JSON
             try {
                 JSON.stringify(data);
             } catch (error) {
                 isJson = false;
             }
-            
+
             if (isJson) {
-                // Send the data
+                // send the data
                 const response = await axios.post('http://localhost:8000/api/save_remove_recommendation', data, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
 
+                // set the state based on the response and display a toast message
                 setIsSaved(response.data.is_saved);
                 toast.success(response.data.message, toastOptions);
             } else {
                 console.error('The data is not JSON');
             }
-            // const response = await axios.post('http://localhost:8000/api/save_remove_recommendation', {
-            //     username: username,
-            //     event_id: event_id,
-            // }, {
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //     },
-            // });
-
-            // setIsSaved(response.data.is_saved);
-            // toast.success(response.data.message, toastOptions);
-        } catch (error) {
+        } catch (error) { // catch any errors
             console.error('Failed to save/remove recommendation:', error);
             toast.error('An error occurred while saving/removing the recommendation.', toastOptions);
         }
-
-        // for now just update the state and display a toast message
-        // setIsSaved(!isSaved);
-        // toast.success(isSaved ? 'Event <span>removed</span> from recommendations' : 'Event <span>saved</span> to recommendations', toastOptions);
     }
 
     return (
@@ -124,9 +111,9 @@ function EventDisplay({ event, venues, isRecommendation = false, username }) {
                     Show Full Details
                 </button>
                 {isRecommendation && (
-                    <button onClick={() => handleSave(event.event_id)}>
-                        {isSaved ? 'Remove Recommendation' : 'Save Recommendation'}
-                    </button>
+                    <button onClick={() => handleSave(event.event_id)} id={isSaved ? 'remove' : 'save'}>
+                    {isSaved ? 'Remove Recommendation' : 'Save Recommendation'}
+                </button>
                 )}
             </div>
             <Modal

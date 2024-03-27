@@ -90,28 +90,30 @@ def save_remove_recommendation(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user = User.objects.get(username=data['username'])
+        # split recommended events into list, default to empty list if none
         recommended_events = user.recommended_events.split(',') if user.recommended_events else []
         event_id = str(data['event_id'])
 
         if event_id in recommended_events:
             try:
+                # remove event from recommendations
                 recommended_events.remove(event_id)
                 user.recommended_events = ','.join(recommended_events)
             except Exception as e:
                 return JsonResponse({'REMOVING RECOMMENDATION error': str(e)})
             message = 'Event removed from recommendations.'
             is_saved = False
-            print(f"Event {event_id} removed from recommendations.")
         else:
             try:
+                # add event to recommendations
                 recommended_events.append(event_id)
                 user.recommended_events = ','.join(recommended_events)
             except Exception as e:
                 return JsonResponse({'ADDING RECOMMENDATION error': str(e)})
             message = 'Event saved to recommendations.'
             is_saved = True
-            print(f"Event {event_id} saved to recommendations.")
 
+        # save changes to user and return response with message and is_saved flag
         user.save()
         return JsonResponse({"message": message, "is_saved": is_saved})
 

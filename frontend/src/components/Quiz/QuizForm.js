@@ -10,9 +10,11 @@ import { toast } from 'react-hot-toast';
 
 // ! This component is not complete
 
+// TODO: in logout, clear the local storage
+// TODO: make sure handleSkip does same saving of recommended events as handleSubmit
 // TODO: handle cities
 
-export default function QuizForm({ username, setRecommendedEventIds }) {
+export default function QuizForm({ username, recommendedEventIds, setRecommendedEventIds }) {
     const initialNumVenuesToShow = 35;
     const genres = ['techno', 'rave', 'house', 'trance', 'dubstep', 'drum and bass', 'gabber', 'hardgroove', 'hardstyle', 'psytrance', 'synthpop', 'trap', 'hip hop', 'hiphop', 'rap', 'pop', 'dance', 'rock', 'metal', 'hard rock', 'country', 'bluegrass', 'jazz', 'blues', 'classical', 'orchestral', 'electronic', 'edm', 'indie', 'alternative', 'folk', 'acoustic', 'r&b', 'soul', 'reggae', 'ska', 'punk', 'emo', 'latin', 'salsa', 'gospel', 'spiritual', 'funk', 'disco', 'world', 'international', 'new age', 'ambient', 'soundtrack', 'score', 'comedy', 'parody', 'spoken word', 'audiobook', 'children\'s', 'kids', 'holiday', 'christmas', 'easy listening', 'mood', 'brazilian', 'samba', 'fado', 'portuguese', 'tango', 'grunge', 'street', 'argentinian'];
     const [formData, setFormData] = useState({
@@ -20,8 +22,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
         selectedVenues: [],
         selectedGenres: [],
         priceRange: [0, 100], // this is a range
-        // queerPreference: '', // more / less / no preference
-        // howSoon: '', // this is a date field(?)
         city: '', // maybe use a dropdown
     });
     const venueData = useFetchData('/venues/');
@@ -30,6 +30,7 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
     const [venueSearchTerm, setVenueSearchTerm] = useState('');
     const [genreSearchTerm, setGenreSearchTerm] = useState('');
     const [previousPreferences, setPreviousPreferences] = useState(false);
+    const [readyForNavigation, setReadyForNavigation] = useState(false);
 
     const filteredVenues = venues ? venues.filter(venue => venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())) : [];
     const filteredGenres = genres ? genres.filter(genre => genre.toLowerCase().includes(genreSearchTerm.toLowerCase())) : [];
@@ -68,25 +69,22 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                     setPreviousPreferences(true);
                     // update formData with the user's previous preferences
                     console.log("Previous preferences: ", response.data.data);
+                    console.log("Venue preferences: ", response.data.data.venue_preferences);
                     setFormData({
                         username: username,
-                        selectedVenues: response.data.data.venue_preferences || [],
-                        selectedGenres: response.data.data.genre_preferences || [],
-                        priceRange: response.data.data.price_range || [0, 100],
-                        queerPreference: response.data.data.queer_events || '',
-                        howSoon: response.data.data.how_soon || '',
-                        city: response.data.data.city || '',
+                        selectedVenues: response.data.data.venue_preferences,
+                        selectedGenres: response.data.data.genre_preferences,
+                        priceRange: response.data.data.price_range,
+                        city: response.data.data.city,
                     });
-                    console.log("FormData: ", formData);
                 } else {
+                    setPreviousPreferences(false);
                     // if user had no previous preferences, set formData to default values
                     setFormData({
                         username: username,
                         selectedVenues: [],
                         selectedGenres: [],
                         priceRange: [0, 100],
-                        queerPreference: '',
-                        howSoon: '',
                         city: '',
                     });
                 }
@@ -141,10 +139,54 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
         }));
     }
 
+    // _________________________________________________________
+
+
+        // fetch events based on recommendations
+    const fetchEventsBasedOnRecommendations = (recommendedEventIds) => {
+        // Fetch events logic
+        return axios.get('http://localhost:8000/api/events')
+            .then(response => {
+                const allEvents = response.data;
+                let events = allEvents.filter(e => recommendedEventIds.includes(e.event_id));
+                events.sort((a, b) => recommendedEventIds.indexOf(a.event_id) - recommendedEventIds.indexOf(b.event_id));
+                return events; // Return filtered and sorted events
+            })
+            .catch(error => {
+                console.error('Failed to filter events:', error);
+                throw error; // Re-throw to handle in the calling function
+            });
+    };
+
+    // store the recommended event in local storage
+    const storeEventsInLocalStorage = (events) => {
+        console.log("Setting recommendedEvents to storage:", events);
+        localStorage.setItem('recommendedEvents', JSON.stringify(events));
+        console.log("Set recommendedEvents to storage:", events);
+    };
+
+    const processAndNavigateRecommendations = () => {
+        axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`)
+            .then(response => {
+                const recommendations = response.data.recommendations;
+                fetchEventsBasedOnRecommendations(recommendations)
+                    .then(events => {
+                        storeEventsInLocalStorage(events);
+                        setRecommendedEventIds(recommendations);
+                        setReadyForNavigation(true); // This triggers the useEffect to navigate
+                    }).catch(error => {
+                        console.error('Error fetching events based on recommendations:', error);
+                        showToast('An error occurred. Please try again.', 'error');
+                    });
+            })
+            .catch(error => {
+                console.error('Error fetching recommendations:', error);
+                showToast('An error occurred while fetching recommendations. Please try again.', 'error');
+            });
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
         const data = {
             username: formData.username,
             venuePreferences: formData.selectedVenues,
@@ -154,48 +196,91 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
             howSoon: formData.howSoon,
             city: formData.city,
         };
-
-        // check if any preferences have been changed
+    
         if (data.venuePreferences.length > 0 || data.genrePreferences.length > 0 || data.priceRange.length > 0 || data.queerPreference !== null || data.howSoon !== null || data.city !== null) {
-            // if any preferences have been changed, set the new preferences
             axios.post('http://localhost:8000/api/set_preferences', data)
-                .then(response => {
-                    console.log("response:", response);
-
-                    // call the get_recommendations endpoint
-                    return axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`);
-                })
-                .then(response => {
-                    // update the state with the recommended event ids
-                    setRecommendedEventIds(response.data.recommendations);
-                })
+                .then(() => processAndNavigateRecommendations())
                 .catch(error => {
-                    console.error(error);
-                    showToast('An error occurred. Please try again.', 'error');
-                })
-                .finally(() => {
-                    // show toast notification
-                    showToast('Preferences saved!', 'success');
-                    navigate('/recommended-events');
+                    console.error('Error setting preferences:', error);
+                    showToast('An error occurred while saving preferences. Please try again.', 'error');
                 });
         } else {
-            // if no preferences have been changed, just get the recommendations
-            axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`)
-                .then(response => {
-                    // update the state with the recommended event ids
-                    setRecommendedEventIds(response.data.recommendations);
-                })
-                .catch(error => {
-                    console.error(error);
-                    showToast('An error occurred. Please try again.', 'error');
-                })
-                .finally(() => {
-                    // show toast notification
-                    showToast('Preferences saved!', 'success');
-                    navigate('/recommended-events');
-                });
+            processAndNavigateRecommendations();
         }
-    }
+    };
+
+    const handleSkip = () => {
+        processAndNavigateRecommendations();
+    };
+
+
+    useEffect(() => {
+        if (readyForNavigation) {
+            navigate('/recommended-events');
+            setReadyForNavigation(false);
+        }
+    }, [readyForNavigation, navigate]);
+
+    // _________________________________________________________
+
+    // ! OG handleSubmit
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+
+    //     const data = {
+    //         username: formData.username,
+    //         venuePreferences: formData.selectedVenues,
+    //         genrePreferences: formData.selectedGenres,
+    //         priceRange: formData.priceRange,
+    //         queerPreference: formData.queerPreference,
+    //         howSoon: formData.howSoon,
+    //         city: formData.city,
+    //     };
+
+    //     // check if any preferences have been changed
+    //     if (data.venuePreferences.length > 0 || data.genrePreferences.length > 0 || data.priceRange.length > 0 || data.queerPreference !== null || data.howSoon !== null || data.city !== null) {
+    //         // if any preferences have been changed, set the new preferences
+    //         axios.post('http://localhost:8000/api/set_preferences', data)
+    //             .then(response => {
+    //                 console.log("response:", response);
+
+    //                 // call the get_recommendations endpoint
+    //                 return axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`);
+    //             })
+    //             .then(response => {
+    //                 // update the state with the recommended event ids
+    //                 setRecommendedEventIds(response.data.recommendations);
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //                 showToast('An error occurred. Please try again.', 'error');
+    //             })
+    //             .finally(() => {
+    //                 // show toast notification
+    //                 showToast('Preferences saved!', 'success');
+    //                 navigate('/recommended-events');
+    //             });
+    //     } else {
+    //         // if no preferences have been changed, just get the recommendations
+    //         axios.get(`http://localhost:8000/api/recommendations?username=${formData.username}`)
+    //             .then(response => {
+    //                 // update the state with the recommended event ids
+    //                 setRecommendedEventIds(response.data.recommendations);
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //                 showToast('An error occurred. Please try again.', 'error');
+    //             })
+    //             .finally(() => {
+    //                 // show toast notification
+    //                 showToast('Preferences saved!', 'success');
+    //                 navigate('/recommended-events');
+    //             });
+    //     }
+    // }
+
+
+
 
 
     const showToast = (message, type) => {
@@ -225,43 +310,52 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                             })
                         });
                     toast.success("Preferences restored successfully", toastOptions);
-                }} className="preferences-form-button" style={{margin: '0px 5px 0px 10px', height: '30px'}}>Undo</button>
+                }} className="preferences-form-button" style={{ margin: '0px 5px 0px 10px', height: '30px' }}>Undo</button>
                 <button onClick={() => {
                     toast.dismiss(t.id);
                     toast.success("Preferences cleared!", toastOptions);
-                }} className="preferences-form-button" style={{margin: '0px 0px 0px 5px', height: '30px'}}>Dismiss</button>
+                }} className="preferences-form-button" style={{ margin: '0px 0px 0px 5px', height: '30px' }}>Dismiss</button>
             </div>
         ), toastOptions)
     }
 
 
-    const handleSkip = () => {
-        if (!previousPreferences) {
-            // if the user doesn't have previous preferences, submit the form with no preferences
-            axios.post('http://localhost:8000/api/submit_form', formData)
-                .then(response => {
-                    setRecommendedEventIds(response.data.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    navigate('/recommended-events');
-                });
-        } else {
-            // if the user has previous preferences, just fetch the recommended events
-            axios.get(`http://localhost:8000/api/recommendations?username=${username}`)
-                .then(response => {
-                    setRecommendedEventIds(response.data.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    navigate('/recommended-events');
-                });
-        }
-    };
+    // ! OG handleSkip
+    // const handleSkip = () => {
+    //     if (!previousPreferences) {
+    //         // if the user doesn't have previous preferences, submit the form with no preferences
+    //         axios.post('http://localhost:8000/api/submit_form', formData)
+    //             .then(response => {
+    //                 setRecommendedEventIds(response.data.data);
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             })
+    //             .finally(() => {
+    //                 navigate('/recommended-events');
+    //             });
+    //     } else {
+    //         // if the user has previous preferences, just fetch the recommended events
+    //         axios.get(`http://localhost:8000/api/recommendations?username=${username}`)
+    //             .then(response => {
+    //                 setRecommendedEventIds(response.data.data);
+    //             })
+    //             .catch(error => {
+    //                 console.error(error);
+    //             })
+    //             .finally(() => {
+    //                 navigate('/recommended-events');
+    //             });
+    //     }
+    // };
+
+
+    // useEffect(() => {
+    //     if (readyForNavigation) {
+    //         navigate('/recommended-events');
+    //         setReadyForNavigation(false);
+    //     }
+    // }, [readyForNavigation, navigate]);
 
 
     const resetFormData = () => {
@@ -301,7 +395,7 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
     return (
         <form onSubmit={handleSubmit} className="preferences-form">
-            <button type="submit" onClick={handleSkip} className="preferences-form-button">Skip</button>
+            <button type="button" onClick={handleSkip} className="preferences-form-button">Skip</button>
             <button type="button" onClick={handleClearPreferences} className="preferences-form-button">Clear Preferences</button>
             {showConfirmation && (
                 <div className="confirmation">
@@ -356,18 +450,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                 formData={formData}
                 setValues={handlePriceRangeChange}
             />
-            {/* TODO ! : queerEvents probably irrelevant */}
-            {/* <input
-                type="radio"
-                onChange={handleFormChange}
-                name="queerPreference"
-            /> */}
-            {/* TODO ! : howSoon probably irrelevant */}
-            {/* <input
-                type="date"
-                onChange={handleFormChange}
-                name="howSoon"
-            /> */}
             <br></br>
             <button type="submit" className="preferences-form-button">Save</button>
         </form>

@@ -101,7 +101,7 @@ def save_remove_recommendation(request):
                 user.recommended_events = ','.join(recommended_events)
             except Exception as e:
                 return JsonResponse({'REMOVING RECOMMENDATION error': str(e)})
-            message = 'Event removed from recommendations.'
+            message = 'Removed recommendation'
             is_saved = False
         else:
             try:
@@ -110,7 +110,7 @@ def save_remove_recommendation(request):
                 user.recommended_events = ','.join(recommended_events)
             except Exception as e:
                 return JsonResponse({'ADDING RECOMMENDATION error': str(e)})
-            message = 'Event saved to recommendations.'
+            message = 'Saved recommendation'
             is_saved = True
 
         # save changes to user and return response with message and is_saved flag

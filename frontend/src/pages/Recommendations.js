@@ -7,7 +7,7 @@ import EventDisplay from '../components/EventDetails/EventDisplay';
 import { useDynamicHeight } from '../components/General/useDynamicHeight';
 
 export default function Recommendation() {
-    const { recommendedEventIds } = useOutletContext();
+    const { recommendedEventIds, setRecommendedEventIds } = useOutletContext();
     const [recommendedEvents, setRecommendedEvents] = useState([]);
     const [venues, setVenues] = useState([]);
     const venueData = useFetchData('/venues/');
@@ -20,31 +20,43 @@ export default function Recommendation() {
         setVenues(venueData);
     }, [venueData]);
 
+    // useEffect(() => {
+    //     const fetchEvents = async () => {
+    //         try {
+    //             const response = await axios.get('http://localhost:8000/api/events');
+    //             const allEvents = response.data;
+    //             let events;
+
+    //             try {
+    //                 events = allEvents.filter(e => recommendedEventIds.includes(e.event_id));
+    //             } catch (error) {
+    //                 console.error('Failed to filter events:', error);
+    //             }
+
+    //             // sort events based on the order of recommendedEventIds
+    //             events.sort((a, b) => recommendedEventIds.indexOf(a.event_id) - recommendedEventIds.indexOf(b.event_id));
+    //             console.log("Recommended Event Ids: ", recommendedEventIds);
+
+    //             setRecommendedEvents(events);
+    //         } catch (error) {
+    //             console.error('Failed to fetch events:', error);
+    //         }
+    //     };
+
+    //     fetchEvents();
+    // }, [recommendedEventIds]);
     useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const response = await axios.get('http://localhost:8000/api/events');
-                const allEvents = response.data;
-                let events;
+        // get the events from local storage
+        const storedEvents = localStorage.getItem('recommendedEvents');
+        if (storedEvents) {
+            const parsedEvents = JSON.parse(storedEvents);
+            setRecommendedEvents(parsedEvents);
 
-                try {
-                    events = allEvents.filter(e => recommendedEventIds.includes(e.event_id));
-                } catch (error) {
-                    console.error('Failed to filter events:', error);
-                }
-
-                // sort events based on the order of recommendedEventIds
-                events.sort((a, b) => recommendedEventIds.indexOf(a.event_id) - recommendedEventIds.indexOf(b.event_id));
-                console.log("Recommended Event Ids: ", recommendedEventIds);
-
-                setRecommendedEvents(events);
-            } catch (error) {
-                console.error('Failed to fetch events:', error);
-            }
-        };
-
-        fetchEvents();
-    }, [recommendedEventIds]);
+            // extract event_ids from each event and set recommendedEventIds
+            const eventIds = parsedEvents.map(event => event.event_id);
+            setRecommendedEventIds(eventIds);
+        }
+    }, []);
 
     const filteredEvents = recommendedEvents ? recommendedEvents.filter(event => {
         const eventVenue = venues ? venues.find(venue => venue.id === event.venue_id) : null;

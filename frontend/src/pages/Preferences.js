@@ -4,7 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import { useDynamicHeight } from '../components/General/useDynamicHeight';
 
 function Preferences() {
-    const { userProfile, setRecommendedEventIds, } = useOutletContext();
+    const { userProfile, recommendedEventIds, setRecommendedEventIds, } = useOutletContext();
 
     useDynamicHeight();
 
@@ -14,6 +14,7 @@ function Preferences() {
             <p>Hitting <span>save</span> will redirect you to the recommended events page</p>
             <QuizForm
                 username={userProfile.display_name}
+                recommendedEventIds={recommendedEventIds}
                 setRecommendedEventIds={setRecommendedEventIds} />
         </div>
     );

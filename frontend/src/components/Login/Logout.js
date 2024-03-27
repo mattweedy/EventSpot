@@ -8,6 +8,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 function Logout() {
     const handleLogout = async () => {
         try{
+            localStorage.clear();
             window.location.href = 'http://localhost:8000/spotify/logout';
         } catch (error) {
             console.error("Error logging out:", error);

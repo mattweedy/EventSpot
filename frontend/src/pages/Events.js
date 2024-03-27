@@ -34,11 +34,11 @@ const Events = () => {
             {loadEvents && <SearchBar searchTerm={eventSearchTerm} setSearchTerm={setEventSearchTerm} />}
             <div className="events-container">
                 {filteredEvents && filteredEvents.length === 0 ? <h4>Specified event not found.</h4> : null}
-                {events && venues && filteredEvents.map(event => (
+                {events && venues && filteredEvents.map((event, index) => (
                     loadEvents ? (
                         <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={false}/>
                     ) : (
-                        <div className="skeleton-loader" id="events-skeleton" />
+                        <div key={index} className="skeleton-loader" id="events-skeleton" />
                     )
                 ))}
             </div>

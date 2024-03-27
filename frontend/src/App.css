@@ -259,13 +259,22 @@ a {
   margin-left: 10px;
 }
 
-.login-page {
+/* .login-page {
   margin: auto;
   margin-top: 20vh;
+} */
+
+/* .login-page-container {
+  margin-bottom: 25px;
+} */
+
+.login-page-dialog {
+  width: 75%;
+  margin: auto;
 }
 
-.login-page-container {
-  margin-bottom: 25px;
+.login-page-dialog p:nth-child(3n) {
+  color: #cecece;
 }
 
 .login-button {
@@ -283,7 +292,7 @@ a {
   background-color: #1bad47;
 }
 
-.home-page {
+.home-page, .login-page {
   background-color: #1a1a1a;
   margin: auto 10%;
   padding: 60px;
@@ -292,14 +301,25 @@ a {
   max-width: 85%;
 }
 
-.home-page-title {
-  font-size: 40px;
+.home-page-title, .login-page-title{
+  font-size: 66px;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
-.home-page-text {
+.home-page-text, .login-page-text {
+  font-size: 24px;
+  margin: 16px 0px;
+}
+
+p.home-page-text , p.login-page-text {
   font-size: 18px;
   margin: 16px 0px;
+}
+
+h2.login-page-text {
+  font-size: 28px;
+  margin-bottom: 50px;
 }
 
 #home-page-button {
@@ -308,7 +328,7 @@ a {
 }
 
 .home-page h4 {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
 }
 
@@ -736,11 +756,6 @@ small {
 
 #modal-buy-tickets-button:hover {
   background-color: #1bad47;
-}
-
-#login-page-dialog {
-  width: 60%;
-  margin: auto;
 }
 
 .skeleton-loader {

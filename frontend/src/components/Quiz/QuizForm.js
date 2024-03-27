@@ -64,17 +64,18 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
         // get the user's previous preferences
         axios.get(`http://localhost:8000/api/get_preferences?username=${username}`)
             .then(response => {
-                // if the user has previous preferences, update the form data with them
+                // if user had previous preferences, set previousPreferences to true
                 if (response.data.data) {
-                    // update formData with the user's previous preferences
                     console.log("Previous preferences: ", response.data.data);
-                    console.log("Venue preferences: ", response.data.data.venue_preferences);
+                    const data = response.data.data;
                     setFormData({
                         username: username,
-                        selectedVenues: response.data.data.venue_preferences,
-                        selectedGenres: response.data.data.genre_preferences,
-                        priceRange: response.data.data.price_range,
-                        city: response.data.data.city,
+                        selectedVenues: JSON.parse(data.venue_preferences.replace(/'/g, '"')),
+                        // selectedVenues: JSON.parse(data.venue_preferences.replace(/'/g, '"')).map(venue => venue.replace(/'/g, '')),
+                        selectedGenres: JSON.parse(data.genre_preferences.replace(/'/g, '"')),
+                        // selectedGenres: JSON.parse(data.genre_preferences.replace(/'/g, '"')).map(genre => genre.replace(/'/g, '')),
+                        priceRange: JSON.parse(data.price_range.replace(/'/g, '"')),
+                        city: data.city || '',
                     });
                 } else {
                     // if user had no previous preferences, set formData to default values
@@ -95,6 +96,9 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
 
     const handleFormChange = (name, value, isSelected) => {
+        // remove [ and ] from the value
+        value = value.replace(/[\[\]]/g, '');
+
         setFormData(prev => {
             if (name === "selectedVenues") {
                 if (isSelected) {
@@ -156,9 +160,9 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
     // store the recommended event in local storage
     const storeEventsInLocalStorage = (events) => {
-        console.log("Setting recommendedEvents to storage:", events);
+        // console.log("Setting recommendedEvents to storage:", events);
         localStorage.setItem('recommendedEvents', JSON.stringify(events));
-        console.log("Set recommendedEvents to storage:", events);
+        // console.log("Set recommendedEvents to storage:", events);
     };
 
     const processAndNavigateRecommendations = () => {
@@ -257,7 +261,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
 
     const resetFormData = () => {
-        // showToast
         setFormData({
             username: username,
             selectedVenues: [],
@@ -289,6 +292,7 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
     const handleConfirmationNo = () => {
         setShowConfirmation(false);
+        toast("No changes made", toastOptions);
     };
 
     return (
@@ -302,6 +306,7 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                     <button onClick={handleConfirmationNo} className="preferences-form-button">No</button>
                 </div>
             )}
+            <p>Hitting <span>save</span> will redirect you to the recommended events page</p>
             <br></br>
 
             <div className="box" id="venues">

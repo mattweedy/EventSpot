@@ -11,7 +11,7 @@ function Preferences() {
     return (
         <div>
             <h1>Edit Preferences</h1>
-            <p>Hitting <span>save</span> will redirect you to the recommended events page</p>
+            <p>These preferences will provide further context for what kind of event you are looking for, on top of your listening history.</p>
             <QuizForm
                 username={userProfile.display_name}
                 setRecommendedEventIds={setRecommendedEventIds} />

@@ -9,6 +9,7 @@ export default function VenueCheckbox({ venue, handleFormChange, formData }) {
         setIsSelected(formData.selectedVenues.includes(venue.name));
     }, [formData, venue.name])
 
+
     const handleClick = () => {
         if (formData.selectedVenues.length < 5 || isSelected) {
             // change the state

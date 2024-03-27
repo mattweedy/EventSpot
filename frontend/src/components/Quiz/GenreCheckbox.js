@@ -9,6 +9,7 @@ export default function GenreCheckbox({ genre, handleFormChange, formData }) {
         setIsSelected(formData.selectedGenres.includes(genre));
     }, [formData, genre]);
 
+
     const handleClick = () => {
         if (formData.selectedGenres.length < 5 || isSelected) {
             // change the state

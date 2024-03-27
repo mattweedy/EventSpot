@@ -32,8 +32,8 @@ def apply_user_preferences(request):
         user.venue_preferences = data['venuePreferences']
         user.genre_preferences = data['genrePreferences']
         user.price_range = data['priceRange']
-        user.queer_events = data['queerPreference']
-        user.how_soon = data['howSoon']
+        # user.queer_events = data['queerPreference']
+        # user.how_soon = data['howSoon']
         user.city = data['city']
         try:
             user.save()
@@ -55,8 +55,8 @@ def get_user_preferences(request):
             'venue_preferences': user.venue_preferences,
             'genre_preferences': user.genre_preferences,
             'price_range': user.price_range,
-            'queer_events': user.queer_events,
-            'how_soon': user.how_soon,
+            # 'queer_events': user.queer_events,
+            # 'how_soon': user.how_soon,
             'city': user.city
         }
         return JsonResponse({'status': 'success', 'data': user_data})
@@ -80,25 +80,37 @@ def get_recommendations(request):
         return JsonResponse({'status': 'success', 'data': user_data, 'recommendations': recommended_event_ids})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
-    
+
+
 @csrf_exempt
-def save_recommendation(request):
+def save_remove_recommendation(request):
     """
     Save or remove an event from the user's recommendations.
     """
     if request.method == 'POST':
-        username = request.POST['username']
-        event_id = request.POST['event_id']
-        user = User.objects.get(username=username)
+        data = json.loads(request.body)
+        user = User.objects.get(username=data['username'])
+        recommended_events = user.recommended_events.split(',') if user.recommended_events else []
+        event_id = str(data['event_id'])
 
-        if event_id in user.recommended_events.all():
-            user.recommended_events.remove(event_id)
+        if event_id in recommended_events:
+            try:
+                recommended_events.remove(event_id)
+                user.recommended_events = ','.join(recommended_events)
+            except Exception as e:
+                return JsonResponse({'REMOVING RECOMMENDATION error': str(e)})
             message = 'Event removed from recommendations.'
             is_saved = False
+            print(f"Event {event_id} removed from recommendations.")
         else:
-            user.recommended_events.add(event_id)
+            try:
+                recommended_events.append(event_id)
+                user.recommended_events = ','.join(recommended_events)
+            except Exception as e:
+                return JsonResponse({'ADDING RECOMMENDATION error': str(e)})
             message = 'Event saved to recommendations.'
             is_saved = True
+            print(f"Event {event_id} saved to recommendations.")
 
         user.save()
         return JsonResponse({"message": message, "is_saved": is_saved})

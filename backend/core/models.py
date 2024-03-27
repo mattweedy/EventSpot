@@ -133,11 +133,9 @@ class User(models.Model):
     venue_preferences = models.TextField(null=True)
     genre_preferences = models.TextField(null=True)
     price_range = models.CharField(max_length=255, null=True)
-    # how_soon = models.CharField(max_length=255, null=True)
     city = models.CharField(max_length=255, null=True)
-    # queer_events = models.BooleanField(default=False, null=True)
-    # past_events = models.TextField(null=True)
-    recommended_events = models.TextField(null=True)
+    # recommended_events = models.TextField(null=True)
+    recommended_events = models.TextField(default='')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -20,8 +20,8 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
         selectedVenues: [],
         selectedGenres: [],
         priceRange: [0, 100], // this is a range
-        queerPreference: '', // more / less / no preference
-        howSoon: '', // this is a date field(?)
+        // queerPreference: '', // more / less / no preference
+        // howSoon: '', // this is a date field(?)
         city: '', // maybe use a dropdown
     });
     const venueData = useFetchData('/venues/');

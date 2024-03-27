@@ -1,5 +1,4 @@
 import React, { useState, useEffect, } from 'react';
-import { useOutletContext } from 'react-router-dom';
 import SearchBar from '../components/General/SearchBar';
 import useFetchData from '../components/Data/useFetchData';
 import EventDisplay from '../components/EventDetails/EventDisplay';
@@ -10,7 +9,6 @@ const Events = () => {
     const [eventSearchTerm, setEventSearchTerm] = useState('');
     const [loadEvents, setLoadEvents] = useState(false);
 
-    const { userProfile } = useOutletContext();
     useDynamicHeight();
 
     useEffect(() => {
@@ -38,7 +36,7 @@ const Events = () => {
                 {filteredEvents && filteredEvents.length === 0 ? <h4>Specified event not found.</h4> : null}
                 {events && venues && filteredEvents.map(event => (
                     loadEvents ? (
-                        <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={false} userProfile={userProfile} />
+                        <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={false}/>
                     ) : (
                         <div className="skeleton-loader" id="events-skeleton" />
                     )

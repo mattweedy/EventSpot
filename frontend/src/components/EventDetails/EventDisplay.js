@@ -5,12 +5,12 @@ import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
-// TODO: pass userprofile to here
+// TODO: pass username to here
 // TODO: ensure recommended_events in User model is an array of event_ids
 
 Modal.setAppElement('#root');
 
-function EventDisplay({ event, venues, isRecommendation = false, userProfile }) {
+function EventDisplay({ event, venues, isRecommendation = false, username }) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const toastOptions = {
@@ -23,6 +23,7 @@ function EventDisplay({ event, venues, isRecommendation = false, userProfile }) 
         },
         duration: 6000,
     };
+    
 
     // prevent background scrolling when modal is open
     useEffect(() => {
@@ -49,13 +50,43 @@ function EventDisplay({ event, venues, isRecommendation = false, userProfile }) 
     const handleSave = async (event_id) => {
         // send request to backend to save/remove the event
         try {
-            const response = await axios.post('http://localhost:8000/api/save_remove_recommendation', {
-                username: userProfile.username,
+            let data = {
+                username: username,
                 event_id: event_id,
-            });
+            };
+            
+            let isJson = true;
+            
+            try {
+                JSON.stringify(data);
+            } catch (error) {
+                isJson = false;
+            }
+            
+            if (isJson) {
+                // Send the data
+                const response = await axios.post('http://localhost:8000/api/save_remove_recommendation', data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-            setIsSaved(response.data.is_saved);
-            toast.success(response.data.message, toastOptions);
+                setIsSaved(response.data.is_saved);
+                toast.success(response.data.message, toastOptions);
+            } else {
+                console.error('The data is not JSON');
+            }
+            // const response = await axios.post('http://localhost:8000/api/save_remove_recommendation', {
+            //     username: username,
+            //     event_id: event_id,
+            // }, {
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //     },
+            // });
+
+            // setIsSaved(response.data.is_saved);
+            // toast.success(response.data.message, toastOptions);
         } catch (error) {
             console.error('Failed to save/remove recommendation:', error);
             toast.error('An error occurred while saving/removing the recommendation.', toastOptions);
@@ -93,7 +124,7 @@ function EventDisplay({ event, venues, isRecommendation = false, userProfile }) 
                     Show Full Details
                 </button>
                 {isRecommendation && (
-                    <button onClick={handleSave(event.event_id)}>
+                    <button onClick={() => handleSave(event.event_id)}>
                         {isSaved ? 'Remove Recommendation' : 'Save Recommendation'}
                     </button>
                 )}

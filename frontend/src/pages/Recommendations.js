@@ -12,7 +12,8 @@ export default function Recommendation() {
     const [venues, setVenues] = useState([]);
     const venueData = useFetchData('/venues/');
     const [eventSearchTerm, setEventSearchTerm] = useState('');
-
+    const { userProfile } = useOutletContext();
+    
     useDynamicHeight();
 
     useEffect(() => {
@@ -61,7 +62,7 @@ export default function Recommendation() {
                 {recommendedEvents && recommendedEvents.length > 0 && filteredEvents && filteredEvents.length === 0 ? <h4>No events found for this search.</h4> : null}
                 {recommendedEvents && venues ? (
                     filteredEvents.map(event => (
-                        <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={true}/>
+                        <EventDisplay key={event.id} event={event} venues={venues} isRecommendation={true} username={userProfile.display_name}/>
                     ))
                 ) : (
                     <div className="skeleton-loader" id="events-skeleton" />

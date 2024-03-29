@@ -26,9 +26,11 @@ function Header({ userProfile, isLoggedIn }) {
             <header className="header">
                 <div className="header-content">
                     <div className="user-profile">
+                        {userProfile && userProfile.images && userProfile.images.length > 0 && (
                             <img src={userProfile.images[0].url} alt="user profile" />
-                            {windowWidth > 940 && <span>{userProfile.display_name}</span>}
-                            {windowWidth > 940 && <p>logged in</p>}
+                        )}
+                        {windowWidth > 940 && <span>{userProfile.display_name}</span>}
+                        {windowWidth > 940 && <p>logged in</p>}
                     </div>
                     <div className="header-title-container">
                         <h1 className="header-title">Spot<span>Event</span></h1>

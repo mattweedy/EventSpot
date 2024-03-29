@@ -18,7 +18,9 @@ EVENT_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/"
 EVENT_DATA_GET_URL = "https://eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer"
 NEXT_BUTTON_SELECTOR = "button[data-spec='page-next']"
 
-base_url = "https://eventbrite.com/d/ireland--dublin/music--performances/"
+# base_url = "https://eventbrite.com/d/ireland--dublin/music--performances/"
+base_url = "https://www.eventbrite.com/d/ireland--dublin/music--performances--this-month/"
+
 
 # Number of pages to scrape
 
@@ -104,7 +106,7 @@ async def get_all_event_ids():
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch()
         context = await browser.new_context()
-        while True:
+        while page_num <= 10:
             # Update the URL to navigate to the next page
             url = f"{EVENT_URL}?page={page_num}"
             print("on page :", page_num)
@@ -219,6 +221,11 @@ async def main():
     """
     event_ids = await get_all_event_ids()
     print(event_ids)
+
+    # write event_ids to file
+    with open('backend/spotevent/data/test-data/input-more.txt', 'w') as f:
+        for event_id in event_ids:
+            f.write(f"{event_id}\n")
     return
 
     async with async_playwright() as p:

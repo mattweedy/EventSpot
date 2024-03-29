@@ -9,6 +9,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 # ! it is not working as expected : changing += 0.5 to -= 0.5 and vice versa does not change the output
 # TODO: after 10 recommendations, check the date of the event to current date and filter out events that have already happened
 
+# TODO: if (babies) = 0
+
+
 def setup_db_conn():
     # create a connection to the PostgreSQL database
     engine = create_engine('postgresql://postgres:system@localhost:5432/spotevent')
@@ -99,6 +102,8 @@ def feature_extraction(song_data, artist_data, event_data, user_quiz_venues, use
 def get_similarity_scores(user_profile, event_tfidf, song_genres_tfidf, artist_genres_tfidf):
     # cosine sim between user profile and events
     user_event_similarity = cosine_similarity(user_profile, event_tfidf)
+    # flatten data array to only include the score
+
 
     # songs - events
     song_event_similarity = cosine_similarity(song_genres_tfidf, event_tfidf)

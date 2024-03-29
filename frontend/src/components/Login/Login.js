@@ -11,7 +11,7 @@ function Login() {
     };
 
     return (
-        <button onClick={handleLogin} className="login-button">Login to Spotify</button>
+        <button onClick={handleLogin} className="login-button">Login</button>
     );
 }
 

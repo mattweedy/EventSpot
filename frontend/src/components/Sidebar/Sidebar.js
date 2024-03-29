@@ -1,28 +1,25 @@
+// import React from 'react';
 import React from 'react';
 import { SidebarData } from './SidebarData';
-import Logout from '../Login/Logout';
+import { NavLink } from 'react-router-dom';
 
-function Sidebar() {
+function Sidebar({ recommendedEventIds }) {
     return (
         <div className="sidebar">
             <ul className="sidebar-list">
                 {SidebarData.map((val, key) => {
+                    if (val.link === '/recommended-events' && (!recommendedEventIds || recommendedEventIds.length === 0)) {
+                        return null;
+                    }
                     return (
-                        <li key={key}
-                            className="row"
-                            id={window.location.pathname === val.link ? "active" : ""}
-                            onClick={() => {
-                                window.location.pathname = val.link;
-                            }}
-                        >
-                            <div id="icon">{val.icon}</div>
-                            <div id="title">{val.title}</div>
-                        </li>
+                        <NavLink to={val.link} key={key} className={({ isActive }) => isActive ? 'active' : ''}>
+                            <li className="row">
+                                <div id="icon">{val.icon}</div>
+                                <div id="title">{val.title}</div>
+                            </li>
+                        </NavLink>
                     )
                 })}
-                <li className="row">
-                    <Logout />
-                </li>
             </ul>
         </div>
     )

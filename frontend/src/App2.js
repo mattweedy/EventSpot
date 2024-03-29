@@ -1,57 +1,36 @@
 import './App.css';
-import React, { useState, useEffect, useCallback } from "react";
-import { createBrowserRouter, RouterProvider, } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Page404 from './pages/Page404';
-import routes from './routes';
-import Layout from './components/General/Layout';
 import Login from './components/Login/Login';
-// import toast from 'react-hot-toast';
+import Header from './components/General/Header';
+import QuizForm from './components/Quiz/QuizForm';
+import Sidebar from './components/Sidebar/Sidebar';
+import RecommendedEvents from './components/EventDetails/RecommendedEvents';
+import DisplayEventVenueData from './components/Data/DisplayEventVenueData';
 
 
 function App() {
+    const [isLoading, setIsLoading] = useState(true);
     const [accessToken, setAccessToken] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const [userProfile, setUserProfile] = useState(null);
     const [isFetchingTopItems, setIsFetchingTopItems] = useState({ tracks: false, artists: false });
     const [isFetchingUserProfile, setIsFetchingUserProfile] = useState(false);
     const [recommendedEventIds, setRecommendedEventIds] = useState([]);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+    const [isFormShown, setIsFormShown] = useState(false);
+    const [isEventsVisible, setIsEventsVisible] = useState(false);
 
-    // initialize a browser router
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            // parent route component
-            element: <Layout
-                userProfile={userProfile}
-                isLoggedIn={isLoggedIn}
-                isLoading={isLoading}
-                recommendedEventIds={recommendedEventIds}
-                setRecommendedEventIds={setRecommendedEventIds}
-            />,
-            errorElement: <Page404 />,
-            // child routes
-            children: [
-                ...routes
-            ],
-        },
-        {
-            path: "/login",
-            element: <Login />,
-        }
-    ]);
+    useEffect(() => {
+        window.onbeforeunload = function () {
+            sessionStorage.clear();
+        };
 
-    // useEffect(() => {
-    //     window.onbeforeunload = function () {
-    //         sessionStorage.clear();
-    //     };
-
-    //     // cleanup function
-    //     return () => {
-    //         window.onbeforeunload = null;
-    //     };
-    // }, []);
+        // cleanup function
+        return () => {
+            window.onbeforeunload = null;
+        };
+    }, []);
 
 
     const fetchUserProfile = useCallback(async () => {
@@ -78,7 +57,6 @@ function App() {
                 });
         }
     }, [accessToken, isFetchingUserProfile]);
-
 
     useEffect(() => {
         setIsFetchingUserProfile(false);
@@ -150,14 +128,81 @@ function App() {
             // fetchArtistGenres();
         }
     }, [userProfile, fetchTopItems]);
-    
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
-    
-    return (
-        <RouterProvider router={router} />
-    )
+
+
+    useEffect(() => {
+        const newHeight = isEventsVisible ? '100vh' : '90vh';
+        document.documentElement.style.setProperty('--dynamic-height', newHeight);
+    }, [isEventsVisible]);
+
+
+    // use effect to log to console recommendedEventIds
+    useEffect(() => {
+        console.log("Is Form Submitted: ", isFormSubmitted);
+        console.log("Recommended Event Ids: ", recommendedEventIds);
+    }, [isFormSubmitted, recommendedEventIds]);
+
+
+    // if user is logged in, display the user's name
+    if (isLoggedIn) {
+        if (isLoading) {
+            return (
+                <div className="loading">
+                    <h1 className="loading-text">Loading...</h1>
+                    {console.log("Loading...")}
+                </div>
+            );
+        }
+        if (accessToken && userProfile && !isLoading) {
+            return (
+                <div className="papp">
+                    <Header
+                        userProfile={userProfile}
+                        isLoggedIn={isLoggedIn}
+                    />
+                    {/* <div className="app-content" style={{ minHeight: isEventsVisible ? '100vh' : '90vh' }}> */}
+                    <div className="app-content">
+                        {/* <Sidebar style={{ height: isEventsVisible ? '100vh' : '90vh' }}/> */}
+                        <Sidebar />
+                        <main className="app-main">
+                            <div className="app-body">
+                                <button onClick={() => setIsEventsVisible(!isEventsVisible)}>
+                                    {isEventsVisible ? 'Hide Events and Venues' : 'Show Events and Venues'}
+                                </button>
+                                <br></br>
+                                <DisplayEventVenueData isEventsVisible={isEventsVisible} />
+                                <br></br>
+                                {isFormShown ? (
+                                    <button onClick={() => setIsFormShown(false)}>Hide Preferences Quiz</button>
+                                ) : (
+                                    <button onClick={() => setIsFormShown(true)}>Edit Preferences</button>
+                                )}
+                                {isFormShown && (
+                                    <QuizForm
+                                        username={userProfile.display_name}
+                                        recommendedEventIds={recommendedEventIds}
+                                        setRecommendedEventIds={setRecommendedEventIds}
+                                        setIsFormSubmitted={setIsFormSubmitted}
+                                    />
+                                )}
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            );
+        }
+    } else {
+        return (
+            <div className="app">
+                <Header isLoggedIn={isLoggedIn} />
+                <div className="app-content">
+                    <main className="app-main">
+                        <Login />
+                    </main>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;

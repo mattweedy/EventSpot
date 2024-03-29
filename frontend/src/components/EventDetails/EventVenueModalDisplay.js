@@ -7,7 +7,7 @@ export default function EventVenueModelDisplay({ event, venue }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoadMap(true);
-        }, 2000); // Adjust the delay as needed
+        }, 1000); // adjust time
 
         return () => clearTimeout(timer);
     }, []);
@@ -24,28 +24,30 @@ export default function EventVenueModelDisplay({ event, venue }) {
                         <p><span>Description: </span>{event.summary}</p>
                     </div>
                 </div>
-                <div id="modal-venue">
-                    <div id="modal-venue-map">
-                        {loadMap ? (
-                            <iframe
-                                title="venue-map"
-                                width="100%"
-                                height="400px"
-                                style={{border:0, borderRadius: '15px'}}
-                                loading="lazy"
-                                allowFullScreen
-                                src={`https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(venue.address + ', ' + venue.city)}`}>
-                            </iframe>
-                        ) : (
-                            <div className="skeleton-loader" />
-                        )}
+                {venue.city && (
+                    <div id="modal-venue">
+                        <div id="modal-venue-map">
+                            {loadMap ? (
+                                <iframe
+                                    title="venue-map"
+                                    width="100%"
+                                    height="400px"
+                                    style={{border:0, borderRadius: '15px'}}
+                                    loading="lazy"
+                                    allowFullScreen
+                                    src={`https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(venue.address + (venue.city ? ', ' + venue.city : ''))}`}>
+                                </iframe>
+                            ) : (
+                                <div className="skeleton-loader" />
+                            )}
+                        </div>
+                        <div id="modal-venue-details">
+                            <h2>{venue.name}</h2>
+                            <p><span>Location: </span>{venue.address}</p>
+                            <p><span>City: </span>{venue.city}</p>
+                        </div>
                     </div>
-                    <div id="modal-venue-details">
-                        <h2>{venue.name}</h2>
-                        <p><span>Location: </span>{venue.address}</p>
-                        <p><span>City: </span>{venue.city}</p>
-                    </div>
-                </div>
+                )}
             </div>
             <div id="modal-buy-tickets-button-container">
                 <p className="event-price"><span>€{event.price}</span></p>

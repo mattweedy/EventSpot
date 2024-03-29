@@ -21,6 +21,9 @@ class UserView(viewsets.ModelViewSet):
 
 @csrf_exempt
 def apply_user_preferences(request):
+    """
+    Apply user preferences to the user object.
+    """
     if request.method == 'POST':
         data = json.loads(request.body)
         user = User.objects.get(username=data['username'])
@@ -29,8 +32,8 @@ def apply_user_preferences(request):
         user.venue_preferences = data['venuePreferences']
         user.genre_preferences = data['genrePreferences']
         user.price_range = data['priceRange']
-        user.queer_events = data['queerPreference']
-        user.how_soon = data['howSoon']
+        # user.queer_events = data['queerPreference']
+        # user.how_soon = data['howSoon']
         user.city = data['city']
         try:
             user.save()
@@ -42,6 +45,9 @@ def apply_user_preferences(request):
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
     
 def get_user_preferences(request):
+    """
+    Get the user's preferences.
+    """
     if request.method == 'GET':
         username = request.GET.get('username')
         user = User.objects.get(username=username)
@@ -49,8 +55,8 @@ def get_user_preferences(request):
             'venue_preferences': user.venue_preferences,
             'genre_preferences': user.genre_preferences,
             'price_range': user.price_range,
-            'queer_events': user.queer_events,
-            'how_soon': user.how_soon,
+            # 'queer_events': user.queer_events,
+            # 'how_soon': user.how_soon,
             'city': user.city
         }
         return JsonResponse({'status': 'success', 'data': user_data})
@@ -59,6 +65,9 @@ def get_user_preferences(request):
 
 
 def get_recommendations(request):
+    """
+    Get the user's preferences and return the recommended events.
+    """
     if request.method == 'GET':
         username = request.GET.get('username')
         user = User.objects.get(username=username)
@@ -71,3 +80,42 @@ def get_recommendations(request):
         return JsonResponse({'status': 'success', 'data': user_data, 'recommendations': recommended_event_ids})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
+
+
+@csrf_exempt
+def save_remove_recommendation(request):
+    """
+    Save or remove an event from the user's recommendations.
+    """
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user = User.objects.get(username=data['username'])
+        # split recommended events into list, default to empty list if none
+        recommended_events = user.recommended_events.split(',') if user.recommended_events else []
+        event_id = str(data['event_id'])
+
+        if event_id in recommended_events:
+            try:
+                # remove event from recommendations
+                recommended_events.remove(event_id)
+                user.recommended_events = ','.join(recommended_events)
+            except Exception as e:
+                return JsonResponse({'REMOVING RECOMMENDATION error': str(e)})
+            message = 'Removed recommendation'
+            is_saved = False
+        else:
+            try:
+                # add event to recommendations
+                recommended_events.append(event_id)
+                user.recommended_events = ','.join(recommended_events)
+            except Exception as e:
+                return JsonResponse({'ADDING RECOMMENDATION error': str(e)})
+            message = 'Saved recommendation'
+            is_saved = True
+
+        # save changes to user and return response with message and is_saved flag
+        user.save()
+        return JsonResponse({"message": message, "is_saved": is_saved})
+
+    else:
+        return JsonResponse({"error": "Invalid request method."})

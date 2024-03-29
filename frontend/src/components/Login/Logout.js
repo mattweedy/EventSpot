@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 // basic react login UI component for user logout
 // uses the spotify web api to logout the user
@@ -7,6 +8,7 @@ import React from 'react';
 function Logout() {
     const handleLogout = async () => {
         try{
+            localStorage.clear();
             window.location.href = 'http://localhost:8000/spotify/logout';
         } catch (error) {
             console.error("Error logging out:", error);
@@ -14,7 +16,10 @@ function Logout() {
     };
 
     return (
-        <button onClick={handleLogout} className="logout-button">Logout</button>
+        <button onClick={handleLogout} className="logout-button">
+            <FaSignOutAlt />
+            <p id="logout-button-text">Logout</p>
+        </button>
         );
 }
 

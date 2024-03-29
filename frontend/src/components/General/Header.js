@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Logout from '../Login/Logout';
 
 function Header({ userProfile, isLoggedIn }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -13,9 +14,10 @@ function Header({ userProfile, isLoggedIn }) {
         return (
             <header className="header">
                 <div className="header-content">
-                    <p id="logged-out-status">logged out</p>
-                    <h1 className="header-title">Spot<span>Event</span></h1>
-                    <h2 className="header-subtitle">Music Event Discovery</h2>
+                    <div className="header-title-container">
+                        <h1 className="header-title">Spot<span>Event</span></h1>
+                        <h2 className="header-subtitle">Music Event Discovery</h2>
+                    </div>
                 </div>
             </header>
         );
@@ -24,12 +26,19 @@ function Header({ userProfile, isLoggedIn }) {
             <header className="header">
                 <div className="header-content">
                     <div className="user-profile">
-                        {windowWidth > 768 && <span>{userProfile.display_name}</span>}
-                        {windowWidth > 768 && <p>logged in</p>}
-                        <img src={userProfile.images[0].url} alt="user profile" />
+                        {userProfile && userProfile.images && userProfile.images.length > 0 && (
+                            <img src={userProfile.images[0].url} alt="user profile" />
+                        )}
+                        {windowWidth > 940 && <span>{userProfile.display_name}</span>}
+                        {windowWidth > 940 && <p>logged in</p>}
                     </div>
-                    <h1 className="header-title">Spot<span>Event</span></h1>
-                    <h2 className="header-subtitle">Music Event Discovery</h2>
+                    <div className="header-title-container">
+                        <h1 className="header-title">Spot<span>Event</span></h1>
+                        <h2 className="header-subtitle">Music Event Discovery</h2>
+                    </div>
+                    <div className="logout-container">
+                        <Logout />
+                    </div>
                 </div>
             </header>
         );

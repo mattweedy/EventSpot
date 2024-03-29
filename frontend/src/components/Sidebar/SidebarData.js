@@ -1,30 +1,31 @@
 import React from "react";
 import { FaHome, FaCalendarAlt, FaMusic, FaCog, FaStar } from 'react-icons/fa';
+import PathConstants from "../../routes/pathConstants";
 
 export const SidebarData = [
     {
         title: "Home",
         icon: <FaHome />,
-        link: "/home",
-    },
-    {
-        title: "Recommended Events",
-        icon: <FaStar />,
-        link: "/recommended-events",
-    },
-    {
-        title: "Top Tracks",
-        icon: <FaMusic />,
-        link: "/top-tracks",
+        link: PathConstants.HOME,
     },
     {
         title: "Browse All Events",
         icon: <FaCalendarAlt />,
-        link: "/events",
+        link: PathConstants.EVENTS,
     },
     {
         title: "Edit Preferences",
         icon: <FaCog />,
-        link: "/preferences",
+        link: PathConstants.PREFERENCES,
+    },
+    {
+        title: "Recommended Events",
+        icon: <FaStar />,
+        link: PathConstants.RECOMMENDED_EVENTS,
+    },
+    {
+        title: "Top Tracks",
+        icon: <FaMusic />,
+        link: PathConstants.TOP_TRACKS,
     },
 ]

@@ -20,7 +20,7 @@ function RecommendedEvents({ recommendedEventIds }) {
 
                 let events = allEvents.filter(e => recommendedEventIds.includes(e.event_id));
 
-                // Sort events based on the order of recommendedEventIds
+                // sort events based on the order of recommendedEventIds
                 events.sort((a, b) => recommendedEventIds.indexOf(a.event_id) - recommendedEventIds.indexOf(b.event_id));
 
                 console.log("Recommended Event Ids: ", recommendedEventIds); // print recommended event ids

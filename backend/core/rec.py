@@ -124,6 +124,7 @@ def import_prep_data(username, engine):
     # concat genres from both song and artist data
     combined_genres_series = pd.concat([user_song_genres, user_artist_genres])
 
+
     # convert the series to a comma seperated list
     combined_genres_list = ','.join(combined_genres_series.tolist()).split(',')
 
@@ -157,6 +158,14 @@ def import_prep_data(username, engine):
                 break
 
     # return song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events, min_price, max_price, user_saved_recommendations, unique_combined_genres
+            
+    print("combined_genres_series: ", combined_genres_series)
+    print("combined_genres_list: ", combined_genres_list)
+    print("unique_combined_genres: ", unique_combined_genres)
+    print("all_user_genres: ", all_user_genres)
+    print("user_quiz_venues: ", user_quiz_venues)
+    print("user_quiz_genres: ", user_quiz_genres)
+
     return all_user_genres, user_quiz_venues, events, min_price, max_price
 
 def map_user_genres(user_genres, genre_dict):
@@ -173,21 +182,54 @@ def map_user_genres(user_genres, genre_dict):
     mapped_genres = [genre_dict.get(genre, genre) for genre in user_genres]
     return list(set(tuple(i) for i in mapped_genres))  # remove duplicates to get unique mapped genres.
 
+# def calculate_genre_similarity(user_genres, event_genres):
+#     """
+#     Calculate a genre similarity score for an event based on user's mapped genres.
+    
+#     Parameters:
+#     - user_mapped_genres: List of user's preferred genres, mapped to broader categories.
+#     - event_genres: List of event's genres.
+    
+#     Returns:
+#     - A similarity score (int).
+#     """
+#     # Count how many of the event's genres are in the user's preferred genres
+#     match_count = sum(genre in user_genres for genre in event_genres)
+#     # Simple score: number of matches. Could be refined with more complex logic.
+#     return match_count
+
 def calculate_genre_similarity(user_genres, event_genres):
     """
-    Calculate a genre similarity score for an event based on user's mapped genres.
+    Calculate a normalized genre similarity score for an event based on user's mapped genres.
     
     Parameters:
-    - user_mapped_genres: List of user's preferred genres, mapped to broader categories.
+    - user_genres: List of user's preferred genres, mapped to broader categories.
     - event_genres: List of event's genres.
     
     Returns:
-    - A similarity score (int).
+    - A normalized similarity score (float) between 0 and 1.
     """
+    # Ensure user_genres is a list
+    if isinstance(user_genres, str):
+        user_genres = [user_genres]  # Convert to list if it's a string
+    
+    # Ensure event_genres is a list
+    if isinstance(event_genres, str):
+        event_genres = [event_genres]  # Convert to list if it's a string
+
+    if not user_genres or not event_genres:
+        return 0  # Avoid division by zero if either list is empty
+
     # Count how many of the event's genres are in the user's preferred genres
     match_count = sum(genre in user_genres for genre in event_genres)
-    # Simple score: number of matches. Could be refined with more complex logic.
-    return match_count
+    
+    # Normalize the score by the total number of unique genres considered (union of both sets)
+    total_genres = len(set(user_genres + event_genres))
+    
+    # Normalize score to be a fraction between 0 and 1
+    similarity_score = match_count / total_genres if total_genres else 0
+    
+    return similarity_score
 
 def score_event(event, user_preferences):
     """
@@ -202,16 +244,16 @@ def score_event(event, user_preferences):
     """
     genre_weight = 0.5
     venue_weight = 0.3
-    price_weight = 0.2
+    price_weight = 0.2  # Adjusted to ensure weights sum to 1
 
     genre_score = calculate_genre_similarity(user_preferences['mapped_genres'], event['tags'])
     venue_score = 1 if event['venue_name'] in user_preferences['preferred_venues'] else 0
     price_score = 1 if user_preferences['min_price'] <= event['price'] <= user_preferences['max_price'] else 0
     
-    # Example scoring logic: sum of scores. Adjust weighting as needed.
-    # return genre_score + venue_score + price_score
-    # Non-linear scoring
-    return math.log(genre_score*genre_weight + 1) + venue_score*venue_weight + price_score*price_weight
+    # linearly weighted sum of scores
+    total_score = (genre_score * genre_weight) + (venue_score * venue_weight) + (price_score * price_weight)
+    
+    return total_score
 
 def recommend_events(events, user_preferences):
     """

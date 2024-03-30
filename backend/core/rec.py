@@ -1,16 +1,78 @@
 import ast
+import math
 import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# TODO : test adjust_similarity_scores_venues_genres properly
-# ! it is not working as expected : changing += 0.5 to -= 0.5 and vice versa does not change the output
-# TODO: after 10 recommendations, check the date of the event to current date and filter out events that have already happened
-
-# TODO: if (babies) = 0
-
+# dictionary of genres and their subgenres
+genre_dict = {
+    "techno": ["techhouse", "edm", "house", "rave", "dubstep", "melodictechno", "techno", "dance", "electronic", "ghettotech"],
+    "rave": ["edm", "rave", "techno", "dance", "electronic"],
+    "house": ["techhouse", "edm", "house", "rave", "dance", "electronic", "deephouse"],
+    "trance": ["edm", "trance", "rave", "psytrance", "dance", "electronic"],
+    "dubstep": ["edm", "dubstep", "dance", "electronic", "bass"],
+    "drum and bass": ["edm", "rave", "drum and bass", "dance", "electronic"],
+    "gabber": ["edm", "dance", "gabber", "electronic"],
+    "hardgroove": ["rave", "hardgroove", "techno", "dance", "electronic"],
+    "hardstyle": ["edm", "rave", "hardstyle", "dance", "electronic", "techno"],
+    "psytrance": ["edm", "trance", "psytrance", "dance", "electronic"],
+    "synthpop": ["indie", "synthpop", "grunge", "alternative"],
+    "trap": ["hip hop", "trap", "street", "rap"],
+    "hip hop": ["hip hop", "street", "rap"],
+    "hiphop": ["hip hop", "street", "rap"],
+    "rap": ["hip hop", "street", "rap"],
+    "pop": ["electropop", "synthpop", "pop", "indiepop", "dance"],
+    "dance": ["pop", "dance"],
+    "rock": ["classic rock", "alternative", "hard rock", "metal", "rock", "psychedelic", "punk", "grunge", "indie"],
+    "metal": ["death metal", "hard rock", "metal", "rock", "heavy metal", "black metal"],
+    "hard rock": ["rock", "hard rock", "metal"],
+    "country": ["americana", "folk", "bluegrass", "country"],
+    "bluegrass": ["bluegrass", "country"],
+    "jazz": ["smooth jazz", "swing", "blues", "jazz fusion", "jazz"],
+    "blues": ["rhythm and blues", "jazz", "soul", "blues"],
+    "classical": ["orchestral", "baroque", "classical", "opera", "symphony"],
+    "orchestral": ["orchestral", "classical"],
+    "electronic": ["downtempo", "edm", "house", "ambient", "techno", "dance", "electronic"],
+    "edm": ["edm", "dance", "electronic"],
+    "indie": ["indie", "lo-fi", "indie rock", "alternative"],
+    "alternative": ["alternative", "indie"],
+    "folk": ["folk rock", "acoustic", "singer-songwriter", "folk"],
+    "acoustic": ["acoustic", "folk"],
+    "r&b": ["r&b", "soul"],
+    "soul": ["r&b", "soul"],
+    "reggae": ["ska", "dub", "reggae"],
+    "ska": ["ska", "reggae", "rocksteady"],
+    "punk": ["punk", "emo"],
+    "emo": ["punk", "emo"],
+    "latin": ["salsa", "reggaeton", "samba", "latin", "tango", "brazilian"],
+    "salsa": ["salsa", "latin"],
+    "gospel": ["spiritual", "gospel"],
+    "spiritual": ["spiritual", "gospel"],
+    "funk": ["funk", "disco"],
+    "disco": ["funk", "disco"],
+    "world": ["international", "ethnic", "global", "world"],
+    "international": ["international", "world"],
+    "new age": ["ambient", "new age"],
+    "ambient": ["ambient", "new age"],
+    "soundtrack": ["score", "soundtrack"],
+    "score": ["score", "soundtrack"],
+    "parody": ["parody", "comedy"],
+    "mood": ["easy listening", "mood"],
+    "brazilian": ["brazilian", "samba"],
+    "samba": ["brazilian", "samba"],
+    "fado": ["portuguese", "fado"],
+    "portuguese": ["portuguese", "fado"],
+    "tango": ["argentinian", "tango"],
+    "hip hop / rap": ["hip hop", "trap", "street", "rap", "hiphop"],
+    "soul / r&b": ["r&b", "motown", "funk", "soul"],
+    "ambient / new age": ["chillout", "ambient", "downtempo", "new age"],
+    "gospel / spiritual": ["spiritual", "christian", "worship", "gospel"],
+    "funk / disco": ["groove", "funk", "dance", "disco"],
+    "punk / emo": ["hardcore", "punk", "skate punk", "emo"],
+    "electronic dance": ["edm", "house", "techno", "dance", "electronic"],
+}
 
 def setup_db_conn():
     # create a connection to the PostgreSQL database
@@ -45,8 +107,6 @@ def import_prep_data(username, engine):
 
     # get all venues
     venue_data = pd.read_sql('SELECT * FROM backend_venue', engine)
-
-    # begin basic recommendation system
     
     # convert the string representations of lists into actual lists
     song_data['genres'] = song_data['genres'].apply(ast.literal_eval)
@@ -57,10 +117,27 @@ def import_prep_data(username, engine):
     song_data['genres'] = song_data['genres'].apply(','.join)
     artist_data['genres'] = artist_data['genres'].apply(','.join)
 
+    # get the user's genres from the SPOTIFY song and artist data
+    user_song_genres = song_data['genres']
+    user_artist_genres = artist_data['genres']
+
+    # concat genres from both song and artist data
+    combined_genres_series = pd.concat([user_song_genres, user_artist_genres])
+
+    # convert the series to a comma seperated list
+    combined_genres_list = ','.join(combined_genres_series.tolist()).split(',')
+
+    # remove duplicates
+    unique_combined_genres = list(set(combined_genres_list))
+
     # now split user data into quiz preferences
     user_quiz_venues = user_data['venue_preferences']
     user_quiz_genres = user_data['genre_preferences']
     user_quiz_pricerange = user_data['price_range']
+    user_saved_recommendations = user_data['recommended_events']
+
+    # combine user's combined song/artist genres with their quiz genres
+    all_user_genres = list(set(unique_combined_genres + user_quiz_genres.tolist()))
 
     # convert pricerange from Series to list
     user_quiz_pricerange_list = user_quiz_pricerange.tolist()
@@ -79,124 +156,138 @@ def import_prep_data(username, engine):
                 event['venue_name'] = venue['name']
                 break
 
-    return song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events, min_price, max_price
+    # return song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events, min_price, max_price, user_saved_recommendations, unique_combined_genres
+    return all_user_genres, user_quiz_venues, events, min_price, max_price
 
+def map_user_genres(user_genres, genre_dict):
+    """
+    Map user's Spotify genres to event genres using genre_dict.
+    
+    Parameters:
+    - user_genres: List of genres from Spotify.
+    - genre_dict: Dictionary mapping Spotify genres to event genres.
+    
+    Returns:
+    - List of mapped genres.
+    """
+    mapped_genres = [genre_dict.get(genre, genre) for genre in user_genres]
+    return list(set(tuple(i) for i in mapped_genres))  # remove duplicates to get unique mapped genres.
 
-def feature_extraction(song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events):
-    # create a TfidfVectorizer object
-    vectorizer = TfidfVectorizer()
+def calculate_genre_similarity(user_genres, event_genres):
+    """
+    Calculate a genre similarity score for an event based on user's mapped genres.
+    
+    Parameters:
+    - user_mapped_genres: List of user's preferred genres, mapped to broader categories.
+    - event_genres: List of event's genres.
+    
+    Returns:
+    - A similarity score (int).
+    """
+    # Count how many of the event's genres are in the user's preferred genres
+    match_count = sum(genre in user_genres for genre in event_genres)
+    # Simple score: number of matches. Could be refined with more complex logic.
+    return match_count
 
-    # fit the TfidfVectorizer on the combined data
-    vectorizer.fit(song_data['genres'].tolist() + artist_data['genres'].tolist() + event_data['tags'].tolist())
+def score_event(event, user_preferences):
+    """
+    Score an event based on user preferences, including genre similarity, venue preference, and price sensitivity.
+    
+    Parameters:
+    - event: A dictionary representing an event, including 'genres', 'venue_name', and 'price'.
+    - user_preferences: A dictionary of user preferences, including 'mapped_genres', 'preferred_venues', 'min_price', and 'max_price'.
+    
+    Returns:
+    - An overall score for the event (int).
+    """
+    genre_weight = 0.5
+    venue_weight = 0.3
+    price_weight = 0.2
 
-    # transform the song genres, artist genres and event tags
-    song_genres_tfidf = vectorizer.transform(song_data['genres'])
-    artist_genres_tfidf = vectorizer.transform(artist_data['genres'])
-    event_tfidf = vectorizer.transform([event['tags'] for event in events])
+    genre_score = calculate_genre_similarity(user_preferences['mapped_genres'], event['tags'])
+    venue_score = 1 if event['venue_name'] in user_preferences['preferred_venues'] else 0
+    price_score = 1 if user_preferences['min_price'] <= event['price'] <= user_preferences['max_price'] else 0
+    
+    # Example scoring logic: sum of scores. Adjust weighting as needed.
+    # return genre_score + venue_score + price_score
+    # Non-linear scoring
+    return math.log(genre_score*genre_weight + 1) + venue_score*venue_weight + price_score*price_weight
 
-    # create a user profile
-    user_profile = vectorizer.transform(user_quiz_venues + user_quiz_genres)
+def recommend_events(events, user_preferences):
+    """
+    Recommend events based on scores calculated from user preferences.
+    
+    Parameters:
+    - events: List of dictionaries, each representing an event.
+    - user_preferences: A dictionary of user preferences.
+    
+    Returns:
+    - List of recommended events, sorted by their score.
+    """
+    for event in events:
+        event['score'] = score_event(event, user_preferences)
+    
+    # Sort events by score in descending order
+    recommended_events = sorted(events, key=lambda x: x['score'], reverse=True)
+    
+    return recommended_events
 
-    return user_profile, event_tfidf, song_genres_tfidf, artist_genres_tfidf
-
-def get_similarity_scores(user_profile, event_tfidf, song_genres_tfidf, artist_genres_tfidf):
-    # cosine sim between user profile and events
-    user_event_similarity = cosine_similarity(user_profile, event_tfidf)
-    # flatten data array to only include the score
-
-
-    # songs - events
-    song_event_similarity = cosine_similarity(song_genres_tfidf, event_tfidf)
-
-    # artists - events
-    artist_event_similarity = cosine_similarity(artist_genres_tfidf, event_tfidf)
-
-    return user_event_similarity, song_event_similarity, artist_event_similarity
-
-
-def matrix_padding(song_event_similarity, artist_event_similarity):
-    # get the maximum shape of the two similarity matrices
-    max_shape = max(song_event_similarity.shape, artist_event_similarity.shape)
-
-    # create zero matrices with the maximum shape
-    song_event_similarity_padded = np.zeros(max_shape)
-    artist_event_similarity_padded = np.zeros(max_shape)
-
-    # pad the similarity matrices with zeros so they can be added together
-    song_event_similarity_padded[:song_event_similarity.shape[0], :song_event_similarity.shape[1]] = song_event_similarity
-    artist_event_similarity_padded[:artist_event_similarity.shape[0], :artist_event_similarity.shape[1]] = artist_event_similarity
-
-    return song_event_similarity_padded, artist_event_similarity_padded
-
-
-def adjust_similarity_scores_venues_genres(song_event_similarity_padded, artist_event_similarity_padded, user_event_similarity ,user_quiz_venues, user_quiz_genres, min_price, max_price, events):
-    # calculate the average similarity between songs and events and artists and events
-    average_similarity = np.mean([song_event_similarity_padded, artist_event_similarity_padded], axis=0)
-
-    # calculate the average similarity between the user's Spotify data and the user's event preferences
-    weighted_similarity = (2 * average_similarity + user_event_similarity) / 3
-
-    # pad the weighted_similarity array with zeros if it's shorter than the events list
-    if len(weighted_similarity) < len(events):
-        weighted_similarity = np.pad(weighted_similarity, (0, len(events) - len(weighted_similarity)), 'constant')
-
-    for i, event in enumerate(events):
-        # initialize the adjusted_similarity score to the weighted similarity score
-        event['adjusted_similarity'] = np.mean(weighted_similarity[i])
-
-        # check if event venue is in user's preferences
-        if event['venue_name'].lower() in [venue.lower() for venue in user_quiz_venues]:
-            event['adjusted_similarity'] += 0.5
-
-        # check if event genre is in user's preferences
-        if any(tag.lower() in [genre.lower() for genre in user_quiz_genres] for tag in event['tags']):
-            event['adjusted_similarity'] += 0.5
-
-        # check if event price is within user's preferred range
-        if min_price <= event['price'] <= max_price:
-            event['adjusted_similarity'] += 0.2
-
-    return events
-
-
-# # get the indices of the events sorted by similarity
-def get_sorted_indices(adjusted_events):
-    adjusted_indices = np.argsort([event['adjusted_similarity'] for event in adjusted_events])[::-1]
-    return adjusted_indices.flatten()
-
-# get the top 10 most similar events
-def get_top_events(event_data, adjusted_indices, num_events=10):
-    top_events = event_data.iloc[adjusted_indices[:num_events]]
-    print(top_events)
-    return top_events['event_id'].tolist()
+def recommend_top_20_events(recommended_events):
+    """
+    Recommend top 20 events from the list of recommended events.
+    
+    Parameters:
+    - recommended_events: List of recommended events, sorted by score.
+    
+    Returns:
+    - List of top 20 event IDs.
+    """
+    top_20_events = recommended_events[:20]
+    top_20_events_ids = [event['event_id'] for event in top_20_events]
+    
+    return top_20_events_ids, top_20_events
 
 
 def main(username):
     # Setup database connection
     engine = setup_db_conn()
 
+    # song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events, min_price, max_price, user_saved_recommendations, unique_combined_genres = import_prep_data(username, engine)
+
     # Import and prepare data
-    song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events, min_price, max_price = import_prep_data(username, engine)
+    all_user_genres, user_quiz_venues, events, min_price, max_price = import_prep_data(username, engine)
 
-    # Feature extraction
-    user_profile, event_tfidf, song_genres_tfidf, artist_genres_tfidf = feature_extraction(song_data, artist_data, event_data, user_quiz_venues, user_quiz_genres, events)
+    # Map user's Spotify genres to event genres
+    # user_spotify_mapped_genres = map_user_genres(unique_combined_genres, genre_dict)
 
-    # Get similarity scores
-    user_event_similarity, song_event_similarity, artist_event_similarity = get_similarity_scores(user_profile, event_tfidf, song_genres_tfidf, artist_genres_tfidf)
+    # Map user's Spotify genres to event genres
+    # user_preference_mapped_genres = map_user_genres(user_quiz_genres, genre_dict)
 
-    # Matrix padding
-    song_event_similarity_padded, artist_event_similarity_padded = matrix_padding(song_event_similarity, artist_event_similarity)
+    mapped_genres = map_user_genres(all_user_genres, genre_dict)
 
-    # Adjust similarity scores
-    adjusted_events = adjust_similarity_scores_venues_genres(song_event_similarity_padded, artist_event_similarity_padded, user_event_similarity, user_quiz_venues, user_quiz_genres, min_price, max_price, events)
+    # User preferences
+    user_preferences = {
+        'mapped_genres': mapped_genres,
+        'preferred_venues': user_quiz_venues,
+        'min_price': min_price,
+        'max_price': max_price
+    }
 
-    # Get sorted indices
-    adjusted_indices = get_sorted_indices(adjusted_events)
+    # Recommend events
+    recommended_events = recommend_events(events, user_preferences)
 
-    # Get top 10 events
-    top_10_event_ids = get_top_events(event_data, adjusted_indices)
+    # Print recommended events
+    for event in recommended_events:
+        print(f"Event: {event['name']} (Score: {event['score']})")
 
-    return top_10_event_ids
+    top_20_events_ids, top_20_events = recommend_top_20_events(recommended_events)
+    
+    # print top 20 event IDs from event list
+    print("Top 20 Event IDs: ", top_20_events_ids)
+    print("Top 20 Events: ", pd.DataFrame(top_20_events))
+
+
+    return top_20_events_ids
 
 if __name__ == "__main__":
     main('m.tweedy')

@@ -3,6 +3,87 @@ from django.utils import timezone
 # from django.core.cache import cache
 # from django.apps import apps
 
+genre_dict = {
+    "techno": ["techno", "electronic", "edm", "dance", "rave"],
+    "rave": ["rave", "electronic", "edm", "techno", "dance"],
+    "house": ["house", "electronic", "edm", "dance", "rave"],
+    "trance": ["trance", "electronic", "edm", "dance", "rave"],
+    "dubstep": ["dubstep", "electronic", "edm", "dance"],
+    "drum and bass": ["drum and bass", "electronic", "edm", "dance", "rave"],
+    "gabber": ["gabber", "electronic", "edm", "dance"],
+    "hardgroove": ["hardgroove", "electronic", "dance", "techno", "rave"],
+    "hardstyle": ["hardstyle", "electronic", "edm", "dance", "techno", "rave"],
+    "psytrance": ["psytrance", "electronic", "edm", "dance", "trance"],
+    "synthpop": ["synthpop", "grunge", "alternative", "indie"],
+    "trap": ["trap", "rap", "hip hop", "street"],
+    "hip hop": ["hip hop", "rap", "street"],
+    "hiphop": ["hip hop", "rap", "street"],
+    "rap": ["rap", "hip hop", "street"],
+    "pop": ["pop", "dance"],
+    "dance": ["pop", "dance"],
+    "rock": ["rock", "metal"],
+    "metal": ["rock", "metal", "hard rock"],
+    "hard rock": ["rock", "metal", "hard rock"],
+    "country": ["country", "bluegrass"],
+    "bluegrass": ["country", "bluegrass"],
+    "jazz": ["jazz", "blues"],
+    "blues": ["jazz", "blues"],
+    "classical": ["classical", "orchestral"],
+    "orchestral": ["classical", "orchestral"],
+    "electronic": ["electronic", "edm", "dance"],
+    "edm": ["electronic", "edm", "dance"],
+    "indie": ["indie", "alternative"],
+    "alternative": ["indie", "alternative"],
+    "folk": ["folk", "acoustic"],
+    "acoustic": ["folk", "acoustic"],
+    "r&b": ["r&b", "soul"],
+    "soul": ["r&b", "soul"],
+    "reggae": ["reggae", "ska"],
+    "ska": ["reggae", "ska"],
+    "punk": ["punk", "emo"],
+    "emo": ["punk", "emo"],
+    "latin": ["latin", "salsa"],
+    "salsa": ["latin", "salsa"],
+    "gospel": ["gospel", "spiritual"],
+    "spiritual": ["gospel", "spiritual"],
+    "funk": ["funk", "disco"],
+    "disco": ["funk", "disco"],
+    "world": ["world", "international"],
+    "international": ["world", "international"],
+    "new age": ["new age", "ambient"],
+    "ambient": ["new age", "ambient"],
+    "soundtrack": ["soundtrack", "score"],
+    "score": ["soundtrack", "score"],
+    "comedy": ["comedy", "parody"],
+    "parody": ["comedy", "parody"],
+    "spoken word": ["spoken word", "audiobook"],
+    "audiobook": ["spoken word", "audiobook"],
+    "children's": ["children's", "kids"],
+    "kids": ["children's", "kids"],
+    "holiday": ["holiday", "christmas"],
+    "christmas": ["holiday", "christmas"],
+    "easy listening": ["easy listening", "mood"],
+    "mood": ["easy listening", "mood"],
+    "brazilian": ["brazilian", "samba"],
+    "samba": ["brazilian", "samba"],
+    "fado": ["fado", "portuguese"],
+    "portuguese": ["fado", "portuguese"],
+    "tango": ["tango", "argentinian"],
+}
+
+def add_genres(genre_list):
+    """
+    Add more genres to the genre list.
+    """
+    new_genre_list = genre_list.copy()
+    for genre, add_genres in genre_dict.items():
+        for existing_genre in new_genre_list:
+            if genre in existing_genre:
+                for add_genre in add_genres:
+                    if add_genre not in new_genre_list:
+                        new_genre_list.append(add_genre)
+    return new_genre_list
+
 
 class Event(models.Model):
     class Meta:
@@ -22,13 +103,24 @@ class Event(models.Model):
 
     @classmethod
     def create_from_event_and_venue(cls, event, venue):
+        event['tags'] = [tag['display_name'].lower() for tag in event['tags']]
+
+        # Add more genres to the event
+        event['tags'] = add_genres(event['tags'])
+
+        # Filter out events related to kids
+        kids_words = ['kids', 'child', 'children', 'baby', 'babies', 'toddler']
+        if any(kid_word in event['name'].lower() or kid_word in ' '.join(event['tags']) for kid_word in kids_words):
+            return None
+
         name = event["name"]
         event_id = event["eventbrite_event_id"]
         price = event["ticket_availability"]["minimum_ticket_price"]["major_value"]
         venue_id = venue.id
         venue_identifier = venue.venue_id
         image = event["image"]["url"]
-        tags = ','.join(tag['display_name'].lower() for tag in event['tags'])
+        # tags = ','.join(tag['display_name'].lower() for tag in event['tags'])
+        tags = ','.join(event['tags'])
         tickets_url = event["tickets_url"]
         date = event["start_date"]
         summary = event["summary"]

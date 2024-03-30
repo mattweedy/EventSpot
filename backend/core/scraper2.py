@@ -106,7 +106,7 @@ async def get_all_event_ids():
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch()
         context = await browser.new_context()
-        while page_num <= 10:
+        while page_num <= 14:
             # Update the URL to navigate to the next page
             url = f"{EVENT_URL}?page={page_num}"
             print("on page :", page_num)

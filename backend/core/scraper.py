@@ -118,6 +118,7 @@ async def event_data_get():
                               f"{event["image"]["url"]}\n"
                               f"{event["tickets_url"] = }\n"
                               f"{event["start_date"] = }\n"
+                              f"{event["tags"] = }\n"
                               f"{event["summary"] = }\n"
                               f"---------------------------"
                         )

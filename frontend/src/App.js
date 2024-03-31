@@ -144,16 +144,13 @@ function App() {
 
 
     useEffect(() => {
-        if (userProfile) {
+        if (userProfile && !localStorage.getItem('fetchedTopItems')) {
             fetchTopItems('tracks');
             fetchTopItems('artists');
-            // fetchArtistGenres();
+            localStorage.setItem('fetchedTopItems', 'true');
         }
     }, [userProfile, fetchTopItems]);
-    
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
+
     
     return (
         <RouterProvider router={router} />

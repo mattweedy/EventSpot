@@ -176,7 +176,9 @@ def get_artist_genres(artist_id):
         artist = Artist.objects.get(spotify_id=artist_id)
         if artist.genres:
             # ff the artist has genres, return them
-            return artist.genres
+            return artist.genres, artist.link
+        else:
+            return [], artist.link
     except ObjectDoesNotExist:
         # ff the artist doesn't exist in the database, continue to fetch genres from Spotify API
         pass
@@ -191,12 +193,13 @@ def get_artist_genres(artist_id):
     response = requests.get(f'https://api.spotify.com/v1/artists/{artist_id}', headers=headers)
     response_json = response.json()
     genres = response_json['genres']
+    link = response_json['external_urls']['spotify']
     print(f"GENRES : {genres}")
     if genres == []:
         response_json['genres'] = "No genres found for this artist"
-        return genres
+        return genres, link
     if response.status_code == 200:
-        return genres
+        return genres, link
     else:
         print("ERROR : Fetching artist genres : ", response.text)
         return JsonResponse({"error": "Fetching artist genres : " + response.text}, status=response.status_code)

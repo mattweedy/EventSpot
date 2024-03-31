@@ -22,6 +22,7 @@ class Track(models.Model):
         artist_id = track['artists'][0]['id']
         popularity = track['popularity']
 
+        link = ""
         # for genres, pull genres from artist
         try:
             # check if artist exists in the database
@@ -32,16 +33,18 @@ class Track(models.Model):
                     genres = artist_obj.genres
                 # if the artist doesn't have genres, fetch them from Spotify API
                 else:
-                    genres = get_artist_genres(artist_id=artist_id)
+                    genres, link = get_artist_genres(artist_id=artist_id)
                     artist_obj.genres = genres
+                    artist_obj.link = link
+                    artist_obj.users += user + ","
                     artist_obj.save()
             # if the artist doesn't exist in the database, continue to fetch genres from Spotify API
             else:
-                genres = get_artist_genres(artist_id=artist_id)
-                Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, popularity=popularity or 0)
+                genres, link = get_artist_genres(artist_id=artist_id)
+                Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, link=link, popularity=popularity or 0, users=user)
         except ObjectDoesNotExist:
-            genres = get_artist_genres(artist_id=artist_id)
-            Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, popularity=popularity or 0)
+            genres, link = get_artist_genres(artist_id=artist_id)
+            Artist.objects.create(name=artist, spotify_id=artist_id, genres=genres, link=link, popularity=popularity or 0, users=user)
 
         defaults={
             'name': name,
@@ -118,7 +121,9 @@ class Artist(models.Model):
         artist_obj = cls.objects.filter(spotify_id=artist['id']).first()
         if artist_obj:
             # print("An existing artist was found.")
-            pass
+            # update the artist spotify link
+            artist_obj.link = artist['external_urls']['spotify']
+            artist_obj.save()
         else:
             artist_obj = cls(
                 spotify_id=artist['id'], 
@@ -130,12 +135,50 @@ class Artist(models.Model):
             artist_obj.save()
             print("A new artist was created.")
 
-        if utils.get_access_token():
-            if user not in artist_obj.users:
-                artist_obj.users += user + ","
-                artist_obj.save()
+        # always set the link field
+        artist_obj.link = artist['external_urls']['spotify']
+
+        # always add the user to the users field if the user is not already in it
+        if user not in artist_obj.users:
+            artist_obj.users += user + ","
+
+        artist_obj.save()
 
         return artist_obj
+
+    # def create_artist_from_spotify(cls, artist, user):
+    #     # check that the artist dictionary contains all the necessary keys
+    #     required_keys = ['id', 'name', 'genres', 'external_urls', 'popularity']
+    #     for key in required_keys:
+    #         if key not in artist:
+    #             raise ValueError(f"Key '{key}' not found in artist dictionary")
+
+    #     # check that the 'external_urls' dictionary contains the 'spotify' key
+    #     if 'spotify' not in artist['external_urls']:
+    #         raise ValueError("'spotify' key not found in 'external_urls' dictionary")
+
+    #     artist_obj = cls.objects.filter(spotify_id=artist['id']).first()
+    #     if artist_obj:
+    #         # print("An existing artist was found.")
+    #         pass
+    #     else:
+    #         artist_obj = cls(
+    #             spotify_id=artist['id'], 
+    #             name=artist['name'], 
+    #             genres=artist['genres'], 
+    #             link=artist['external_urls']['spotify'], 
+    #             popularity=artist['popularity'] or 0
+    #         )
+    #         artist_obj.save()
+    #         print("A new artist was created.")
+
+    #     if utils.get_access_token():
+    #         if user not in artist_obj.users:
+    #             artist_obj.users += user + ","
+    #             artist_obj.save()
+
+    #     return artist_obj
+
 
     def __str__(self):
         return (

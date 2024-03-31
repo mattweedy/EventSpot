@@ -1,0 +1,119 @@
+before spotify user and artist data included:
+NO PREFERENCES
+
+user_quiz_genres:  []
+user_quiz_venues:  []
+price_range:  [0, 100]
+
+Top 20 Events:
+      id                                               name      event_id  price  ... venue_id venue_identifier                                         venue_name     score
+0    1                Index x Vibez Emotion: Miss Monique  825268358877  22.00  ...        1        196663159                                              INDEX  0.693147
+1    2          RESENHA DOS AMIGOS - ENCONTRO DOS PAGODES  845995885467   8.48  ...        2        199039719                               Woolshed Baa & Grill  0.693147
+2    3                                     Index: Solardo  847594406687  22.00  ...        1        199333799                                              INDEX  0.693147
+3    4         Swiftogeddon - The Taylor Swift Club Night  826941282637   8.82  ...        3        196850239                                   The Grand Social  0.693147
+4    5  Lupii lui Calancea & Surorile Osoianu | DUBLIN...  825519319507  31.95  ...        4        196705889  Church of Scientology & Community Centre of Du...  0.693147
+5    6                     A Celebration of Music Network  777255220287  25.00  ...        5        188324489                       Royal Irish Academy of Music  0.693147
+6    7                                Index: Hot Since 82  852302639137  22.00  ...        1        200475589                                              INDEX  0.693147
+7    8  The Doors Rising - The Doors live tribute act ...  732460437887  17.44  ...        6        177573189                            The Grand Social Dublin  0.693147
+8    9       1000 MODS AT THE GRAND SOCIAL DUBLIN 10/4/24  803085489317  21.80  ...        6        193293409                            The Grand Social Dublin  0.693147
+9   10     'Karma Police' - A Tribute to RADIOHEAD (Live)  722082818147  22.42  ...        7        174794939                                     The Lighthouse  0.693147
+10  11                                DINAMIKA 30 -Dublin  796090818067  43.87  ...        8        192018299                                 The Button Factory  0.693147
+11  12              Homebeat Presents : Alabaster DePlume  860959271357  25.72  ...        8        202592939                                 The Button Factory  0.693147
+12  13                                   Complete Madness  846091932747  23.50  ...        3        199059369                                   The Grand Social  0.693147
+13  14  KíLA - Live in Concert + Special guests The In...  795747039817  30.00  ...        9        191927779                                  The Purty Kitchen  0.693147
+14  15                        LA PAACH "Paths of Rebirth"  836920952097   0.00  ...       10        177779489                                             Wigman  0.693147
+15  16  CABL, The Grand Social W\ Nerves & Affection t...  838979198367   9.55  ...        3        198147359                                   The Grand Social  0.693147
+16  17              Damien Dempsey Pillo Hotel April 26th  765610721277  33.15  ...       11        185699219                              Pillo Hotel Ashbourne  0.693147
+17  18                     A Litany of Failures Weekender  837330206187  27.27  ...       12        197850659                                     Button Factory  0.693147
+18  19    DXNBY B3B Marsolo B3B Jamback | ENDLESS. Dublin  859587749097  15.00  ...       13        202236029                                 As Above, So Below  0.693147
+19  20                          The Irish Brigade@Peadars  831913845707  15.99  ...       14         46000703                                     Peadar Browns   0.693147
+
+RANDOM PREFERENCES
+
+user_quiz_genres:  ['hiphop', 'christian', 'classic rock', 'classical', 'disco']
+user_quiz_venues:  ['bellobar', 'index', 'the playground', 'yamamori tengu']
+price_range:  [0, 21]
+
+Top 20 Events:
+       id                                               name      event_id  price  ... venue_id venue_identifier                                         venue_name     score
+0    38                   Jeorge II Presents House Fire II  857973731527  12.92  ...       24        201733499                                  The Workmans Club  0.704686
+1   143          JyellowL Live At The SoundHouse *Presale*  851182388437  14.38  ...       37        200127049                                    The Sound House  0.703147
+2   115  Of Love and Eternity | Chamber Choir Ireland &...  801264231887   5.00  ...       63        193008819                            All Hallows Chapel, DCU  0.700647
+3   124  Why do you sing? | Chamber Choir Ireland & Gue...  811264282307   5.00  ...       72        194817779                             Pepper Canister Church  0.700647
+4    56  Hits Different: The New Wave of Pop - Olivia R...  810659031987   7.72  ...        3         91077219                                   The Grand Social  0.699669
+5    49                      Que se Funk - Brazilian Night  836912707437   6.34  ...       24        197785439                                  The Workmans Club  0.699030
+6   102                  Dun Laoghaire Guitar Night Vol. 5  865869257257  12.50  ...       58        204088259                                 Dun Laoghaire Club  0.698410
+7   117                 Family Concert: Peter and the Wolf  787121109427   6.34  ...       65        190205179                                    Tramway Theatre  0.698410
+8   126                         Judi Jackson Jazz Ensemble  771901757937  15.99  ...       73        187079979                       Tramway Theatre, Blessington  0.698410
+9   142         Claudia Boyle, Gyula Nagy & Fiachra Garvey  771917595307  15.99  ...       78        187084999                       St Marys Church, Blessington  0.698410
+10  159  Rising Stars Concert: Maria O’Dea & Luke Lally...  787055623557  11.70  ...       78        190174579                       St Marys Church, Blessington  0.698410
+11   40  Music Network presents Flook with special gues...  761224371587  13.50  ...       28        184794709                                     The Sugar Club  0.697909
+12   60                    Cuore Chamber Choir | Mirabilia  831518402927  10.00  ...       42        197441539  St. Marys Church, Haddington Road, Dublin, D04...  0.697909
+13  108   Music Network presents Linda Fredriksson Juniper  761227621307  13.50  ...       28        184796199                                     The Sugar Club  0.697909
+14  150                            Ascolta: Summer Concert  869347811707  15.00  ...       84        204871329                            Dublin Unitarian Church  0.697909
+15  118                         Patrick Cassidy's The Mass  841340661567  13.85  ...       66        198429389                        Mount Argus Catholic Church  0.697314
+16   50                 Time Tunnel presents Double Barrel  807600985287  10.00  ...       37        194120559                                    The Sound House  0.697147
+17    2          RESENHA DOS AMIGOS - ENCONTRO DOS PAGODES  845995885467   8.48  ...        2        199039719                               Woolshed Baa & Grill  0.696719
+18    4         Swiftogeddon - The Taylor Swift Club Night  826941282637   8.82  ...        3        196850239                                   The Grand Social  0.693147
+19    8  The Doors Rising - The Doors live tribute act ...  732460437887  17.44  ...        6        177573189                            The Grand Social Dublin  0.693147
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+after spotify user and artist data:
+NO PREFERENCES
+
+user_quiz_genres:  []
+user_quiz_venues:  []
+price_range:  [0, 100]
+
+Top 20 Events:
+       id                                               name      event_id  price  ... venue_id venue_identifier               venue_name     score
+0   143          JyellowL Live At The SoundHouse *Presale*  851182388437  14.38  ...       37        200127049          The Sound House  0.702796
+1    24  The Year Grunge Broke | The Lighthouse, Dun La...  839934636107  16.67  ...        7        198234649           The Lighthouse  0.702406
+2   130  Outkastz 011: YR 1 Birthday Bashings - Monthly...  868748950497   7.40  ...       44        204733689      The Workmans Cellar  0.702238
+3   206  LIMEHOUSE LIZZY (UK) - A TRIBUTE TO THIN LIZZY...  803541172277  27.79  ...        3        193389259         The Grand Social  0.701622
+4    93  Monsieur Pompier's Travelling Freakshow LIVE a...  868663274237  11.70  ...       54        204714959            Fibber Magees  0.700420
+5    15                        LA PAACH "Paths of Rebirth"  836920952097   0.00  ...       10        177779489                   Wigman  0.699629
+6    45                     Here & Now Presents Boys Noize  818786230657  17.07  ...       33        195894539             Here and Now  0.699629
+7    92              Limitless Presents: Calla & Adam Rose  845969336057   6.34  ...       53        199033489       Cellar Club Dublin  0.699629
+8    21            Index x Slither: €1 Party Banker Sunday  871036562807   1.10  ...        1        205180789                    INDEX  0.699511
+9     1                Index x Vibez Emotion: Miss Monique  825268358877  22.00  ...        1        196663159                    INDEX  0.699397
+10    3                                     Index: Solardo  847594406687  22.00  ...        1        199333799                    INDEX  0.699397
+11    7                                Index: Hot Since 82  852302639137  22.00  ...        1        200475589                    INDEX  0.699397
+12   46                Screaming Internally and Cell Games  837329684627  10.00  ...       34        197850409             Thomas House  0.699288
+13  208                          El Kuelgue live in Dublin  870965811187  29.93  ...       37        205163799          The Sound House  0.699288
+14   50                 Time Tunnel presents Double Barrel  807600985287  10.00  ...       37        194120559          The Sound House  0.699182
+15  155  Emo Nite at The Grand Social Dublin (Ballroom)...  871414954587   7.64  ...        6         93138729  The Grand Social Dublin  0.699182
+16   33                   The Racket Space Presents: Hamdi  837786079717   8.35  ...       23        197943559         The Racket Space  0.699079
+17   69  THE BLACK CHARADE & FELL OUT BOY - THE BUTTON ...  707568475357  21.80  ...        8        204407079       The Button Factory  0.699079
+18   57     El Mato a un Policia Motorizado live in Dublin  850453608637  35.30  ...       24        199893589        The Workmans Club  0.698602
+19   72               | XO Saturdays | Caz & Camron Saul |  871004587167  11.17  ...       46        205171879    Buzz Late Night Venue  0.698504
+
+RANDOM PREFERENCES
+
+user_quiz_genres:  ['hiphop', 'christian', 'classic rock', 'classical', 'disco']
+user_quiz_venues:  ['bellobar', 'index', 'the playground', 'yamamori tengu']
+price_range:  [0, 21]
+
+Top 20 Events:
+       id                                               name      event_id  price  ... venue_id venue_identifier               venue_name     score
+0   143          JyellowL Live At The SoundHouse *Presale*  851182388437  14.38  ...       37        200127049          The Sound House  0.702018
+1    24  The Year Grunge Broke | The Lighthouse, Dun La...  839934636107  16.67  ...        7        198234649           The Lighthouse  0.701622
+2   130  Outkastz 011: YR 1 Birthday Bashings - Monthly...  868748950497   7.40  ...       44        204733689      The Workmans Cellar  0.701481
+3    93  Monsieur Pompier's Travelling Freakshow LIVE a...  868663274237  11.70  ...       54        204714959            Fibber Magees  0.699814
+4    15                        LA PAACH "Paths of Rebirth"  836920952097   0.00  ...       10        177779489                   Wigman  0.699079
+5    45                     Here & Now Presents Boys Noize  818786230657  17.07  ...       33        195894539             Here and Now  0.699079
+6    92              Limitless Presents: Calla & Adam Rose  845969336057   6.34  ...       53        199033489       Cellar Club Dublin  0.699079
+7    21            Index x Slither: €1 Party Banker Sunday  871036562807   1.10  ...        1        205180789                    INDEX  0.698981
+8    46                Screaming Internally and Cell Games  837329684627  10.00  ...       34        197850409             Thomas House  0.698792
+9    50                 Time Tunnel presents Double Barrel  807600985287  10.00  ...       37        194120559          The Sound House  0.698703
+10  155  Emo Nite at The Grand Social Dublin (Ballroom)...  871414954587   7.64  ...        6         93138729  The Grand Social Dublin  0.698703
+11   33                   The Racket Space Presents: Hamdi  837786079717   8.35  ...       23        197943559         The Racket Space  0.698616
+12   72               | XO Saturdays | Caz & Camron Saul |  871004587167  11.17  ...       46        205171879    Buzz Late Night Venue  0.698065
+13  163  Pier Live - EP Launch "The Harvest " @ The Wor...  865464416367  11.70  ...       44        203973009      The Workmans Cellar  0.698065
+14   19    DXNBY B3B Marsolo B3B Jamback | ENDLESS. Dublin  859587749097  15.00  ...       13        202236029       As Above, So Below  0.697986
+15   35                                 Sharkett EP Launch  831762292407  17.07  ...       25        197447389                 BelloBar  0.697835
+16   56  Hits Different: The New Wave of Pop - Olivia R...  810659031987   7.72  ...        3         91077219         The Grand Social  0.697835
+17   81                      Studio Sessions with BIG LOVE  830100100747  17.07  ...       18        197276999    Windmill Lane Studios  0.697115
+18  224  Robbed Zombie - Live Rob Zombie Tribute at The...  872011348417  17.44  ...        6         93138729  The Grand Social Dublin  0.697115
+19  178  Lisa Canny & Band at The Sugar Club Harp Sessions  856144690817  20.28  ...       28        193439749           The Sugar Club  0.697053

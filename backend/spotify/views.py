@@ -9,9 +9,6 @@ from . spotify_auth import get_user_profile, get_user_top_items
 from backend.spotify.models import Track, Artist
 from . serializer import TrackSerializer, ArtistSerializer
 
-# TODO: ensure GET profile doesnt get spammed when you refresh the page and user is logged in
-
-
 class TrackView(viewsets.ModelViewSet):
     queryset = Track.objects.all()
     serializer_class = TrackSerializer

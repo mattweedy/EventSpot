@@ -86,12 +86,6 @@ from sqlalchemy import create_engine
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# TODO : test adjust_similarity_scores_venues_genres properly
-# ! it is not working as expected : changing += 0.5 to -= 0.5 and vice versa does not change the output
-# TODO: after 10 recommendations, check the date of the event to current date and filter out events that have already happened
-
-# TODO: if (babies) = 0
-
 
 def setup_db_conn():
     # create a connection to the PostgreSQL database

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "backend.spotify",
     "corsheaders",
     "rest_framework",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [

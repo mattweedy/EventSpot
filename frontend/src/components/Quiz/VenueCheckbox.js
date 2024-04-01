@@ -28,8 +28,10 @@ export default function VenueCheckbox({ venue, handleFormChange, formData }) {
         toast.error(message, {
             style: {
                 borderRadius: '10px',
-                background: '#333',
+                background: 'red',
                 color: '#fff',
+                padding: '16px',
+                fontSize: '1.2rem',
             },
         });
     }

@@ -5,9 +5,6 @@ import { FaTimes } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
-// TODO: pass username to here
-// TODO: ensure recommended_events in User model is an array of event_ids
-
 Modal.setAppElement('#root');
 
 function EventDisplay({ event, venues, isRecommendation = false, username }) {
@@ -20,6 +17,8 @@ function EventDisplay({ event, venues, isRecommendation = false, username }) {
             color: '#fff',
             alignItems: 'center',
             justifyContent: 'center',
+            padding: '16px',
+            fontSize: '1.2rem',
         },
         duration: 6000,
     };

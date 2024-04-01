@@ -5,6 +5,8 @@ import useFetchData from '../components/Data/useFetchData';
 import EventDisplay from '../components/EventDetails/EventDisplay';
 import { useDynamicHeight } from '../components/General/useDynamicHeight';
 
+// TODO : preserve state of saved recommendations
+
 export default function Recommendation() {
     const { setRecommendedEventIds } = useOutletContext();
     const [recommendedEvents, setRecommendedEvents] = useState([]);
@@ -13,6 +15,8 @@ export default function Recommendation() {
     const [eventSearchTerm, setEventSearchTerm] = useState('');
     const { userProfile } = useOutletContext();
     
+    console.log("RECOMMENDATION : userProfile", userProfile);
+
     useDynamicHeight();
 
 

@@ -4,8 +4,8 @@ import Sidebar from "../Sidebar/Sidebar";
 import LoginPage from "../../pages/LoginPage";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
+import Loading from "./Loading";
 
-// ? this isLoading part is making the sidebar disappear too for some reason
 
 export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, setRecommendedEventIds, isLoading }) {
     return (
@@ -16,13 +16,13 @@ export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, s
                 {/* Conditionally render the Sidebar based on isLoggedIn */}
                 {isLoggedIn && <Sidebar recommendedEventIds={recommendedEventIds}/>}
                 <main className="app-main">
-                    {/* <div className="app-body"> */}
-                        <Suspense fallback={<h2>Loading...</h2>}>
+                        {/* <Suspense fallback={<h2>Loading...</h2>}> */}
+                        <Suspense fallback={<Loading />}>
                             {/* Conditionally render the Outlet or Login based on isLoggedIn */}
-                            {isLoading ? <h2>Loading...</h2> : isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
-                            <Toaster position="bottom-right" containerStyle={{ color: '#fff'}}/>
+                            {/* {isLoading ? <h2>Loading...</h2> : isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />} */}
+                            {isLoading ? <Loading /> : isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
+                            <Toaster position="bottom-right" containerStyle={{ color: '#fff' }}/>
                         </Suspense>
-                    {/* </div> */}
                 </main>
             </div>
         </div>

@@ -8,9 +8,6 @@ import SearchBar from "../General/SearchBar";
 import useFetchData from "../Data/useFetchData";
 import { toast } from 'react-hot-toast';
 
-// ! This component is not complete
-
-// TODO: handle the venues like "Smiddy's" and "St Ann's Church of Ireland" because they have an apostrophe
 // TODO: handle cities
 
 export default function QuizForm({ username, setRecommendedEventIds }) {
@@ -41,6 +38,8 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
             color: '#fff',
             alignItems: 'center',
             justifyContent: 'center',
+            padding: '16px',
+            fontSize: '1.2em',
         },
         duration: 6000,
     };
@@ -98,7 +97,7 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
     const handleFormChange = (name, value, isSelected) => {
         // remove [ and ] from the value
-        value = value.replace(/[\[\]]/g, '');
+        // value = value.replace(/[\[\]]/g, '');
 
         setFormData(prev => {
             if (name === "selectedVenues") {

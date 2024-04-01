@@ -3,6 +3,13 @@ import math
 import pandas as pd
 from sqlalchemy import create_engine
 
+# TODO : have check for if user has no preferences
+
+# TODO : cosine similarity
+# TODO : TF-IDF
+# TODO : K-means clustering
+
+
 def clean_and_standardize(data):
     """
     Clean and standardize data by stripping whitespace and converting to lowercase.
@@ -15,6 +22,7 @@ def clean_and_standardize(data):
         cleaned_data = [element.strip().lower() for element in data if isinstance(element, str)]
         return cleaned_data
     return data
+
 
 def deserialize_and_clean(data_str):
     """
@@ -30,6 +38,7 @@ def deserialize_and_clean(data_str):
         print("Error deserializing or cleaning data:", data_str)
     return []
 
+
 def map_user_genres(user_genres, genre_dict):
     """
     Map user genres to broader categories using a genre dictionary mapping.
@@ -39,6 +48,7 @@ def map_user_genres(user_genres, genre_dict):
         if genre in genre_dict:
             mapped_genres.extend(genre_dict[genre])
     return list(set(mapped_genres))
+
 
 def import_prep_data(username, engine):
     """
@@ -150,8 +160,8 @@ def import_prep_data(username, engine):
         }
         
         combined_genres = user_song_genres + user_artist_genres + user_quiz_genres
-        # user_mapped_genres = map_user_genres(combined_genres, genre_dict)
-        user_mapped_genres = map_user_genres(user_quiz_genres, genre_dict)
+        user_mapped_genres = map_user_genres(combined_genres, genre_dict)
+        # user_mapped_genres = map_user_genres(user_quiz_genres, genre_dict)
 
         # process event tags
         for event in events:
@@ -173,6 +183,7 @@ def import_prep_data(username, engine):
         }
     else:
         return None
+
 
 def calculate_genre_similarity(user_genres, event_genres):
     """
@@ -201,13 +212,14 @@ def calculate_genre_similarity(user_genres, event_genres):
     
     return similarity_score
 
+
 def score_event(event, user_data):
     """
     Score an event based on user preferences, including genre similarity, venue preference, and price sensitivity.
     """
-    genre_weight = 0.05
-    venue_weight = 0.9
-    price_weight = 0.05 # Adjusted to ensure weights sum to 1
+    genre_weight = 0.6
+    price_weight = 0.3 # Adjusted to ensure weights sum to 1
+    venue_weight = 0.1
 
     genre_score = calculate_genre_similarity(user_data['user_mapped_genres'], event['tags'])
     venue_score = 1 if event['venue_name'] in user_data['user_quiz_venues'] else 0
@@ -215,10 +227,11 @@ def score_event(event, user_data):
     
     # linearly weighted sum of scores
     # total_score = (genre_score * genre_weight) + (venue_score * venue_weight) + (price_score * price_weight)
-    total_score = math.log(price_score + 1) + venue_score*venue_weight + genre_score*genre_weight
-    # total_score = genre_score + venue_score + price_score + genre_score * venue_score
+    # total_score = math.log(price_score + 1) + venue_score*venue_weight + genre_score*genre_weight
+    total_score = genre_score + venue_score + price_score + genre_score * venue_score
     
     return total_score
+
 
 def recommend_events(events, user_data):
     """
@@ -231,6 +244,7 @@ def recommend_events(events, user_data):
     recommended_events = sorted(events, key=lambda x: x['score'], reverse=True)
     
     return recommended_events
+
 
 def recommend_top_20_events(recommended_events):
     """
@@ -245,9 +259,10 @@ def recommend_top_20_events(recommended_events):
 engine = create_engine('postgresql://postgres:system@localhost:5432/spotevent')
 
 
-user_data = import_prep_data('m.tweedy', engine)
+# user_data = import_prep_data('m.tweedy', engine)
 # user_data = import_prep_data('srisky', engine)
 # user_data = import_prep_data('Finn', engine)
+user_data = import_prep_data('aidan959', engine)
 if user_data:
     # print("user_data: ", user_data)
     print("User Data and Events loaded successfully.")

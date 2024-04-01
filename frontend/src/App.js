@@ -6,7 +6,6 @@ import Page404 from './pages/Page404';
 import routes from './routes';
 import Layout from './components/General/Layout';
 import Login from './components/Login/Login';
-// import toast from 'react-hot-toast';
 
 
 function App() {
@@ -41,18 +40,7 @@ function App() {
             element: <Login />,
         }
     ]);
-
-    // useEffect(() => {
-    //     window.onbeforeunload = function () {
-    //         sessionStorage.clear();
-    //     };
-
-    //     // cleanup function
-    //     return () => {
-    //         window.onbeforeunload = null;
-    //     };
-    // }, []);
-
+    
 
     const fetchUserProfile = useCallback(async () => {
         if (accessToken && !isFetchingUserProfile) {

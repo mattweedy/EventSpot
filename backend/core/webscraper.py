@@ -5,8 +5,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.spotevent.settings')
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 
-import sys
-print(sys.path)
 import json
 import random
 import requests
@@ -16,13 +14,14 @@ from bs4 import BeautifulSoup
 from backend.core.models import Event, Venue
 from playwright.async_api import async_playwright
 
+# TODO : create views so that the scraper can be run from the frontend
 
 # constants
 BASE_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/" # URL for scraping
 GET_EVENT_DATA_API_URL = "https://eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer" # URL for getting event data
 NEXT_BUTTON_SELECTOR = "button[data-spec='page-next']" # selector for next button
 FILE = 'backend/spotevent/data/event_ids/scraped_event_ids.txt' # file to write/read scraped event ids to/from
-MAX_PAGES_TO_SCRAPE = 3 # max number of pages to scrape
+MAX_PAGES_TO_SCRAPE = 4 # max number of pages to scrape
 
 async def navigate_to_page(context, url):
     """

@@ -6,7 +6,8 @@ from django.db import connection
 from rest_framework import viewsets
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .old_rec import main as get_recommendations_from_rec
+from . rec import main as get_recommendations_from_rec
+# from .old_rec import main as get_recommendations_from_rec
 
 class EventView(viewsets.ModelViewSet):
     queryset = Event.objects.all()

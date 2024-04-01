@@ -5,9 +5,9 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from . spotify_auth import get_user_profile, get_user_top_items
 from backend.spotify.models import Track, Artist
 from . serializer import TrackSerializer, ArtistSerializer
+from . spotify_auth import get_user_profile, get_user_top_items
 
 class TrackView(viewsets.ModelViewSet):
     queryset = Track.objects.all()

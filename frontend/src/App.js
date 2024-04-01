@@ -40,7 +40,7 @@ function App() {
             element: <Login />,
         }
     ]);
-    
+
 
     const fetchUserProfile = useCallback(async () => {
         if (accessToken && !isFetchingUserProfile) {
@@ -136,6 +136,9 @@ function App() {
             fetchTopItems('tracks');
             fetchTopItems('artists');
             localStorage.setItem('fetchedTopItems', 'true');
+            fetch('http://localhost:8000/api/delete_old_events')
+                .then(response => response.json())
+                .then(data => console.log("Deleted old events:", data))
         }
     }, [userProfile, fetchTopItems]);
 

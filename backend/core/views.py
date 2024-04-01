@@ -2,6 +2,7 @@ import json
 from . models import *
 from . serializer import *
 from . models import Venue, User
+from django.db import connection
 from rest_framework import viewsets
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -11,13 +12,22 @@ class EventView(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
+
 class VenueView(viewsets.ModelViewSet):
     queryset = Venue.objects.all()
     serializer_class = VenueSerializer
 
+
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+def delete_old_events(request):
+    with connection.cursor() as cursor:
+        cursor.execute("DELETE FROM backend_event WHERE CAST(backend_event.date AS DATE) < CURRENT_DATE")
+    return JsonResponse({'status': 'success', 'message': 'Old events deleted'})
+
 
 @csrf_exempt
 def apply_user_preferences(request):
@@ -43,7 +53,8 @@ def apply_user_preferences(request):
         return JsonResponse({'status': 'success : User preferences updated'})
     else:
         return JsonResponse({'status': 'error', 'error': 'Invalid request method'})
-    
+
+
 def get_user_preferences(request):
     """
     Get the user's preferences.

@@ -9,11 +9,6 @@ from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
 
 # TODO : have check for if user has no preferences
 
-# TODO : cosine similarity
-# TODO : TF-IDF
-# TODO : K-means clustering
-
-
 def clean_and_standardize(data):
     """
     Clean and standardize data by stripping whitespace and converting to lowercase.

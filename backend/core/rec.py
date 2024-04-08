@@ -164,10 +164,10 @@ def import_prep_data(username, engine):
         user_mapped_genres = map_user_genres(combined_genres, genre_dict)
 
         if 'user_mapped_genres' not in user_data.columns:
-            user_data['user_mapped_genres'] = pd.Series(dtype='object')  # Ensure column exists
-        user_data.at[0, 'user_mapped_genres'] = user_mapped_genres  # Correctly setting the value
+            user_data['user_mapped_genres'] = pd.Series(dtype='object')  # ensure column exists
+        user_data.at[0, 'user_mapped_genres'] = user_mapped_genres  # correctly setting the value
 
-        preferred_artists = artist_data  # Extract or define this list based on user's Spotify data
+        preferred_artists = artist_data  # extract or define this list based on user's Spotify data
         if 'preferred_artists' not in user_data.columns:
             user_data['preferred_artists'] = pd.Series(dtype='object')
         user_data.at[0, 'preferred_artists'] = preferred_artists
@@ -339,6 +339,9 @@ def score_event(event, user_data, preferred_clusters=None):
     # calc Spotify pref scores (genres and artists)
     genre_score, artist_score = calculate_spotify_preference_score(user_data, event)
 
+    # calc venue score
+    venue_score = 1 if event['venue_name'] in user_data['user_quiz_venues'] else 0
+
     # check if the event is in a preferred cluster
     cluster_bonus = 1 if preferred_clusters and event.get('cluster') in preferred_clusters else 0
 
@@ -357,10 +360,10 @@ def score_event(event, user_data, preferred_clusters=None):
 
     # calculate total score w/ all components
     event_score = (original_genre_score * genre_weight) + \
+                  (price_score * price_weight) + \
                   (genre_score * spotify_genre_weight) + \
                   (artist_score * spotify_artist_weight) + \
-                  (price_score * price_weight) + \
-                  (event.get('venue_score', 0) * venue_weight) + \
+                  (venue_score * venue_weight) + \
                   (cluster_bonus * cluster_bonus_weight)
     
     return event_score
@@ -446,8 +449,8 @@ def calculate_spotify_preference_score(user_data, event):
         genre_match_score = calculate_genre_similarity(user_data['user_mapped_genres'], event['tags'])
 
     # artist match calculation
-    if preferred_artists and 'artist' in event:
-        artist_match_score = 1 if event['artist'] in preferred_artists else 0
+    if preferred_artists and 'name' in event:
+        artist_match_score = 1 if any(artist in event['name'] for artist in preferred_artists) else 0
 
     return genre_match_score, artist_match_score
 # -----------------------------------------------------------------------------------------------------------

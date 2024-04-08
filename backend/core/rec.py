@@ -91,7 +91,7 @@ def import_prep_data(username, engine):
         print("user_quiz_venues: ", user_quiz_venues)
         print("price_range: ", user_row['price_range'])
         min_price, max_price = ast.literal_eval(user_row['price_range'])
-        
+
         # map user genres to broader categories
         genre_dict = {
             "techno": ["techhouse", "edm", "house", "rave", "dubstep", "melodictechno", "techno", "dance", "electronic", "ghettotech"],
@@ -159,7 +159,7 @@ def import_prep_data(username, engine):
             "punk / emo": ["hardcore", "punk", "skate punk", "emo"],
             "electronic dance": ["edm", "house", "techno", "dance", "electronic"],
         }
-        
+
         combined_genres = user_song_genres + user_artist_genres
         user_mapped_genres = map_user_genres(combined_genres, genre_dict)
 
@@ -207,7 +207,7 @@ def calculate_genre_similarity(user_genres, event_genres):
     # ensure user_genres is a list
     if isinstance(user_genres, str):
         user_genres = [user_genres]  # convert to list if it's a string
-    
+
     # ensure event_genres is a list
     if isinstance(event_genres, str):
         event_genres = [event_genres]  # convert to list if it's a string
@@ -217,13 +217,13 @@ def calculate_genre_similarity(user_genres, event_genres):
 
     # count how many of event's genres are in user's preferred genres
     match_count = sum(genre in user_genres for genre in event_genres)
-    
+
     # normalize the score by the total number of unique genres considered
     total_genres = len(set(user_genres + event_genres))
-    
+
     # normalize score to be a fraction between 0 and 1
     similarity_score = match_count / total_genres if total_genres else 0
-    
+
     return similarity_score
 
 
@@ -265,11 +265,11 @@ def adjust_weights_based_on_difference(original_score, tfidf_score):
     Adjust weights dynamically based on the difference between original and TF-IDF scores.
     """
     difference = abs(original_score - tfidf_score)
-    
+
     # fine-tune these thresholds based on feedback and testing
     low_threshold = 0.1
     high_threshold = 0.3
-    
+
     if difference <= low_threshold:
         # high agreement between scores, lean more on og weights
         original_weight = 0.7
@@ -282,7 +282,7 @@ def adjust_weights_based_on_difference(original_score, tfidf_score):
         # low agreement, lean more on original preferences still
         original_weight = 0.9
         tfidf_weight = 0.1
-    
+
     return original_weight, tfidf_weight
 
 
@@ -335,16 +335,16 @@ def score_event(event, user_data, preferred_clusters=None):
     cluster_bonus_weight = 0.05
     spotify_genre_weight = 0.1
     spotify_artist_weight = 0.15
-    
+
     # calc Spotify pref scores (genres and artists)
     genre_score, artist_score = calculate_spotify_preference_score(user_data, event)
-    
+
     # check if the event is in a preferred cluster
     cluster_bonus = 1 if preferred_clusters and event.get('cluster') in preferred_clusters else 0
-    
+
     # og genre similarity score (based on user's genre preferences and event's genres)
     original_genre_score = calculate_genre_similarity(user_data['user_mapped_genres'], event['tags'])
-    
+
     # calc price score
     if 'price' in event and event['price'] is not None:
         if user_data['min_price'] <= event['price'] <= user_data['max_price']:
@@ -380,7 +380,7 @@ def encode_and_scale_features(events):
 
     all_genres = [event['tags'] for event in events]
     all_venues = [[event['venue_name']] for event in events]
-    
+
     genres_encoded = genres_mlb.fit_transform(all_genres)
     venues_encoded = venues_mlb.fit_transform(all_venues)
 
@@ -388,10 +388,10 @@ def encode_and_scale_features(events):
     scaler = MinMaxScaler()
     prices = np.array([[event['price']] for event in events]).reshape(-1, 1)
     prices_scaled = scaler.fit_transform(prices)
-    
+
     # combine all features
     features = np.hstack((genres_encoded, venues_encoded, prices_scaled))
-    
+
     return features
 
 
@@ -438,17 +438,17 @@ def calculate_spotify_preference_score(user_data, event):
     """
     genre_match_score = 0
     artist_match_score = 0
-    
+
     preferred_artists = user_data.get('preferred_artists', [])
-    
+
     # genre match calculation
     if user_data['user_mapped_genres']:
         genre_match_score = calculate_genre_similarity(user_data['user_mapped_genres'], event['tags'])
-    
+
     # artist match calculation
     if preferred_artists and 'artist' in event:
         artist_match_score = 1 if event['artist'] in preferred_artists else 0
-    
+
     return genre_match_score, artist_match_score
 # -----------------------------------------------------------------------------------------------------------
 
@@ -515,7 +515,7 @@ def main(username):
 
     # sort events in desc order of final score
     sorted_events_by_final_score = recommend_events(user_data)
-    
+
     top_20_events = sorted_events_by_final_score[:20]
 
     top_20_event_ids = [event['event_id'] for event in top_20_events]
@@ -525,7 +525,7 @@ def main(username):
     'final_score': event['final_score'],
     'price': event['price']
     } for event in top_20_events]
-    
+
     print("Top 20 Event IDs:", top_20_event_ids)
     for event in top_20_event_details:
         print(f"ID: {event['event_id']}, Price: {event['price']}, Name: {event['name']}, Final Score: {event['final_score']}")

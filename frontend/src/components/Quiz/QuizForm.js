@@ -344,11 +344,11 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
             </div>
             <br></br>
             {/* TODO: figure out how to handle cities... do i take the text input and do eventbrite requests? if so only 2/3 */}
-            <input
+            {/* <input
                 type="radio"
                 onChange={handleFormChange}
                 name="city"
-            />
+            /> */}
             <PriceRange
                 formData={formData}
                 setValues={handlePriceRangeChange}

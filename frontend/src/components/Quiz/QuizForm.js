@@ -307,7 +307,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                 </div>
             )}
             <p>Hitting <span>save</span> will redirect you to the recommended events page</p>
-            <br></br>
 
             <div className="box" id="venues">
                 <h3>Select up to <span>5</span> of your favourite Venues</h3>
@@ -353,8 +352,7 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                 formData={formData}
                 setValues={handlePriceRangeChange}
             />
-            <br></br>
-            <button type="submit" className="preferences-form-button">Save</button>
+            <button type="submit" className="preferences-form-button" onClick={() => showToast('Preferences Saved!', 'success')}>Save Preferences</button>
         </form>
     );
 }

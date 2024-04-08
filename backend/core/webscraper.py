@@ -14,7 +14,6 @@ from bs4 import BeautifulSoup
 from backend.core.models import Event, Venue
 from playwright.async_api import async_playwright
 
-# TODO : create views so that the scraper can be run from the frontend
 
 # constants
 BASE_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/" # URL for scraping
@@ -36,6 +35,9 @@ async def navigate_to_page(context, url):
 
 
 def write_event_ids_to_file(scraped_event_ids):
+    """
+    Write the scraped event IDs to a file.
+    """
     with open(FILE, 'w') as f:
         for event_id in scraped_event_ids:
             f.write(f"{event_id}\n")
@@ -126,6 +128,10 @@ async def get_scraped_event_ids():
 
 
 async def create_event_venue(events):
+    """
+    Create new event and venue objects from the event data.
+    """
+
     for count, event in enumerate(events):
         try:
             # create a new venue object
@@ -148,12 +154,6 @@ async def create_event_venue(events):
             print(f"{e = }\n"
                   f"{event['name'] =}\n"
                   f"{event['eventbrite_event_id'] = }\n"
-                  f"{event['ticket_availability']['minimum_ticket_price']['major_value'] = }\n"
-                  f"{event['image']['url']}\n"
-                  f"{event['tickets_url'] = }\n"
-                  f"{event['start_date'] = }\n"
-                  f"{event['tags'] = }\n"
-                  f"{event['summary'] = }\n"
                   f"---------------------------"
                   )
 
@@ -207,7 +207,6 @@ async def main():
     Main function to run the scraper
     """
     scraped_event_ids = await get_scraped_event_ids()
-    # scraped_event_ids = await get_all_event_ids()
     print("scraped_event_ids :", scraped_event_ids)
     print("Scraping IDs complete.")
 
@@ -216,7 +215,6 @@ async def main():
     print("Writing IDs to file complete.")
 
     await get_event_data_from_API()
-
 
     return
 

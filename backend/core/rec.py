@@ -9,6 +9,8 @@ from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
 
 # TODO : have check for if user has no preferences
 
+# TODO : if any event's tags dont have any good genres, heavily penalize it
+
 def clean_and_standardize(data):
     """
     Clean and standardize data by stripping whitespace and converting to lowercase.
@@ -229,6 +231,9 @@ def calculate_genre_similarity(user_genres, event_genres):
 # TF-IDF
 
 def prepare_tfidf_model(events, user_mapped_genres):
+    """
+    Prepare a TF-IDF model for calculating content similarity between user genres and event tags.
+    """
     # combine event tags and user genres into one list for TF-IDF
     all_genres = [' '.join(event['tags']) for event in events] + [' '.join(user_mapped_genres)]
 
@@ -244,7 +249,11 @@ def prepare_tfidf_model(events, user_mapped_genres):
 
     return user_vector, event_vectors
 
+
 def calculate_cosine_similarity(user_vector, event_vectors):
+    """
+    Calculate cosine similarity between user vector and event vectors.
+    """
     # calc cosine similarity between user vector and event vectors
     similarities = cosine_similarity(user_vector, event_vectors)[0]
     # print("similarities: ", similarities)
@@ -252,28 +261,11 @@ def calculate_cosine_similarity(user_vector, event_vectors):
     return similarities
 
 
-def calculate_original_scores(events, user_data):
-    for event in events:
-        event['score'] = score_event(event, user_data)
-
-
-def update_event_scores_with_tfidf(events, cosine_similarities):
-    # original scores are biased towards user-declared preferences
-    # and TF-IDF scores are biased towards content similarity,
-    # and given the feedback that genre > price > venues,
-    # choosing to lean less on TF-IDF
-    original_score_weight = 0.9
-    tfidf_score_weight = 0.1
-
-    for i, event in enumerate(events):
-        event['tfidf_score'] = cosine_similarities[i]
-        existing_score = event['score']
-        
-        # blend scores with adjusted weights
-        event['final_score'] = (existing_score * original_score_weight) + (event['tfidf_score'] * tfidf_score_weight)
-
 
 def adjust_weights_based_on_difference(original_score, tfidf_score):
+    """
+    Adjust weights dynamically based on the difference between original and TF-IDF scores.
+    """
     difference = abs(original_score - tfidf_score)
     
     # fine-tune these thresholds based on feedback and testing
@@ -306,6 +298,9 @@ def get_top_n_event_ids(events, score_key, n=15):
 
 
 def update_event_scores_with_dynamic_adjustment(events, cosine_similarities, top_15_original_ids, preferred_clusters):
+    """
+    Update event scores with dynamic weight adjustment based on difference between original and TF-IDF scores.
+    """
     # fetch the maximum score from the initial scoring to maintain a scaling factor
     max_original_score = max(event['score'] for event in events if 'score' in event)
 
@@ -332,6 +327,9 @@ def update_event_scores_with_dynamic_adjustment(events, cosine_similarities, top
 
 
 def score_event(event, user_data, preferred_clusters=None):
+    """
+    Score an event based on user preferences, including genre, price, venue, and cluster preferences.
+    """
     # weights
     genre_weight = 0.4
     price_weight = 0.2
@@ -375,6 +373,9 @@ def score_event(event, user_data, preferred_clusters=None):
 # K-means clustering
 
 def encode_and_scale_features(events):
+    """
+    Encode and scale features for K-means clustering.
+    """
     # MultiLabelBinarizer for genres and venues
     genres_mlb = MultiLabelBinarizer()
     venues_mlb = MultiLabelBinarizer()
@@ -395,29 +396,28 @@ def encode_and_scale_features(events):
     
     return features
 
+
 def cluster_events(features, n_clusters=5):
+    """
+    Cluster events using K-means clustering.
+    """
     kmeans = KMeans(n_clusters=n_clusters, n_init=10, random_state=42)
     clusters = kmeans.fit_predict(features)
     return clusters
 
+
 def assign_clusters_to_events(events, clusters):
+    """
+    Assign cluster labels to events.
+    """
     for event, cluster in zip(events, clusters):
         event['cluster'] = cluster
 
-def recommend_events_based_on_clusters(events, user_data, top_clusters):
-    # filter events by top_clusters
-    filtered_events = [event for event in events if event['cluster'] in top_clusters]
-    
-    # continue with existing scoring and recommendation logic on filtered_events
-    recommended_events = recommend_events(filtered_events, user_data, 'final_score')
-    return recommended_events
-
-def score_event_with_cluster_preference(event, user_data, preferred_clusters):
-    base_score = score_event(event, user_data)
-    cluster_bonus = 0.1 if event['cluster'] in preferred_clusters else 0
-    return base_score + cluster_bonus
 
 def determine_user_preferred_clusters(user_data, events):
+    """
+    Determine user's preferred clusters based on their genre preferences.
+    """
     # maybe improve this logic
 
     # count the occurrences of each cluster for events matching user's genres
@@ -455,33 +455,28 @@ def calculate_spotify_preference_score(user_data, event):
 # -----------------------------------------------------------------------------------------------------------
 
 
-def recommend_events(events, user_data, score_key):
+def recommend_events(user_data):
     """
-    Recommend events based on scores calculated from user preferences.
+    Recommend events based on user data.
     """
-    if score_key == 'final_score':
-        for event in events:
-            event['final_score'] = score_event(event, user_data)
-
-    if score_key == 'score':
-        for event in events:
-            event['score'] = score_event(event, user_data)
-    
-    # sort events by score in descending order
-    recommended_events = sorted(events, key=lambda x: x['score'], reverse=True)
-    
-    return recommended_events
+    return sorted(user_data['events'], key=lambda x: x.get('final_score', 0), reverse=True)
 
 
 def print_top_20_events(events, score_type='score'):
+    """
+    Print the top 20 events based on a given score type.
+    """
     sorted_events = sorted(events, key=lambda x: x.get(score_type, 0), reverse=True)
-    print(f"Top 20 Events based on {score_type.capitalize()} Score:")
-    for event in sorted_events[:40]:
+    print(f"Top 20 Events based on {score_type.capitalize()}:")
+    for event in sorted_events[:20]:
         print(f"Event: {event['name']} | {score_type.capitalize()} Score: {event.get(score_type, 'N/A')}")
     print("\n")
 
 
 def main(username):
+    """
+    Main function to run the recommendation process for a given user.
+    """
     engine = create_engine('postgresql://postgres:system@localhost:5432/spotevent')
     user_data = import_prep_data(username, engine)
     if not user_data:
@@ -511,17 +506,18 @@ def main(username):
     update_event_scores_with_dynamic_adjustment(user_data['events'], cosine_similarities, top_15_original_ids, preferred_clusters)
 
     # prints for debugging and testing
-    print("Top 20 based on Original Scores:")
+    print("Top 20 based on Original Scores with Cluster Prefences:")
     print_top_20_events(user_data['events'], 'score')
 
     print("Top 20 based on TF-IDF Scores:")
     print_top_20_events(user_data['events'], 'tfidf_score')
 
-    print("Top 20 based on Final Blended Scores with Cluster Preferences:")
+    print("Top 20 based on Final Blended Scores:")
     print_top_20_events(user_data['events'], 'final_score')
 
     # sort events in desc order of final score
-    sorted_events_by_final_score = sorted(user_data['events'], key=lambda x: x.get('final_score', 0), reverse=True)
+    # sorted_events_by_final_score = sorted(user_data['events'], key=lambda x: x.get('final_score', 0), reverse=True)
+    sorted_events_by_final_score = recommend_events(user_data)
     
     top_20_events = sorted_events_by_final_score[:20]
 

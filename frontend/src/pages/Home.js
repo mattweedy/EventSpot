@@ -8,7 +8,7 @@ function Home() {
 
     return (
         <div className="home-page">
-            <h1 className="home-page-title">Welcome to Spot<span>Event</span></h1>
+            <h1 className="home-page-title">Welcome to Event<span>Spot</span></h1>
             <h4 className="home-page-text">To begin getting recommendations, you need to setup your <span onClick={() => navigate('/preferences')}>preferences</span>.</h4>
             <p className="home-page-text">Don't worry, you can change these at any time, and can even skip them all together if you want.</p>
 

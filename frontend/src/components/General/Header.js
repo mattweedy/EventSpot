@@ -15,7 +15,7 @@ function Header({ userProfile, isLoggedIn }) {
             <header className="header">
                 <div className="header-content">
                     <div className="header-title-container">
-                        <h1 className="header-title">Spot<span>Event</span></h1>
+                        <h1 className="header-title">Event<span>Spot</span></h1>
                         <h2 className="header-subtitle">Music Event Discovery</h2>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ function Header({ userProfile, isLoggedIn }) {
                         {windowWidth > 940 && <p>logged in</p>}
                     </div>
                     <div className="header-title-container">
-                        <h1 className="header-title">Spot<span>Event</span></h1>
+                        <h1 className="header-title">Event<span>Spot</span></h1>
                         <h2 className="header-subtitle">Music Event Discovery</h2>
                     </div>
                     <div className="logout-container">

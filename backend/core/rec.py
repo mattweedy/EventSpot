@@ -11,9 +11,9 @@ from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
 
 # TODO : if any event's tags dont have any good genres, heavily penalize it
 
-def clean_and_standardize(data):
+def clean_and_standardise(data):
     """
-    Clean and standardize data by stripping whitespace and converting to lowercase.
+    Clean and standardise data by stripping whitespace and converting to lowercase.
     """
     # if data is a string, strip whitespace and convert to lowercase
     if isinstance(data, str):
@@ -25,18 +25,18 @@ def clean_and_standardize(data):
     return data
 
 
-def deserialize_and_clean(data_str):
+def deserialise_and_clean(data_str):
     """
-    Deserialize and clean a string representation of a list of data elements.
+    Deserialise and clean a string representation of a list of data elements.
     """
     try:
         # convert string representation of list to actual list
         data_list = ast.literal_eval(data_str)
         # clean and standardize the list elements
         if isinstance(data_list, list):
-            return clean_and_standardize(data_list)
+            return clean_and_standardise(data_list)
     except ValueError:
-        print("Error deserializing or cleaning data:", data_str)
+        print("Error deserialising or cleaning data:", data_str)
     return []
 
 
@@ -62,7 +62,7 @@ def import_prep_data(username, engine):
         AND genres IS NOT NULL AND genres != '[]'
     """
     song_data = pd.read_sql(song_data_query, engine, params=('%' + username + '%',))
-    user_song_genres = song_data['genres'].apply(lambda x: deserialize_and_clean(x)).sum()
+    user_song_genres = song_data['genres'].apply(lambda x: deserialise_and_clean(x)).sum()
 
     # select all artists matching user and filter for ones with a genre
     artist_data = """
@@ -71,7 +71,7 @@ def import_prep_data(username, engine):
         AND genres IS NOT NULL AND genres != ''
     """
     artist_data = pd.read_sql(artist_data, engine, params=('%' + username + '%',))
-    user_artist_genres = artist_data['genres'].apply(lambda x: deserialize_and_clean(x)).sum()
+    user_artist_genres = artist_data['genres'].apply(lambda x: deserialise_and_clean(x)).sum()
 
     user_data_query = f"SELECT * FROM backend_user WHERE username = '{username}'"
     user_data = pd.read_sql(user_data_query, engine)
@@ -85,8 +85,8 @@ def import_prep_data(username, engine):
     # if user data exists, prepare it for recommendation processing
     if not user_data.empty:
         user_row = user_data.iloc[0]
-        user_quiz_venues = deserialize_and_clean(user_row['venue_preferences'])
-        user_quiz_genres = deserialize_and_clean(user_row['genre_preferences'])
+        user_quiz_venues = deserialise_and_clean(user_row['venue_preferences'])
+        user_quiz_genres = deserialise_and_clean(user_row['genre_preferences'])
         print("user_quiz_genres: ", user_quiz_genres)
         print("user_quiz_venues: ", user_quiz_venues)
         print("price_range: ", user_row['price_range'])
@@ -180,7 +180,7 @@ def import_prep_data(username, engine):
 
         # process event tags
         for event in events:
-            event['tags'] = clean_and_standardize(event['tags'].split(','))
+            event['tags'] = clean_and_standardise(event['tags'].split(','))
 
         # attach venue names to events
         for event in events:
@@ -244,8 +244,6 @@ def prepare_tfidf_model(events, user_mapped_genres):
     # separate user vector from event vectors
     user_vector = tfidf_matrix[-1]
     event_vectors = tfidf_matrix[:-1]
-    # print("user_vector: ", user_vector)
-    # print("event_vectors: ", event_vectors)
 
     return user_vector, event_vectors
 
@@ -352,8 +350,8 @@ def score_event(event, user_data, preferred_clusters=None):
         if user_data['min_price'] <= event['price'] <= user_data['max_price']:
             price_score = 1  # full score if within range
         else:
-            # Optional: Adjust this logic to provide partial scores for close matches
-            price_score = 0.2  # No score if outside range
+            # adjust this logic to provide partial scores for close matches
+            price_score = 0.2  # no score if outside range
     else:
         price_score = 0.5  # neutral score if price data is missing or irrelevant
 
@@ -516,7 +514,6 @@ def main(username):
     print_top_20_events(user_data['events'], 'final_score')
 
     # sort events in desc order of final score
-    # sorted_events_by_final_score = sorted(user_data['events'], key=lambda x: x.get('final_score', 0), reverse=True)
     sorted_events_by_final_score = recommend_events(user_data)
     
     top_20_events = sorted_events_by_final_score[:20]

@@ -353,8 +353,7 @@ def score_event(event, user_data, preferred_clusters=None):
         if user_data['min_price'] <= event['price'] <= user_data['max_price']:
             price_score = 1  # full score if within range
         else:
-            # adjust this logic to provide partial scores for close matches
-            price_score = 0.2  # no score if outside range
+            price_score = 0.2 # small score if outside range
     else:
         price_score = 0.5  # neutral score if price data is missing or irrelevant
 

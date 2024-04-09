@@ -7,7 +7,7 @@ export default function EventVenueModelDisplay({ event, venue }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoadMap(true);
-        }, 1000); // adjust time
+        }, 300); // adjust time
 
         return () => clearTimeout(timer);
     }, []);

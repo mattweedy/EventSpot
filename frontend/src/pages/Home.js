@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
     const navigate= useNavigate();
-    useDynamicHeight();
+    useDynamicHeight(); // solves sidebar height issue but extends page size for this page only
 
     return (
         <div className="home-page">

@@ -59,15 +59,20 @@ async def extract_event_ids(soup, start_index=0):
         try:
             # create JSON obj
             data = json.loads(script.get_text())
-            # get url from json obj
-            url = data.get('url')
+            
+            # check if 'itemListElement' is in data
+            if 'itemListElement' in data:
+                # loop through each element in 'itemListElement'
+                for element in data['itemListElement']:
+                    # get url from 'item' dictionary in each element
+                    url = element['item'].get('url')
 
-            # if url exists and has a hyphen
-            if url and '-' in url:
-                # split url on hyphen and take last element AKA event ID
-                event_id = url.rsplit('-', 1)[-1]
-                # add event ID to list
-                event_ids_list.append(event_id)
+                    # if url exists and has a hyphenc
+                    if url and '-' in url:
+                        # split url on hyphen and take last element AKA event ID
+                        event_id = url.rsplit('-', 1)[-1]
+                        # add event ID to list
+                        event_ids_list.append(event_id)
         # if json is invalid, skip
         except json.JSONDecodeError:
             continue

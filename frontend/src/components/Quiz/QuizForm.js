@@ -96,9 +96,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
 
     const handleFormChange = (name, value, isSelected) => {
-        // remove [ and ] from the value
-        // value = value.replace(/[\[\]]/g, '');
-
         setFormData(prev => {
             if (name === "selectedVenues") {
                 if (isSelected) {

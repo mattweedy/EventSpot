@@ -19,7 +19,7 @@ from playwright.async_api import async_playwright
 BASE_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/" # URL for scraping
 GET_EVENT_DATA_API_URL = "https://eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer" # URL for getting event data
 NEXT_BUTTON_SELECTOR = "button[data-spec='page-next']" # selector for next button
-FILE = 'backend/spotevent/data/event_ids/scraped_event_ids.txt' # file to write/read scraped event ids to/from
+FILE = 'spotevent/data/event_ids/scraped_event_ids.txt' # file to write/read scraped event ids to/from
 MAX_PAGES_TO_SCRAPE = 4 # max number of pages to scrape
 
 async def navigate_to_page(context, url):
@@ -59,7 +59,7 @@ async def extract_event_ids(soup, start_index=0):
         try:
             # create JSON obj
             data = json.loads(script.get_text())
-            
+
             # check if 'itemListElement' is in data
             if 'itemListElement' in data:
                 # loop through each element in 'itemListElement'
@@ -119,11 +119,6 @@ async def get_scraped_event_ids():
             # if there is no next button, break the loop
             if not next_button:
                 break
-
-        # add the scraped event IDs to the file
-        with open('backend/spotevent/data/test-data/input-more.txt', 'w') as f:
-            for event_id in scraped_event_ids:
-                f.write(f"{event_id}\n")
 
         # close the page and browser context
         await context.close()
@@ -186,7 +181,7 @@ async def get_event_data_from_API():
 
             # make the API call
             response = requests.get(url)
-            await asyncio.sleep(random.uniform(1, 3))
+            await asyncio.sleep(random.uniform(1, 5))
 
             try:
                 data = json.loads(response.text)
@@ -211,6 +206,7 @@ async def main():
     """
     Main function to run the scraper
     """
+    # get the scraped event IDs
     scraped_event_ids = await get_scraped_event_ids()
     print("scraped_event_ids :", scraped_event_ids)
     print("Scraping IDs complete.")
@@ -219,6 +215,7 @@ async def main():
     write_event_ids_to_file(scraped_event_ids)
     print("Writing IDs to file complete.")
 
+    # get the event data and store in db
     await get_event_data_from_API()
 
     return

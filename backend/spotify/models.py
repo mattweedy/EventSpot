@@ -146,40 +146,6 @@ class Artist(models.Model):
 
         return artist_obj
 
-    # def create_artist_from_spotify(cls, artist, user):
-    #     # check that the artist dictionary contains all the necessary keys
-    #     required_keys = ['id', 'name', 'genres', 'external_urls', 'popularity']
-    #     for key in required_keys:
-    #         if key not in artist:
-    #             raise ValueError(f"Key '{key}' not found in artist dictionary")
-
-    #     # check that the 'external_urls' dictionary contains the 'spotify' key
-    #     if 'spotify' not in artist['external_urls']:
-    #         raise ValueError("'spotify' key not found in 'external_urls' dictionary")
-
-    #     artist_obj = cls.objects.filter(spotify_id=artist['id']).first()
-    #     if artist_obj:
-    #         # print("An existing artist was found.")
-    #         pass
-    #     else:
-    #         artist_obj = cls(
-    #             spotify_id=artist['id'], 
-    #             name=artist['name'], 
-    #             genres=artist['genres'], 
-    #             link=artist['external_urls']['spotify'], 
-    #             popularity=artist['popularity'] or 0
-    #         )
-    #         artist_obj.save()
-    #         print("A new artist was created.")
-
-    #     if utils.get_access_token():
-    #         if user not in artist_obj.users:
-    #             artist_obj.users += user + ","
-    #             artist_obj.save()
-
-    #     return artist_obj
-
-
     def __str__(self):
         return (
             f"------------------------\n"

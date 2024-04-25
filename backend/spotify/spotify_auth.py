@@ -22,7 +22,6 @@ client_id = settings.SPOTIFY_CLIENT_ID
 client_secret = settings.SPOTIFY_CLIENT_SECRET
 redirect_uri = settings.SPOTIFY_REDIRECT_URI
 scope = 'user-read-private user-read-email user-top-read'
-authUrl = 'https://accounts.spotify.com/authorize'
 
 
 def generate_code_verifier(length=128):
@@ -53,12 +52,10 @@ def start_auth(request):
             code_challenge_method='S256',
             code_challenge=code_challenge,
         )
-        # store the state and code_verifier in the session and cache to protect against CSRF
+        # store the state and code_verifier in the session to protect against CSRF
         request.session['oauth_state'] = state
         request.session['code_verifier'] = code_verifier
        
-        # cache.set('oauth_state', state, 60*5)
-        # cache.set('code_verifier', code_verifier, 60*5)
         return redirect(authorization_url)
     except Exception as e:
         print(f"An error occurred during the start_auth process: {e}")
@@ -197,12 +194,12 @@ def get_artist_genres(artist_id):
     try:
         artist = Artist.objects.get(spotify_id=artist_id)
         if artist.genres:
-            # ff the artist has genres, return them
+            # if the artist has genres, return them
             return artist.genres, artist.link
         else:
             return [], artist.link
     except ObjectDoesNotExist:
-        # ff the artist doesn't exist in the database, continue to fetch genres from Spotify API
+        # if the artist doesn't exist in the database, continue to fetch genres from Spotify API
         pass
 
     access_token = utils.get_access_token()

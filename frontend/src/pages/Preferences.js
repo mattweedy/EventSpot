@@ -12,6 +12,7 @@ function Preferences() {
         <div>
             <h1>Edit Preferences</h1>
             <p>These preferences will provide further context for what kind of event you are looking for, on top of your listening history.</p>
+            <p><span>Note:</span> Available venues to select are based on upcoming events</p>
             <QuizForm
                 username={userProfile.display_name}
                 setRecommendedEventIds={setRecommendedEventIds} />

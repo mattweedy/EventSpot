@@ -15,8 +15,6 @@ export default function Recommendation() {
     const [eventSearchTerm, setEventSearchTerm] = useState('');
     const { userProfile } = useOutletContext();
     
-    console.log("RECOMMENDATION : userProfile", userProfile);
-
     useDynamicHeight();
 
 

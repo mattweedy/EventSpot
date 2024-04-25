@@ -161,7 +161,6 @@ def top_tracks(request):
         limit = request.GET.get('limit', 25)
         username = request.GET.get('username', None)
         top_tracks = get_user_top_items(request=access_token, type='tracks', limit=limit, offset=offset)
-        # return JsonResponse(top_tracks, safe=False)
 
         if 'items' in top_tracks:
             tracks = top_tracks["items"]
@@ -169,7 +168,6 @@ def top_tracks(request):
             for track in tracks:
                 try:
                     new_track = Track.create_track_from_spotify(cls=Track, track=track, user=username)
-                    # print(new_track) # for debugging
                 except Exception as e:
                     print("An error occurred while creating track object")
                     print(e)
@@ -206,7 +204,6 @@ def top_artists(request):
                     # add genres to the artist
                     artist['genres'] = add_genres(artist['genres'])
                     new_artist = Artist.create_artist_from_spotify(cls=Artist, artist=artist, user=username)
-                    # print(new_artist) # for debugging
                 except Exception as e:
                     print("An error occurred while creating track object")
                     print(e)

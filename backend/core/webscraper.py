@@ -14,13 +14,12 @@ from bs4 import BeautifulSoup
 from backend.core.models import Event, Venue
 from playwright.async_api import async_playwright
 
-# TODO : create views so that the scraper can be run from the frontend
 
 # constants
 BASE_URL = "https://eventbrite.com/d/ireland--dublin/music--performances/" # URL for scraping
 GET_EVENT_DATA_API_URL = "https://eventbrite.com/api/v3/destination/events/?event_ids={}&page_size=20&expand=event_sales_status,image,primary_venue,ticket_availability,primary_organizer" # URL for getting event data
 NEXT_BUTTON_SELECTOR = "button[data-spec='page-next']" # selector for next button
-FILE = 'backend/spotevent/data/event_ids/scraped_event_ids.txt' # file to write/read scraped event ids to/from
+FILE = 'spotevent/data/event_ids/scraped_event_ids.txt' # file to write/read scraped event ids to/from
 MAX_PAGES_TO_SCRAPE = 4 # max number of pages to scrape
 
 async def navigate_to_page(context, url):
@@ -36,6 +35,9 @@ async def navigate_to_page(context, url):
 
 
 def write_event_ids_to_file(scraped_event_ids):
+    """
+    Write the scraped event IDs to a file.
+    """
     with open(FILE, 'w') as f:
         for event_id in scraped_event_ids:
             f.write(f"{event_id}\n")
@@ -57,15 +59,20 @@ async def extract_event_ids(soup, start_index=0):
         try:
             # create JSON obj
             data = json.loads(script.get_text())
-            # get url from json obj
-            url = data.get('url')
 
-            # if url exists and has a hyphen
-            if url and '-' in url:
-                # split url on hyphen and take last element AKA event ID
-                event_id = url.rsplit('-', 1)[-1]
-                # add event ID to list
-                event_ids_list.append(event_id)
+            # check if 'itemListElement' is in data
+            if 'itemListElement' in data:
+                # loop through each element in 'itemListElement'
+                for element in data['itemListElement']:
+                    # get url from 'item' dictionary in each element
+                    url = element['item'].get('url')
+
+                    # if url exists and has a hyphenc
+                    if url and '-' in url:
+                        # split url on hyphen and take last element AKA event ID
+                        event_id = url.rsplit('-', 1)[-1]
+                        # add event ID to list
+                        event_ids_list.append(event_id)
         # if json is invalid, skip
         except json.JSONDecodeError:
             continue
@@ -113,11 +120,6 @@ async def get_scraped_event_ids():
             if not next_button:
                 break
 
-        # add the scraped event IDs to the file
-        with open('backend/spotevent/data/test-data/input-more.txt', 'w') as f:
-            for event_id in scraped_event_ids:
-                f.write(f"{event_id}\n")
-
         # close the page and browser context
         await context.close()
         await browser.close()
@@ -126,6 +128,10 @@ async def get_scraped_event_ids():
 
 
 async def create_event_venue(events):
+    """
+    Create new event and venue objects from the event data.
+    """
+
     for count, event in enumerate(events):
         try:
             # create a new venue object
@@ -148,12 +154,6 @@ async def create_event_venue(events):
             print(f"{e = }\n"
                   f"{event['name'] =}\n"
                   f"{event['eventbrite_event_id'] = }\n"
-                  f"{event['ticket_availability']['minimum_ticket_price']['major_value'] = }\n"
-                  f"{event['image']['url']}\n"
-                  f"{event['tickets_url'] = }\n"
-                  f"{event['start_date'] = }\n"
-                  f"{event['tags'] = }\n"
-                  f"{event['summary'] = }\n"
                   f"---------------------------"
                   )
 
@@ -181,7 +181,7 @@ async def get_event_data_from_API():
 
             # make the API call
             response = requests.get(url)
-            await asyncio.sleep(random.uniform(1, 3))
+            await asyncio.sleep(random.uniform(1, 5))
 
             try:
                 data = json.loads(response.text)
@@ -206,8 +206,8 @@ async def main():
     """
     Main function to run the scraper
     """
+    # get the scraped event IDs
     scraped_event_ids = await get_scraped_event_ids()
-    # scraped_event_ids = await get_all_event_ids()
     print("scraped_event_ids :", scraped_event_ids)
     print("Scraping IDs complete.")
 
@@ -215,8 +215,8 @@ async def main():
     write_event_ids_to_file(scraped_event_ids)
     print("Writing IDs to file complete.")
 
+    # get the event data and store in db
     await get_event_data_from_API()
-
 
     return
 

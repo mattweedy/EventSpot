@@ -43,8 +43,6 @@ def apply_user_preferences(request):
         user.venue_preferences = data['venuePreferences']
         user.genre_preferences = data['genrePreferences']
         user.price_range = data['priceRange']
-        # user.queer_events = data['queerPreference']
-        # user.how_soon = data['howSoon']
         user.city = data['city']
         try:
             user.save()
@@ -67,8 +65,6 @@ def get_user_preferences(request):
             'venue_preferences': user.venue_preferences,
             'genre_preferences': user.genre_preferences,
             'price_range': user.price_range,
-            # 'queer_events': user.queer_events,
-            # 'how_soon': user.how_soon,
             'city': user.city
         }
         return JsonResponse({'status': 'success', 'data': user_data})

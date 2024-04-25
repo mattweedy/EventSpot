@@ -161,9 +161,6 @@ class Event(models.Model):
 
 
 class Venue(models.Model):
-    # Track = apps.get_model("backend", "Track")
-    # Artist = apps.get_model("backend", "Artist")
-    
     class Meta:
         app_label = "backend"
 
@@ -226,7 +223,6 @@ class User(models.Model):
     genre_preferences = models.TextField(null=True)
     price_range = models.CharField(max_length=255, null=True)
     city = models.CharField(max_length=255, null=True)
-    # recommended_events = models.TextField(null=True)
     recommended_events = models.TextField(default='')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)

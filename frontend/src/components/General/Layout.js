@@ -16,10 +16,8 @@ export default function Layout({ userProfile, isLoggedIn, recommendedEventIds, s
                 {/* Conditionally render the Sidebar based on isLoggedIn */}
                 {isLoggedIn && <Sidebar recommendedEventIds={recommendedEventIds}/>}
                 <main className="app-main">
-                        {/* <Suspense fallback={<h2>Loading...</h2>}> */}
                         <Suspense fallback={<Loading />}>
                             {/* Conditionally render the Outlet or Login based on isLoggedIn */}
-                            {/* {isLoading ? <h2>Loading...</h2> : isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />} */}
                             {isLoading ? <Loading /> : isLoggedIn ? <Outlet context={{ userProfile, recommendedEventIds, setRecommendedEventIds }} /> : <LoginPage />}
                             <Toaster position="bottom-right" containerStyle={{ color: '#fff' }}/>
                         </Suspense>

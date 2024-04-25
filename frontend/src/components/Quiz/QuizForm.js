@@ -96,9 +96,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
 
 
     const handleFormChange = (name, value, isSelected) => {
-        // remove [ and ] from the value
-        // value = value.replace(/[\[\]]/g, '');
-
         setFormData(prev => {
             if (name === "selectedVenues") {
                 if (isSelected) {
@@ -307,7 +304,6 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
                 </div>
             )}
             <p>Hitting <span>save</span> will redirect you to the recommended events page</p>
-            <br></br>
 
             <div className="box" id="venues">
                 <h3>Select up to <span>5</span> of your favourite Venues</h3>
@@ -344,17 +340,16 @@ export default function QuizForm({ username, setRecommendedEventIds }) {
             </div>
             <br></br>
             {/* TODO: figure out how to handle cities... do i take the text input and do eventbrite requests? if so only 2/3 */}
-            <input
+            {/* <input
                 type="radio"
                 onChange={handleFormChange}
                 name="city"
-            />
+            /> */}
             <PriceRange
                 formData={formData}
                 setValues={handlePriceRangeChange}
             />
-            <br></br>
-            <button type="submit" className="preferences-form-button">Save</button>
+            <button type="submit" className="preferences-form-button" onClick={() => showToast('Preferences Saved!', 'success')}>Save Preferences</button>
         </form>
     );
 }

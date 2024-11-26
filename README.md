@@ -1,5 +1,5 @@
-# SpotEvent - Music Event Discovery
-SpotEvent is a web application that recommends events based on user Spotify listening history and in-app preferences. The backend is built with Django and the frontend is built with React.
+# EventSpot - Music Event Discovery
+EventSpot is a web application that recommends events based on user Spotify listening history and in-app preferences. The backend is built with Django and the frontend is built with React.
 
 ## Getting Started
 

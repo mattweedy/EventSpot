@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: eventspot-django
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn eventspot.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        value: your_secret_key
+      - key: DATABASE_URL
+        value: postgresql://eventspot_postgresql_user:54LtliLnMTdJwVBvc2yzVUo7drKpBMhP@dpg-cuat6fin91rc738vad8g-a.frankfurt-postgres.render.com/eventspot_postgresql

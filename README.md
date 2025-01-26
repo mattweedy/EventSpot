@@ -25,7 +25,7 @@ cd backend
 python3 -m venv venv
 ```
 
-3. Activte the virtual environment:
+3. Activate the virtual environment:
 - On Windows:
 ```py
 venv\Scripts\activate
